@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The official Python client for communicating with the <a href="https://upstox.com/uplink/">Upstox API</a>.
+The official Java client for communicating with the <a href="https://upstox.com/uplink/">Upstox API</a>.
 
 Upstox API is a set of rest APIs that provide data required to build a complete investment and trading platform. Execute orders in real time, manage user portfolio, stream live market data (using Websocket), and more, with the easy to understand API collection. 
 
@@ -105,7 +105,7 @@ public class ChargeApiExample {
 
 ## Examples
 
-[Sample Implemenmtations](examples/README.md) can be found within `/examples`.
+[Sample Implementations](examples/README.md) can be found within `/examples`.
 
 ## Documentation for API Endpoints
 
