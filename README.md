@@ -63,6 +63,13 @@ Then manually install the following JARs:
 * `target/upstox-java-sdk-1.0.0.jar`
 * `target/lib/*.jar`
 
+## Examples
+
+[Sample Implementations](examples/) can be found within `/examples`.
+
+- [Websocket Market data](examples/websocket/market_data/)
+- [Websocket Order updates](examples/websocket/order_updates/)
+
 ## Getting Started
 
 Please follow the [installation](#installation) instruction and execute the following Java code:
@@ -102,10 +109,6 @@ public class ChargeApiExample {
     }
 }
 ```
-
-## Examples
-
-[Sample Implementations](examples/README.md) can be found within `/examples`.
 
 ## Documentation for API Endpoints
 
