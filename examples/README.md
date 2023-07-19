@@ -1,7 +1,5 @@
 # Java Sample Implementation
 
-Here are sample implementations of Upstox API features.
-
 ## Websocket
 
 ### Market stream feed
