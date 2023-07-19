@@ -103,6 +103,10 @@ public class ChargeApiExample {
 }
 ```
 
+## Examples
+
+[Sample Implemenmtations](examples/README.md) can be found within `/examples`.
+
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api-v2.upstox.com*
