@@ -43,6 +43,8 @@ public class OrderData {
     BSE("BSE"),
     @SerializedName("BCD")
     BCD("BCD"),
+    @SerializedName("BFO")
+    BFO("BFO"),
     @SerializedName("MCX")
     MCX("MCX");
 

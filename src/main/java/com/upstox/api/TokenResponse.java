@@ -48,6 +48,8 @@ public class TokenResponse {
     BSE("BSE"),
     @SerializedName("BCD")
     BCD("BCD"),
+    @SerializedName("BFO")
+    BFO("BFO"),
     @SerializedName("MCX")
     MCX("MCX");
 
