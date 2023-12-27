@@ -160,6 +160,9 @@ public class OrderBookData {
   @SerializedName("tradingsymbol")
   private String tradingsymbol = null;
 
+  @SerializedName("trading_symbol")
+  private String tradingSymbol = null;
+
   /**
    * Type of order. It can be one of the following MARKET refers to market order&lt;br&gt;LIMIT refers to Limit Order&lt;br&gt;SL refers to Stop Loss Limit&lt;br&gt;SL-M refers to Stop loss market
    */
@@ -441,6 +444,15 @@ public class OrderBookData {
   }
 
    /**
+   * Shows the trading symbol of the instrument
+   * @return tradingSymbol
+  **/
+  @Schema(example = "GMR", description = "Shows the trading symbol of the instrument")
+  public String getTradingSymbol() {
+    return tradingSymbol;
+  }
+
+   /**
    * Type of order. It can be one of the following MARKET refers to market order&lt;br&gt;LIMIT refers to Limit Order&lt;br&gt;SL refers to Stop Loss Limit&lt;br&gt;SL-M refers to Stop loss market
    * @return orderType
   **/
@@ -631,6 +643,7 @@ public class OrderBookData {
         Objects.equals(this.instrumentToken, orderBookData.instrumentToken) &&
         Objects.equals(this.placedBy, orderBookData.placedBy) &&
         Objects.equals(this.tradingsymbol, orderBookData.tradingsymbol) &&
+        Objects.equals(this.tradingSymbol, orderBookData.tradingSymbol) &&
         Objects.equals(this.orderType, orderBookData.orderType) &&
         Objects.equals(this.validity, orderBookData.validity) &&
         Objects.equals(this.triggerPrice, orderBookData.triggerPrice) &&
@@ -654,7 +667,7 @@ public class OrderBookData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(exchange, product, price, quantity, status, guid, tag, instrumentToken, placedBy, tradingsymbol, orderType, validity, triggerPrice, disclosedQuantity, transactionType, averagePrice, filledQuantity, pendingQuantity, statusMessage, statusMessageRaw, exchangeOrderId, parentOrderId, orderId, variety, orderTimestamp, exchangeTimestamp, isAmo, orderRequestId, orderRefId);
+    return Objects.hash(exchange, product, price, quantity, status, guid, tag, instrumentToken, placedBy, tradingsymbol, tradingSymbol, orderType, validity, triggerPrice, disclosedQuantity, transactionType, averagePrice, filledQuantity, pendingQuantity, statusMessage, statusMessageRaw, exchangeOrderId, parentOrderId, orderId, variety, orderTimestamp, exchangeTimestamp, isAmo, orderRequestId, orderRefId);
   }
 
 
@@ -673,6 +686,7 @@ public class OrderBookData {
     sb.append("    instrumentToken: ").append(toIndentedString(instrumentToken)).append("\n");
     sb.append("    placedBy: ").append(toIndentedString(placedBy)).append("\n");
     sb.append("    tradingsymbol: ").append(toIndentedString(tradingsymbol)).append("\n");
+    sb.append("    tradingSymbol: ").append(toIndentedString(tradingSymbol)).append("\n");
     sb.append("    orderType: ").append(toIndentedString(orderType)).append("\n");
     sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
     sb.append("    triggerPrice: ").append(toIndentedString(triggerPrice)).append("\n");

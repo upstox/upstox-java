@@ -212,6 +212,9 @@ public class TokenResponse {
   @SerializedName("access_token")
   private String accessToken = null;
 
+  @SerializedName("extended_token")
+  private String extendedToken = null;
+
    /**
    * E-mail address of the user
    * @return email
@@ -311,6 +314,15 @@ public class TokenResponse {
     return accessToken;
   }
 
+   /**
+   * The authentication token that is to used with every subsequent API requests
+   * @return extendedToken
+  **/
+  @Schema(description = "The authentication token that is to used with every subsequent API requests")
+  public String getExtendedToken() {
+    return extendedToken;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -331,12 +343,13 @@ public class TokenResponse {
         Objects.equals(this.userType, tokenResponse.userType) &&
         Objects.equals(this.poa, tokenResponse.poa) &&
         Objects.equals(this.isActive, tokenResponse.isActive) &&
-        Objects.equals(this.accessToken, tokenResponse.accessToken);
+        Objects.equals(this.accessToken, tokenResponse.accessToken) &&
+        Objects.equals(this.extendedToken, tokenResponse.extendedToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, exchanges, products, broker, userId, userName, orderTypes, userType, poa, isActive, accessToken);
+    return Objects.hash(email, exchanges, products, broker, userId, userName, orderTypes, userType, poa, isActive, accessToken, extendedToken);
   }
 
 
@@ -356,6 +369,7 @@ public class TokenResponse {
     sb.append("    poa: ").append(toIndentedString(poa)).append("\n");
     sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
     sb.append("    accessToken: ").append(toIndentedString(accessToken)).append("\n");
+    sb.append("    extendedToken: ").append(toIndentedString(extendedToken)).append("\n");
     sb.append("}");
     return sb.toString();
   }
