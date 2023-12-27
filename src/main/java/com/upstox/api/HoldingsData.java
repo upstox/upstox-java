@@ -52,6 +52,9 @@ public class HoldingsData {
   @SerializedName("tradingsymbol")
   private String tradingsymbol = null;
 
+  @SerializedName("trading_symbol")
+  private String tradingSymbol = null;
+
   @SerializedName("last_price")
   private Float lastPrice = null;
 
@@ -211,6 +214,15 @@ public class HoldingsData {
   }
 
    /**
+   * Shows the trading symbol of the instrument
+   * @return trading_symbol
+  **/
+  @Schema(example = "BSE", description = "Shows the trading symbol of the instrument")
+  public String getTradingSymbol() {
+    return tradingSymbol;
+  }
+
+   /**
    * The last traded price of the instrument
    * @return lastPrice
   **/
@@ -327,6 +339,7 @@ public class HoldingsData {
         Objects.equals(this.product, holdingsData.product) &&
         Objects.equals(this.quantity, holdingsData.quantity) &&
         Objects.equals(this.tradingsymbol, holdingsData.tradingsymbol) &&
+        Objects.equals(this.tradingSymbol, holdingsData.tradingSymbol) &&
         Objects.equals(this.lastPrice, holdingsData.lastPrice) &&
         Objects.equals(this.closePrice, holdingsData.closePrice) &&
         Objects.equals(this.pnl, holdingsData.pnl) &&
@@ -342,7 +355,7 @@ public class HoldingsData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(isin, cncUsedQuantity, collateralType, companyName, haircut, product, quantity, tradingsymbol, lastPrice, closePrice, pnl, dayChange, dayChangePercentage, instrumentToken, averagePrice, collateralQuantity, collateralUpdateQuantity, t1Quantity, exchange);
+    return Objects.hash(isin, cncUsedQuantity, collateralType, companyName, haircut, product, quantity, tradingsymbol, tradingSymbol, lastPrice, closePrice, pnl, dayChange, dayChangePercentage, instrumentToken, averagePrice, collateralQuantity, collateralUpdateQuantity, t1Quantity, exchange);
   }
 
 
@@ -359,6 +372,7 @@ public class HoldingsData {
     sb.append("    product: ").append(toIndentedString(product)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("    tradingsymbol: ").append(toIndentedString(tradingsymbol)).append("\n");
+    sb.append("    tradingSymbol: ").append(toIndentedString(tradingSymbol)).append("\n");
     sb.append("    lastPrice: ").append(toIndentedString(lastPrice)).append("\n");
     sb.append("    closePrice: ").append(toIndentedString(closePrice)).append("\n");
     sb.append("    pnl: ").append(toIndentedString(pnl)).append("\n");

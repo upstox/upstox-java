@@ -156,6 +156,9 @@ public class PositionData {
   @SerializedName("tradingsymbol")
   private String tradingsymbol = null;
 
+  @SerializedName("trading_symbol")
+  private String tradingSymbol = null;
+
   @SerializedName("close_price")
   private Float closePrice = null;
 
@@ -391,6 +394,15 @@ public class PositionData {
   }
 
    /**
+   * Shows the trading symbol of the instrument
+   * @return tradingSymbol
+  **/
+  @Schema(example = "GMR", description = "Shows the trading symbol of the instrument")
+  public String getTradingSymbol() {
+    return tradingSymbol;
+  }
+
+   /**
    * Closing price of the instrument from the last trading day
    * @return closePrice
   **/
@@ -452,6 +464,7 @@ public class PositionData {
         Objects.equals(this.realised, positionData.realised) &&
         Objects.equals(this.sellValue, positionData.sellValue) &&
         Objects.equals(this.tradingsymbol, positionData.tradingsymbol) &&
+        Objects.equals(this.tradingSymbol, positionData.tradingSymbol) &&
         Objects.equals(this.closePrice, positionData.closePrice) &&
         Objects.equals(this.buyPrice, positionData.buyPrice) &&
         Objects.equals(this.sellPrice, positionData.sellPrice);
@@ -459,7 +472,7 @@ public class PositionData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(exchange, multiplier, value, pnl, product, instrumentToken, averagePrice, buyValue, overnightQuantity, dayBuyValue, dayBuyPrice, overnightBuyAmount, overnightBuyQuantity, dayBuyQuantity, daySellValue, daySellPrice, overnightSellAmount, overnightSellQuantity, daySellQuantity, quantity, lastPrice, unrealised, realised, sellValue, tradingsymbol, closePrice, buyPrice, sellPrice);
+    return Objects.hash(exchange, multiplier, value, pnl, product, instrumentToken, averagePrice, buyValue, overnightQuantity, dayBuyValue, dayBuyPrice, overnightBuyAmount, overnightBuyQuantity, dayBuyQuantity, daySellValue, daySellPrice, overnightSellAmount, overnightSellQuantity, daySellQuantity, quantity, lastPrice, unrealised, realised, sellValue, tradingsymbol, tradingSymbol, closePrice, buyPrice, sellPrice);
   }
 
 
@@ -493,6 +506,7 @@ public class PositionData {
     sb.append("    realised: ").append(toIndentedString(realised)).append("\n");
     sb.append("    sellValue: ").append(toIndentedString(sellValue)).append("\n");
     sb.append("    tradingsymbol: ").append(toIndentedString(tradingsymbol)).append("\n");
+    sb.append("    tradingSymbol: ").append(toIndentedString(tradingSymbol)).append("\n");
     sb.append("    closePrice: ").append(toIndentedString(closePrice)).append("\n");
     sb.append("    buyPrice: ").append(toIndentedString(buyPrice)).append("\n");
     sb.append("    sellPrice: ").append(toIndentedString(sellPrice)).append("\n");

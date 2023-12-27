@@ -277,6 +277,9 @@ public class OrderData {
   @SerializedName("tradingsymbol")
   private String tradingsymbol = null;
 
+  @SerializedName("trading_symbol")
+  private String tradingSymbol = null;
+
   @SerializedName("order_timestamp")
   private String orderTimestamp = null;
 
@@ -510,6 +513,15 @@ public class OrderData {
   }
 
    /**
+   * Shows the trading symbol of the instrument
+   * @return tradingSymbol
+  **/
+  @Schema(example = "GMR", description = "Shows the trading symbol of the instrument")
+  public String getTradingSymbol() {
+    return tradingSymbol;
+  }
+
+   /**
    * User readable timestamp at which the order was placed
    * @return orderTimestamp
   **/
@@ -592,6 +604,7 @@ public class OrderData {
         Objects.equals(this.orderType, orderData.orderType) &&
         Objects.equals(this.parentOrderId, orderData.parentOrderId) &&
         Objects.equals(this.tradingsymbol, orderData.tradingsymbol) &&
+        Objects.equals(this.tradingSymbol, orderData.tradingSymbol) &&
         Objects.equals(this.orderTimestamp, orderData.orderTimestamp) &&
         Objects.equals(this.filledQuantity, orderData.filledQuantity) &&
         Objects.equals(this.transactionType, orderData.transactionType) &&
@@ -602,7 +615,7 @@ public class OrderData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(exchange, price, product, quantity, status, tag, validity, averagePrice, disclosedQuantity, exchangeOrderId, exchangeTimestamp, instrumentToken, isAmo, statusMessage, orderId, orderRequestId, orderType, parentOrderId, tradingsymbol, orderTimestamp, filledQuantity, transactionType, triggerPrice, placedBy, variety);
+    return Objects.hash(exchange, price, product, quantity, status, tag, validity, averagePrice, disclosedQuantity, exchangeOrderId, exchangeTimestamp, instrumentToken, isAmo, statusMessage, orderId, orderRequestId, orderType, parentOrderId, tradingsymbol, tradingSymbol, orderTimestamp, filledQuantity, transactionType, triggerPrice, placedBy, variety);
   }
 
 
@@ -630,6 +643,7 @@ public class OrderData {
     sb.append("    orderType: ").append(toIndentedString(orderType)).append("\n");
     sb.append("    parentOrderId: ").append(toIndentedString(parentOrderId)).append("\n");
     sb.append("    tradingsymbol: ").append(toIndentedString(tradingsymbol)).append("\n");
+    sb.append("    tradingSymbol: ").append(toIndentedString(tradingSymbol)).append("\n");
     sb.append("    orderTimestamp: ").append(toIndentedString(orderTimestamp)).append("\n");
     sb.append("    filledQuantity: ").append(toIndentedString(filledQuantity)).append("\n");
     sb.append("    transactionType: ").append(toIndentedString(transactionType)).append("\n");

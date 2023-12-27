@@ -139,6 +139,9 @@ public class TradeData {
   @SerializedName("tradingsymbol")
   private String tradingsymbol = null;
 
+  @SerializedName("trading_symbol")
+  private String tradingSymbol = null;
+
   @SerializedName("instrument_token")
   private String instrumentToken = null;
 
@@ -290,6 +293,15 @@ public class TradeData {
   }
 
    /**
+   * Shows the trading symbol which could be a combination of symbol name, instrument, expiry date etc
+   * @return tradingSymbol
+  **/
+  @Schema(example = "GMRINFRA-EQ", description = "Shows the trading symbol which could be a combination of symbol name, instrument, expiry date etc")
+  public String getTradingSymbol() {
+    return tradingSymbol;
+  }
+
+   /**
    * Identifier issued by Upstox used for subscribing to live market quotes
    * @return instrumentToken
   **/
@@ -401,6 +413,7 @@ public class TradeData {
     return Objects.equals(this.exchange, tradeData.exchange) &&
         Objects.equals(this.product, tradeData.product) &&
         Objects.equals(this.tradingsymbol, tradeData.tradingsymbol) &&
+        Objects.equals(this.tradingSymbol, tradeData.tradingSymbol) &&
         Objects.equals(this.instrumentToken, tradeData.instrumentToken) &&
         Objects.equals(this.orderType, tradeData.orderType) &&
         Objects.equals(this.transactionType, tradeData.transactionType) &&
@@ -416,7 +429,7 @@ public class TradeData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(exchange, product, tradingsymbol, instrumentToken, orderType, transactionType, quantity, exchangeOrderId, orderId, exchangeTimestamp, averagePrice, tradeId, orderRefId, orderTimestamp);
+    return Objects.hash(exchange, product, tradingsymbol, tradingSymbol, instrumentToken, orderType, transactionType, quantity, exchangeOrderId, orderId, exchangeTimestamp, averagePrice, tradeId, orderRefId, orderTimestamp);
   }
 
 
@@ -428,6 +441,7 @@ public class TradeData {
     sb.append("    exchange: ").append(toIndentedString(exchange)).append("\n");
     sb.append("    product: ").append(toIndentedString(product)).append("\n");
     sb.append("    tradingsymbol: ").append(toIndentedString(tradingsymbol)).append("\n");
+    sb.append("    tradingSymbol: ").append(toIndentedString(tradingSymbol)).append("\n");
     sb.append("    instrumentToken: ").append(toIndentedString(instrumentToken)).append("\n");
     sb.append("    orderType: ").append(toIndentedString(orderType)).append("\n");
     sb.append("    transactionType: ").append(toIndentedString(transactionType)).append("\n");
