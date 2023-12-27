@@ -6,7 +6,7 @@
 	<artifactId>upstox-java-sdk</artifactId>
 	<packaging>jar</packaging>
 	<name>upstox-java-sdk</name>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 	<url>https://upstox.com/uplink/</url>
 	<description>The official Java client for communicating with the Upstox API</description>
 	<prerequisites>
