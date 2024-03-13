@@ -12,8 +12,11 @@ import com.google.protobuf.util.JsonFormat;
 import com.upstox.ApiClient;
 import com.upstox.feeder.constants.Mode;
 import com.upstox.feeder.exception.StreamerException;
+import com.upstox.feeder.listener.OnCloseListener;
+import com.upstox.feeder.listener.OnErrorListener;
 import com.upstox.feeder.listener.OnMarketUpdateListener;
 import com.upstox.feeder.listener.OnMessageListener;
+import com.upstox.feeder.listener.OnOpenListener;
 import com.upstox.marketdatafeeder.rpc.proto.MarketDataFeed.FeedResponse;
 
 public class MarketDataStreamer extends Streamer {
@@ -59,7 +62,14 @@ public class MarketDataStreamer extends Streamer {
 
     @Override
     public void connect() {
-        feeder = new MarketDataFeeder(apiClient, this::handleOpen, new OnMessageListener() {
+        feeder = new MarketDataFeeder(apiClient, new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                handleOpen();
+
+            }
+        }, new OnMessageListener() {
 
             @Override
             public void onMessageAsBytes(ByteBuffer bytes) {
@@ -71,7 +81,21 @@ public class MarketDataStreamer extends Streamer {
             public void onMessageAsString(String message) {
 
             }
-        }, this::handleError, this::handleClose);
+        }, new OnErrorListener() {
+
+            @Override
+            public void onError(Throwable error) {
+                handleError(error);
+
+            }
+        }, new OnCloseListener() {
+
+            @Override
+            public void onClose(int statusCode, String reason) {
+                handleClose(statusCode, reason);
+
+            }
+        });
 
         feeder.connect();
     }
