@@ -7,7 +7,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.upstox.ApiClient;
 import com.upstox.feeder.exception.StreamerException;
+import com.upstox.feeder.listener.OnCloseListener;
+import com.upstox.feeder.listener.OnErrorListener;
 import com.upstox.feeder.listener.OnMessageListener;
+import com.upstox.feeder.listener.OnOpenListener;
 import com.upstox.feeder.listener.OnOrderUpdateListener;
 
 public class PortfolioDataStreamer extends Streamer {
@@ -32,7 +35,14 @@ public class PortfolioDataStreamer extends Streamer {
 
     @Override
     public void connect() {
-        feeder = new PortfolioDataFeeder(apiClient, this::handleOpen, new OnMessageListener() {
+        feeder = new PortfolioDataFeeder(apiClient, new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                handleOpen();
+
+            }
+        }, new OnMessageListener() {
 
             @Override
             public void onMessageAsBytes(ByteBuffer bytes) {
@@ -44,7 +54,21 @@ public class PortfolioDataStreamer extends Streamer {
                 handleMessage(message);
 
             }
-        }, this::handleError, this::handleClose);
+        }, new OnErrorListener() {
+
+            @Override
+            public void onError(Throwable error) {
+                handleError(error);
+
+            }
+        }, new OnCloseListener() {
+
+            @Override
+            public void onClose(int statusCode, String reason) {
+                handleClose(statusCode, reason);
+
+            }
+        });
 
         feeder.connect();
     }
