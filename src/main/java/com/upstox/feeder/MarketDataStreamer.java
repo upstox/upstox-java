@@ -40,8 +40,8 @@ public class MarketDataStreamer extends Streamer {
 
         this.apiClient = apiClient;
         subscriptions = new HashMap<>();
-        subscriptions.put(Mode.LTPC, new HashSet<>());
-        subscriptions.put(Mode.FULL, new HashSet<>());
+        subscriptions.put(Mode.LTPC, new HashSet<String>());
+        subscriptions.put(Mode.FULL, new HashSet<String>());
     }
 
     public MarketDataStreamer(ApiClient apiClient, Set<String> instrumentKeys, Mode mode) {
@@ -52,8 +52,8 @@ public class MarketDataStreamer extends Streamer {
 
         this.apiClient = apiClient;
         subscriptions = new HashMap<>();
-        subscriptions.put(Mode.LTPC, new HashSet<>());
-        subscriptions.put(Mode.FULL, new HashSet<>());
+        subscriptions.put(Mode.LTPC, new HashSet<String>());
+        subscriptions.put(Mode.FULL, new HashSet<String>());
 
         // Populate initial subscriptions if provided
         this.subscriptions.get(mode)
