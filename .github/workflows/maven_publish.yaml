@@ -24,7 +24,7 @@ jobs:
 
     - name: Import GPG key
       run: |
-        echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+        echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --pinentry-mode loopback --import
       env:
         GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
@@ -46,9 +46,13 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Publish to Maven Central
-      run: mvn clean install org.apache.maven.plugins:maven-gpg-plugin:sign; mvn -P release-sign-artifacts deploy
+      run: |
+        mvn clean install org.apache.maven.plugins:maven-gpg-plugin:sign -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }};
+        mvn -P release-sign-artifacts deploy
       env:
         MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
+        MAVEN_OPTS: "-Dgpg.executable=gpg -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -Dgpg.loopback=true"
+
