@@ -69,7 +69,7 @@ public class MarketQuoteApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/market-quote/quotes";
+        String localVarPath = "/v2/market-quote/quotes";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -206,7 +206,7 @@ public class MarketQuoteApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/market-quote/ohlc";
+        String localVarPath = "/v2/market-quote/ohlc";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -351,7 +351,7 @@ public class MarketQuoteApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/market-quote/ltp";
+        String localVarPath = "/v2/market-quote/ltp";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();

@@ -71,7 +71,7 @@ public class ChargeApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/charges/brokerage";
+        String localVarPath = "/v2/charges/brokerage";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();

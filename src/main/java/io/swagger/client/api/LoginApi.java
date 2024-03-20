@@ -72,7 +72,7 @@ public class LoginApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/login/authorization/dialog";
+        String localVarPath = "/v2/login/authorization/dialog";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -222,7 +222,7 @@ public class LoginApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/logout";
+        String localVarPath = "/v2/logout";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -353,7 +353,7 @@ public class LoginApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/login/authorization/token";
+        String localVarPath = "/v2/login/authorization/token";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();

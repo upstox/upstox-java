@@ -74,7 +74,7 @@ public class OrderApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/order/cancel";
+        String localVarPath = "/v2/order/cancel";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -209,7 +209,7 @@ public class OrderApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/order/retrieve-all";
+        String localVarPath = "/v2/order/retrieve-all";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -337,7 +337,7 @@ public class OrderApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/order/history";
+        String localVarPath = "/v2/order/history";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -473,7 +473,7 @@ public class OrderApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/order/trades/get-trades-for-day";
+        String localVarPath = "/v2/order/trades/get-trades-for-day";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -600,7 +600,7 @@ public class OrderApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/order/trades";
+        String localVarPath = "/v2/order/trades";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -736,7 +736,7 @@ public class OrderApi {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/order/modify";
+        String localVarPath = "/v2/order/modify";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -870,7 +870,7 @@ public class OrderApi {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/order/place";
+        String localVarPath = "/v2/order/place";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();

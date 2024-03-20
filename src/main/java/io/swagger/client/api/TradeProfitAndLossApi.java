@@ -72,7 +72,7 @@ public class TradeProfitAndLossApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/trade/profit-loss/charges";
+        String localVarPath = "/v2/trade/profit-loss/charges";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -232,7 +232,7 @@ public class TradeProfitAndLossApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/trade/profit-loss/data";
+        String localVarPath = "/v2/trade/profit-loss/data";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -408,7 +408,7 @@ public class TradeProfitAndLossApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/trade/profit-loss/metadata";
+        String localVarPath = "/v2/trade/profit-loss/metadata";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();

@@ -70,7 +70,7 @@ public class PortfolioApi {
         Object localVarPostBody = body;
         
         // create path and map variables
-        String localVarPath = "/portfolio/convert-position";
+        String localVarPath = "/v2/portfolio/convert-position";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -203,7 +203,7 @@ public class PortfolioApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/portfolio/long-term-holdings";
+        String localVarPath = "/v2/portfolio/long-term-holdings";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -329,7 +329,7 @@ public class PortfolioApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/portfolio/short-term-positions";
+        String localVarPath = "/v2/portfolio/short-term-positions";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
