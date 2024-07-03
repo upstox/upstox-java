@@ -13,7 +13,7 @@ public class SanityTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
-        OAUTH2.setAccessToken("eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiI3UEJDNkQiLCJqdGkiOiI2Njg0ZWQ1NDQ0NzkyYzQyNzg4ZDgyY2UiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaWF0IjoxNzE5OTg3NTQwLCJpc3MiOiJ1ZGFwaS1nYXRld2F5LXNlcnZpY2UiLCJleHAiOjE3MjAwNDQwMDB9.Tiu7kEbB1dRr3g_xxpiaVr6hCZVwkEB70sI1HaEXC8I");
+        OAUTH2.setAccessToken("{your_access_token}");
 
         UserApi apiInstance = new UserApi();
         String apiVersion = "2.0";
