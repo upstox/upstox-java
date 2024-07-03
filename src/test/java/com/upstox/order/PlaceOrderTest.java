@@ -1,4 +1,4 @@
-package order;
+package com.upstox.order;
 
 import com.upstox.ApiClient;
 import com.upstox.ApiException;
@@ -13,7 +13,7 @@ public class PlaceOrderTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
-        OAUTH2.setAccessToken("your_access_token");
+        OAUTH2.setAccessToken("");
 
         OrderApi apiInstance = new OrderApi();
         PlaceOrderRequest body = new PlaceOrderRequest();
