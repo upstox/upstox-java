@@ -314,7 +314,7 @@ public class WebsocketApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/feed/portfolio-stream-feed";
+        String localVarPath = "/feed/portfolio-stream-feed?update_types=order%2Cposition%2Cholding";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -436,7 +436,7 @@ public class WebsocketApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/feed/portfolio-stream-feed/authorize";
+        String localVarPath = "/feed/portfolio-stream-feed/authorize?update_types=order%2Cposition%2Cholding";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
