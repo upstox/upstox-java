@@ -37,6 +37,33 @@ import java.util.Map;
 
 public class WebsocketApi {
     private ApiClient apiClient;
+    private boolean orderUpdate = true;
+    private boolean positionUpdate = false;
+    private boolean holdingUpdate = false;
+
+    public boolean isOrderUpdate() {
+        return orderUpdate;
+    }
+
+    public void setOrderUpdate(boolean orderUpdate) {
+        this.orderUpdate = orderUpdate;
+    }
+
+    public boolean isPositionUpdate() {
+        return positionUpdate;
+    }
+
+    public void setPositionUpdate(boolean positionUpdate) {
+        this.positionUpdate = positionUpdate;
+    }
+
+    public boolean isHoldingUpdate() {
+        return holdingUpdate;
+    }
+
+    public void setHoldingUpdate(boolean holdingUpdate) {
+        this.holdingUpdate = holdingUpdate;
+    }
 
     public WebsocketApi() {
         this(Configuration.getDefaultApiClient());
@@ -314,7 +341,7 @@ public class WebsocketApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/feed/portfolio-stream-feed?update_types=order%2Cposition%2Cholding";
+        String localVarPath = "/feed/portfolio-stream-feed" + getPortfolioUrlParameters();
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -351,6 +378,19 @@ public class WebsocketApi {
 
         String[] localVarAuthNames = new String[] { "OAUTH2" };
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    private String getPortfolioUrlParameters(){
+        List<String> updateTypes = new ArrayList<>();
+        if(this.orderUpdate) updateTypes.add("order");
+        if(this.positionUpdate) updateTypes.add("position");
+        if(this.holdingUpdate) updateTypes.add("holding");
+        if(updateTypes.isEmpty()) return "";
+        String res = "?update_types=";
+        for(int i=0;i<updateTypes.size()-1;i++){
+            res += (updateTypes.get(i) + "%2C");
+        }
+        res += updateTypes.get(updateTypes.size()-1);
+        return res;
     }
     
     @SuppressWarnings("rawtypes")
@@ -436,7 +476,7 @@ public class WebsocketApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/feed/portfolio-stream-feed/authorize?update_types=order%2Cposition%2Cholding";
+        String localVarPath = "/feed/portfolio-stream-feed/authorize"+getPortfolioUrlParameters();
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -502,7 +542,13 @@ public class WebsocketApi {
         ApiResponse<WebsocketAuthRedirectResponse> resp = getPortfolioStreamFeedAuthorizeWithHttpInfo(apiVersion);
         return resp.getData();
     }
-
+    public WebsocketAuthRedirectResponse getPortfolioStreamFeedAuthorize(String apiVersion,boolean orderUpdate,boolean positionUpdate, boolean holdingUpdate) throws ApiException {
+        this.orderUpdate = orderUpdate;
+        this.positionUpdate = positionUpdate;
+        this.holdingUpdate = holdingUpdate;
+        ApiResponse<WebsocketAuthRedirectResponse> resp = getPortfolioStreamFeedAuthorizeWithHttpInfo(apiVersion);
+        return resp.getData();
+    }
     /**
      * Portfolio Stream Feed Authorize
      *  This API provides the functionality to retrieve the socket endpoint URI for Portfolio updates.

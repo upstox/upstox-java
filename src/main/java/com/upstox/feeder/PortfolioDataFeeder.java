@@ -113,21 +113,11 @@ public class PortfolioDataFeeder extends Feeder {
 
     private URI getAuthorizedWebSocketUri(ApiClient authenticatedClient) throws ApiException {
         WebsocketApi websocketApi = new WebsocketApi(authenticatedClient);
+        websocketApi.setOrderUpdate(this.orderUpdate);
+        websocketApi.setHoldingUpdate(this.holdingUpdate);
+        websocketApi.setPositionUpdate(this.positionUpdate);
         WebsocketAuthRedirectResponse response = websocketApi.getPortfolioStreamFeedAuthorize("2.0");
         return URI.create(response.getData()
                 .getAuthorizedRedirectUri());
-    }
-    private String getUrlParameters(){
-        List<String> updateTypes = new ArrayList<>();
-        if(this.orderUpdate) updateTypes.add("order");
-        if(this.positionUpdate) updateTypes.add("position");
-        if(this.holdingUpdate) updateTypes.add("holding");
-        if(updateTypes.isEmpty()) return "";
-        String res = "?update_types=";
-        for(int i=0;i<updateTypes.size()-1;i++){
-            res += (updateTypes.get(i) + "%2C");
-        }
-        res += updateTypes.get(updateTypes.size()-1);
-        return res;
     }
 }

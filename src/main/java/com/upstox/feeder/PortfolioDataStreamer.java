@@ -21,6 +21,12 @@ public class PortfolioDataStreamer extends Streamer {
     private static final String SOCKET_NOT_OPEN_ERROR = "WebSocket is not open.";
     private static final String INVALID_VALUES_ERROR = "Values provided are invalid.";
 
+    private static final String ORDER_UPDATE_LISTENER_FUNCTION_MISSING_ERROR = "Implementation of order update listener function is missing";
+
+    private static final String POSITION_UPDATE_LISTENER_FUNCTION_MISSING_ERROR = "Implementation of position update listener function is missing";
+
+    private static final String HOLDING_UPDATE_LISTENER_FUNCTION_MISSING_ERROR = "Implementation of holding update listener function is missing";
+
     public void setOnOrderUpdateListener(OnOrderUpdateListener onOrderUpdateListener) {
         this.onOrderUpdateListener = onOrderUpdateListener;
     }
@@ -49,8 +55,12 @@ public class PortfolioDataStreamer extends Streamer {
         this.positionUpdate = positionUpdate;
         this.holdingUpdate = holdingUpdate;
     }
+
     @Override
     public void connect() {
+        if(this.orderUpdate && onOrderUpdateListener == null) throw new StreamerException(ORDER_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
+        if(this.holdingUpdate && onHoldingUpdateListener == null) throw new StreamerException(HOLDING_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
+        if(this.positionUpdate & onPositionUpdateListener == null) throw new StreamerException(POSITION_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
         feeder = new PortfolioDataFeeder(apiClient, new OnOpenListener() {
 
             @Override
@@ -84,7 +94,7 @@ public class PortfolioDataStreamer extends Streamer {
                 handleClose(statusCode, reason);
 
             }
-        },orderUpdate,positionUpdate,holdingUpdate);
+        },orderUpdate,holdingUpdate,positionUpdate);
 
         feeder.connect();
     }
@@ -113,7 +123,6 @@ public class PortfolioDataStreamer extends Streamer {
     protected void handleMessage(String message) {
 
         Object updateData = parseUpdateMessage(message);
-        System.out.println("message= "  + message);
         if (updateData instanceof OrderUpdate && onOrderUpdateListener != null) {
             onOrderUpdateListener.onUpdate((OrderUpdate) updateData);
         }
@@ -122,6 +131,7 @@ public class PortfolioDataStreamer extends Streamer {
         }
         else if(updateData instanceof PositionUpdate && onPositionUpdateListener != null){
             onPositionUpdateListener.onUpdate((PositionUpdate) updateData);
+
         }
     }
 

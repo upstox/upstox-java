@@ -1,24 +1,29 @@
 package com.upstox.sanity;
 
 import com.upstox.ApiClient;
+import com.upstox.ApiException;
 import com.upstox.Configuration;
+import com.upstox.api.WebsocketAuthRedirectResponse;
 import com.upstox.auth.OAuth;
 import com.upstox.feeder.HoldingUpdate;
 import com.upstox.feeder.OrderUpdate;
 import com.upstox.feeder.PortfolioDataStreamer;
 import com.upstox.feeder.PositionUpdate;
-import com.upstox.feeder.listener.OnHoldingUpdateListener;
-import com.upstox.feeder.listener.OnOrderUpdateListener;
-import com.upstox.feeder.listener.OnPositionUpdateListener;
+import com.upstox.feeder.listener.*;
+import io.swagger.client.api.WebsocketApi;
 
 public class PortfolioStreamerTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ApiException {
+        websocketApi();
+        connect();
+    }
+    private static void connect(){
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
-        oAuth.setAccessToken("eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiI3UEJDNkQiLCJqdGkiOiI2Njg2NDEyMTEyYzE3ZTUwMTU1MGFjYzIiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaWF0IjoxNzIwMDc0NTI5LCJpc3MiOiJ1ZGFwaS1nYXRld2F5LXNlcnZpY2UiLCJleHAiOjE3MjAxMzA0MDB9.ZaMl4rZNm1z2kWL6zVdIar1Lk7fMyCDwuHG-PCokQnA");
+        oAuth.setAccessToken("{your_access_token}");
 
-        final PortfolioDataStreamer portfolioDataStreamer = new PortfolioDataStreamer(defaultClient);
+        final PortfolioDataStreamer portfolioDataStreamer = new PortfolioDataStreamer(defaultClient,false,false,true);
 
         portfolioDataStreamer.setOnOrderUpdateListener(new OnOrderUpdateListener() {
 
@@ -42,6 +47,31 @@ public class PortfolioStreamerTest {
                 System.out.println("position update= " + positionUpdate);
             }
         });
+
+        portfolioDataStreamer.setOnOpenListener(new OnOpenListener() {
+            @Override
+            public void onOpen() {
+                System.out.println("opened websocket connection");
+            }
+        });
+
+        portfolioDataStreamer.setOnErrorListener(new OnErrorListener() {
+            @Override
+            public void onError(Throwable error) {
+                System.out.println("Got error");
+                System.err.println("Error  "  + error);
+            }
+        });
         portfolioDataStreamer.connect();
+    }
+    private static void websocketApi() throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken("{access_token}");
+
+        WebsocketApi websocketApi = new WebsocketApi();
+        WebsocketAuthRedirectResponse websocketAuthRedirectResponse = websocketApi.getPortfolioStreamFeedAuthorize("2.0",true,true,true);
+        System.out.println(websocketAuthRedirectResponse.getData().getAuthorizedRedirectUri());
     }
 }
