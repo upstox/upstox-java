@@ -20,6 +20,9 @@ target
 .gradle
 build
 .settings/
+.idea/
+.project
+.classpath
 
 #Ignore swagger generated files
 .swagger-codegen/
