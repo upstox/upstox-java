@@ -54,6 +54,7 @@ import com.upstox.auth.OAuth;
 public class ApiClient {
 
     private String basePath = "https://api.upstox.com";
+    private String orderBasePath = "https://api-hft.upstox.com";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;
@@ -112,6 +113,15 @@ public class ApiClient {
      */
     public ApiClient setBasePath(String basePath) {
         this.basePath = basePath;
+        return this;
+    }
+
+    public String getOrderBasePath() {
+        return orderBasePath;
+    }
+
+    public ApiClient setOrderBasePath(String orderBasePath) {
+        this.orderBasePath = orderBasePath;
         return this;
     }
 
@@ -1017,8 +1027,12 @@ public class ApiClient {
      */
     public String buildUrl(String path, List<Pair> queryParams, List<Pair> collectionQueryParams) {
         final StringBuilder url = new StringBuilder();
-        url.append(basePath).append(path);
-
+        if(isOrderPath(path)){
+            url.append(orderBasePath).append(path);
+        }
+        else{
+            url.append(basePath).append(path);
+        }
         if (queryParams != null && !queryParams.isEmpty()) {
             // support (constant) query string in `path`, e.g. "/posts?draft=1"
             String prefix = path.contains("?") ? "&" : "?";
@@ -1202,5 +1216,8 @@ public class ApiClient {
         } catch (IOException e) {
             throw new AssertionError(e);
         }
+    }
+    private boolean isOrderPath(String path){
+        return path.contains("/order/place") || path.contains("/order/modify") || path.contains("/order/cancel");
     }
 }

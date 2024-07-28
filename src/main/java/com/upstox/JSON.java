@@ -177,7 +177,8 @@ public class JSON {
                     in.nextNull();
                     return null;
                 default:
-                    String date = in.nextString() + "T00:00:00+00:00";
+                    String date = in.nextString();
+                    if(!date.contains("T")) date +=  "T00:00:00+00:00";
                     if (date.endsWith("+0000")) {
                         date = date.substring(0, date.length()-5) + "Z";
                     }
