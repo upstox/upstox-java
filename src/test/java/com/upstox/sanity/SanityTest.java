@@ -1,6 +1,5 @@
 package com.upstox.sanity;
 
-import com.google.protobuf.Api;
 import com.upstox.ApiClient;
 import com.upstox.ApiException;
 import com.upstox.Configuration;
@@ -13,8 +12,7 @@ public class SanityTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
-        OAUTH2.setAccessToken("{your_access_token}");
-
+        OAUTH2.setAccessToken(DataToken.accessToken);
         UserApi apiInstance = new UserApi();
         String apiVersion = "2.0";
         try {
@@ -28,7 +26,6 @@ public class SanityTest {
         } catch (ApiException e) {
             System.err.println("Exception when calling UserApi#getUserFundMargin");
             e.printStackTrace();
-            System.out.println(e.getResponseBody());
         }
         ChargeApi apiInstance1 = new ChargeApi();
         String instrumentToken = "NSE_EQ|INE669E01016";
@@ -47,20 +44,20 @@ public class SanityTest {
         cancelOrder();
         getOrderBook();
         getOrderDetails();
-        getTradeHistory();
-        getTradesByOrder();
+        getTradeHistory(); //TODO
+        getTradesByOrder(); //TODO
         convertPosition();
         getTradeWiseProfitLossMetaData();
         historicalApis();
         marketQuote();
-        optionChainTest();
-        marketInformationTest();
-        System.out.println("done");
+        optionChain();
+        marketInformation();
+        logout();
     }
     public static void placeOrder(){
         OrderApi apiInstance = new OrderApi();
         PlaceOrderRequest body = new PlaceOrderRequest();
-        body.setQuantity(0);
+        body.setQuantity(1);
         body.setProduct(PlaceOrderRequest.ProductEnum.D);
         body.setValidity(PlaceOrderRequest.ValidityEnum.DAY);
         body.setPrice(0F);
@@ -70,17 +67,14 @@ public class SanityTest {
         body.setTransactionType(PlaceOrderRequest.TransactionTypeEnum.BUY);
         body.setDisclosedQuantity(0);
         body.setTriggerPrice(0F);
-        body.setIsAmo(false);
+        body.setIsAmo(true);
 
         String apiVersion = "2.0"; // String | API Version Header
         try {
             PlaceOrderResponse result = apiInstance.placeOrder(body, apiVersion);
             System.out.println(result);
         } catch (ApiException e) {
-            if(!e.getResponseBody().contains("UDAPI1052")) {
-                System.out.println("error in place order");
-                System.out.println(e.getResponseBody());
-            }
+            if(!e.getResponseBody().contains("UDAPI1052")) System.out.println("error in place order");
         }
     }
     public static void modifyOrder(){
@@ -125,7 +119,7 @@ public class SanityTest {
     public static void getOrderDetails(){
         OrderApi apiInstance = new OrderApi();
         String apiVersion = "2.0";
-        String orderId = "240125010587640";
+        String orderId = "240729010004302";
         String tag = "string";
         try {
             GetOrderResponse result = apiInstance.getOrderDetails(apiVersion, orderId, tag);
@@ -213,22 +207,32 @@ public class SanityTest {
         String apiVersion = "2.0";
         String instrumentKey = "NSE_EQ|INE669E01016";
         String interval = "1minute";
-        String toDate = "2023-11-13";
-        String fromDate = "2023-11-12";
+        String toDate = "2024-06-13";
+        String fromDate = "2024-01-12";
         try {
             GetHistoricalCandleResponse result = apiInstance.getHistoricalCandleData1(instrumentKey, interval, toDate, fromDate, apiVersion);
+            if(result.getStatus().equals(GetHistoricalCandleResponse.StatusEnum.ERROR)){
+                System.out.println("error in historical api 1");
+            }
         } catch (ApiException e) {
             System.err.println("Exception when calling HistoryApi#getHistoricalCandleData1");
+            System.out.println(e.getResponseBody());
             e.printStackTrace();
         }
         try {
             GetHistoricalCandleResponse result = apiInstance.getHistoricalCandleData(instrumentKey, interval, toDate, apiVersion);
+            if(result.getStatus().equals(GetHistoricalCandleResponse.StatusEnum.ERROR)){
+                System.out.println("error in historical api");
+            }
         } catch (ApiException e) {
             System.err.println("Exception when calling HistoryApi#getHistoricalCandleData1");
             e.printStackTrace();
         }
         try {
             GetIntraDayCandleResponse result = apiInstance.getIntraDayCandleData(instrumentKey, interval, apiVersion);
+            if(result.getStatus().equals(GetIntraDayCandleResponse.StatusEnum.ERROR)){
+                System.out.println("error in intraday candle");
+            }
         } catch (ApiException e) {
             System.err.println("Exception when calling HistoryApi#getIntraDayCandleData");
             e.printStackTrace();
@@ -240,47 +244,100 @@ public class SanityTest {
         String apiVersion = "2.0"; // String | API Version Header
         try {
             GetFullMarketQuoteResponse result = apiInstance.getFullMarketQuote(symbol, apiVersion);
+            if(result.getStatus().equals(GetFullMarketQuoteResponse.StatusEnum.ERROR)){
+                System.out.println("error in full market quote");
+            }
         } catch (ApiException e) {
             System.err.println("Exception when calling MarketQuoteApi#getFullMarketQuote");
             e.printStackTrace();
         }
         try {
             GetMarketQuoteLastTradedPriceResponse result = apiInstance.ltp(symbol, apiVersion);
+            if(result.getStatus().equals(GetMarketQuoteLastTradedPriceResponse.StatusEnum.ERROR)){
+                System.out.println("error in ltp market quote");
+            }
         } catch (ApiException e) {
             System.err.println("Exception when calling MarketQuoteApi#ltp");
             e.printStackTrace();
         }
         try {
             GetMarketQuoteOHLCResponse result = apiInstance.getMarketQuoteOHLC(symbol, "1d", apiVersion);
+            if(result.getStatus().equals(GetMarketQuoteOHLCResponse.StatusEnum.ERROR)){
+                System.out.println("error in OHLC market quote");
+            }
         } catch (ApiException e) {
             System.err.println("Exception when calling MarketQuoteApi#getMarketQuoteOHLC");
             e.printStackTrace();
         }
-
     }
-    public static void optionChainTest(){
-        OptionsApi optionsApi = new OptionsApi();
+    public static void optionChain(){
+        OptionsApi apiInstance = new OptionsApi();
         try{
-            optionsApi.getOptionContracts("NSE_INDEX|Nifty 50", "");
-            optionsApi.getOptionContracts("NSE_INDEX|Nifty 50","2024-07-04");
-            optionsApi.getPutCallOptionChain("NSE_INDEX|Nifty 50","2024-07-04");
+            GetOptionContractResponse getOptionContractResponse = apiInstance.getOptionContracts("NSE_INDEX|Nifty 50","2024-08-01");
+            if(getOptionContractResponse.getStatus().equals(GetOptionContractResponse.StatusEnum.ERROR)){
+                System.out.println("error in option contract response");
+            }
+
+            GetOptionChainResponse getOptionChainResponse = apiInstance.getPutCallOptionChain("NSE_INDEX|Nifty 50","2024-08-01");
+            if(getOptionChainResponse.getStatus().equals(GetOptionChainResponse.StatusEnum.ERROR)){
+                System.out.println("error in option chain response");
+            }
+
+            getOptionContractResponse = apiInstance.getOptionContracts("NSE_INDEX|Nifty 50","");
+            if(getOptionContractResponse.getStatus().equals(GetOptionContractResponse.StatusEnum.ERROR)){
+                System.out.println("error in option contract response");
+            }
         }
         catch (ApiException e){
-            System.err.println("error= " + e);
-            System.out.println(e.getResponseBody());
+            System.err.println("Exception in option chain api");
+            e.printStackTrace();
         }
     }
-    public static void marketInformationTest(){
-        MarketHolidaysAndTimingsApi marketHolidaysAndTimingsApi = new MarketHolidaysAndTimingsApi();
-        try {
-            marketHolidaysAndTimingsApi.getExchangeTimings("2024-07-04");
-            marketHolidaysAndTimingsApi.getHolidays();
-            marketHolidaysAndTimingsApi.getHoliday("2024-07-04");
-            marketHolidaysAndTimingsApi.getMarketStatus("NSE");
+    public static void marketInformation(){
+        MarketHolidaysAndTimingsApi apiInstance = new MarketHolidaysAndTimingsApi();
+        try{
+            if(apiInstance.getMarketStatus("NSE").getStatus().equals(GetMarketStatusResponse.StatusEnum.ERROR)){
+                System.out.println("error in market status");
+            }
+            if(apiInstance.getHoliday("2024-01-22").getStatus().equals(GetHolidayResponse.StatusEnum.ERROR)){
+                System.out.println("error in get holiday");
+            }
+            if(apiInstance.getHolidays().getStatus().equals(GetHolidayResponse.StatusEnum.ERROR)){
+                System.out.println("error in get holidays");
+            }
+            if(apiInstance.getExchangeTimings("2024-01-20").getStatus().equals(GetExchangeTimingResponse.StatusEnum.ERROR)){
+                System.out.println("error in get exchange timings");
+            }
         }
         catch (ApiException e){
-            System.err.println("error= " + e);
-            System.out.println(e.getResponseBody());
+            System.err.println("Exception in market information api");
+            e.printStackTrace();
+        }
+    }
+    public static void logout(){
+        LoginApi apiInstance = new LoginApi();
+        String apiVersion = "2.0";
+        String code = "{your_code}";
+        String clientId = "{your_clientId}";
+        String clientSecret = "{your_clientSecret}";
+        String redirectUri = "{your_redirect_url}";
+        String grantType = "authorization_code";
+        try {
+            TokenResponse result = apiInstance.token(apiVersion, code, clientId, clientSecret, redirectUri, grantType);
+            System.out.println(result);
+        } catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI100069")){
+                System.err.println("Exception when calling LoginApi#token");
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            LogoutResponse result = apiInstance.logout(apiVersion);
+            System.out.println(result.getStatus());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling LoginApi#logout");
+            e.printStackTrace();
         }
     }
 }
