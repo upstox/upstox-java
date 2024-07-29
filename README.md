@@ -28,10 +28,10 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-    <groupId>com.upstox.api</groupId>
-    <artifactId>upstox-java-sdk</artifactId>
-    <version>1.5.0</version>
-    <scope>compile</scope>
+  <groupId>com.upstox.api</groupId>
+  <artifactId>upstox-java-sdk</artifactId>
+  <version>1.3.0</version>
+  <scope>compile</scope>
 </dependency>
 ```
 
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.upstox.api:upstox-java-sdk:1.5.0"
+compile "com.upstox.api:upstox-java-sdk:1.3.0"
 ```
 
 ## Examples
@@ -93,87 +93,461 @@ Class | Method | HTTP request | Description
 *WebsocketApi* | [**getPortfolioStreamFeed**](docs/WebsocketApi.md#getPortfolioStreamFeed) | **GET** /v2/feed/portfolio-stream-feed | Portfolio Stream Feed
 *WebsocketApi* | [**getPortfolioStreamFeedAuthorize**](docs/WebsocketApi.md#getPortfolioStreamFeedAuthorize) | **GET** /v2/feed/portfolio-stream-feed/authorize | Portfolio Stream Feed Authorize
 
+<br/>
+
+## Documentation for Feeder Interfaces
+
+Connecting to the WebSocket for market and portfolio updates is streamlined through two primary Feeder functions:
+
+1. **MarketDataStreamer**: Offers real-time market updates, providing a seamless way to receive instantaneous information on various market instruments.
+2. **PortfolioDataStreamer**: Delivers updates related to the user's orders, enhancing the ability to track order status and portfolio changes effectively.
+
+Both functions are designed to simplify the process of subscribing to essential data streams, ensuring users have quick and easy access to the information they need.
+
+### Detailed Explanation of Feeder Interfaces
+
+### MarketDataStreamer
+
+The `MarketDataStreamer` interface is designed for effortless connection to the market WebSocket, enabling users to receive instantaneous updates on various instruments. The following example demonstrates how to quickly set up and start receiving market updates for selected instrument keys:
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        Set<String> instrumentKeys = new HashSet<>();
+        instrumentKeys.add("NSE_INDEX|Nifty 50");
+        instrumentKeys.add("NSE_INDEX|Nifty Bank");
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamer marketDataStreamer = new MarketDataStreamer(defaultClient, instrumentKeys, Mode.FULL);
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateListener() {
+
+            @Override
+            public void onUpdate(MarketUpdate marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+In this example, you first authenticate using an access token, then instantiate MarketDataStreamer with specific instrument keys and a subscription mode. Upon connecting, the streamer listens for market updates, which are logged to the console as they arrive.
+
+Feel free to adjust the access token placeholder and any other specifics to better fit your actual implementation or usage scenario.
+
+### Exploring the MarketDataStreamer Functionality
+
+#### Modes
+- **Mode.LTPC**: ltpc provides information solely about the most recent trade, encompassing details such as the last trade price, time of the last trade, quantity traded, and the closing price from the previous day.
+- **Mode.FULL**: The full option offers comprehensive information, including the latest trade prices, D5 depth, 1-minute, 30-minute, and daily candlestick data, along with some additional details.
+
+#### Functions
+1. **constructor MarketDataStreamer(apiClient)**: Initializes the streamer.
+1. **constructor MarketDataStreamer(apiClient, instrumentKeys, mode)**: Initializes the streamer with instrument keys and mode (`Mode.FULL` or `Mode.LTPC`).
+2. **connect()**: Establishes the WebSocket connection.
+3. **subscribe(instrumentKeys, mode)**: Subscribes to updates for given instrument keys in the specified mode. Both parameters are mandatory.
+4. **unsubscribe(instrumentKeys)**: Stops updates for the specified instrument keys.
+5. **changeMode(instrumentKeys, mode)**: Switches the mode for already subscribed instrument keys.
+6. **disconnect()**: Ends the active WebSocket connection.
+7. **autoReconnect(enable)**: Enable/Disable the auto reconnect capability.
+7. **autoReconnect(enable, interval, retryCount)**: Customizes auto-reconnect functionality. Parameters include a flag to enable/disable it, the interval(in seconds) between attempts, and the maximum number of retries.
+
+#### Events Listeners
+- **onOpenListener**: Called on successful connection establishment.
+- **onCloseListener**: Called when WebSocket connection has been closed.
+- **onMarketUpdateListener**: Delivers market updates.
+- **onErrorListener**: Signals an error has occurred.
+- **onReconnectingListener**: Announced when a reconnect attempt is initiated.
+- **onAutoReconnectStoppedListener**: Informs when auto-reconnect efforts have ceased after exhausting the retry count.
+
+The following documentation includes examples to illustrate the usage of these functions and events, providing a practical understanding of how to interact with the MarketDataStreamer effectively.
+
+<br/>
+
+1. Subscribing to Market Data on Connection Open with MarketDataStreamer
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamer marketDataStreamer = new MarketDataStreamer(defaultClient);
+
+        marketDataStreamer.setOnOpenListener(new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                System.out.println("Connection Established");
+
+                Set<String> instrumentKeys = new HashSet<>();
+                instrumentKeys.add("NSE_INDEX|Nifty 50");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
+
+                marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
+
+            }
+        });
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateListener() {
+
+            @Override
+            public void onUpdate(MarketUpdate marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+2. Subscribing to Instruments with Delays
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamer marketDataStreamer = new MarketDataStreamer(defaultClient);
+
+        marketDataStreamer.setOnOpenListener(new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                System.out.println("Connection Established");
+
+                Set<String> instrumentKeys1 = new HashSet<>();
+                instrumentKeys1.add("NSE_INDEX|Nifty 50");
+
+                marketDataStreamer.subscribe(instrumentKeys1, Mode.FULL);
+
+                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+
+                scheduler.schedule(() -> {
+                    Set<String> instrumentKeys2 = new HashSet<>();
+                    instrumentKeys2.add("NSE_INDEX|Nifty Bank");
+                    marketDataStreamer.subscribe(instrumentKeys2, Mode.FULL);
+                    scheduler.shutdown();
+                }, 5, TimeUnit.SECONDS);
+
+            }
+        });
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateListener() {
+
+            @Override
+            public void onUpdate(MarketUpdate marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+3. Subscribing and Unsubscribing to Instruments
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamer marketDataStreamer = new MarketDataStreamer(defaultClient);
+
+        marketDataStreamer.setOnOpenListener(new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                System.out.println("Connection Established");
+
+                Set<String> instrumentKeys = new HashSet<>();
+                instrumentKeys.add("NSE_INDEX|Nifty 50");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
+
+                marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
+
+                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+
+                scheduler.schedule(() -> {
+                    marketDataStreamer.unsubscribe(instrumentKeys);
+                    scheduler.shutdown();
+                }, 5, TimeUnit.SECONDS);
+
+            }
+        });
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateListener() {
+
+            @Override
+            public void onUpdate(MarketUpdate marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+4. Subscribe, Change Mode and Unsubscribe
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamer marketDataStreamer = new MarketDataStreamer(defaultClient);
+
+        marketDataStreamer.setOnOpenListener(new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                System.out.println("Connection Established");
+
+                Set<String> instrumentKeys = new HashSet<>();
+                instrumentKeys.add("NSE_INDEX|Nifty 50");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
+
+                marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
+
+                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+
+                scheduler.schedule(() -> {
+                    marketDataStreamer.changeMode(instrumentKeys, Mode.LTPC);
+                    scheduler.shutdown();
+                }, 5, TimeUnit.SECONDS);
+
+                scheduler.schedule(() -> {
+                    marketDataStreamer.unsubscribe(instrumentKeys);
+                    scheduler.shutdown();
+                }, 10, TimeUnit.SECONDS);
+
+            }
+        });
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateListener() {
+
+            @Override
+            public void onUpdate(MarketUpdate marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+5. Disable Auto-Reconnect
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamer marketDataStreamer = new MarketDataStreamer(defaultClient);
+
+        marketDataStreamer.setOnAutoReconnectStoppedListener(new OnAutoReconnectStoppedListener() {
+
+            @Override
+            public void onHault(String message) {
+                System.out.println(message);
+
+            }
+        });
+
+        marketDataStreamer.autoReconnect(false);
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+6. Modify Auto-Reconnect parameters
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamer marketDataStreamer = new MarketDataStreamer(defaultClient);
+
+        marketDataStreamer.autoReconnect(true, 10, 3);
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+### PortfolioDataStreamer
+
+Connecting to the Portfolio WebSocket for real-time order updates is straightforward with the PortfolioDataStreamer class. Below is a concise guide to get you started on receiving updates:
+
+```java
+public class PortfolioFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final PortfolioDataStreamer portfolioDataStreamer = new PortfolioDataStreamer(defaultClient);
+
+        portfolioDataStreamer.setOnOrderUpdateListener(new OnOrderUpdateListener() {
+
+            @Override
+            public void onUpdate(OrderUpdate orderUpdate) {
+                System.out.println(orderUpdate);
+
+            }
+        });
+
+        portfolioDataStreamer.connect();
+    }
+}
+```
+
+This example demonstrates initializing the PortfolioDataStreamer, connecting it to the WebSocket, and setting up an event listener to receive and print order updates. Replace <ACCESS_TOKEN> with your valid access token to authenticate the session.
+
+### Exploring the PortfolioDataStreamer Functionality
+
+#### Functions
+1. **constructor PortfolioDataStreamer(apiClient)**: Initializes the streamer.
+2. **connect()**: Establishes the WebSocket connection.
+6. **disconnect()**: Ends the active WebSocket connection.
+7. **autoReconnect(enable)**: Enable/Disable the auto reconnect capability.
+7. **autoReconnect(enable, interval, retryCount)**: Customizes auto-reconnect functionality. Parameters include a flag to enable/disable it, the interval(in seconds) between attempts, and the maximum number of retries.
+
+#### Events Listeners
+- **onOpenListener**: Called on successful connection establishment.
+- **onCloseListener**: Called when WebSocket connection has been closed.
+- **onOrderUpdateListener**: Delivers order updates.
+- **onErrorListener**: Signals an error has occurred.
+- **onReconnectingListener**: Announced when a reconnect attempt is initiated.
+- **onAutoReconnectStoppedListener**: Informs when auto-reconnect efforts have ceased after exhausting the retry count.
+
+<br/>
+
 ## Documentation for Models
 
-- [AnalyticsData](docs/AnalyticsData.md)
-- [ApiGatewayErrorResponse](docs/ApiGatewayErrorResponse.md)
-- [BrokerageData](docs/BrokerageData.md)
-- [BrokerageTaxes](docs/BrokerageTaxes.md)
-- [BrokerageWrapperData](docs/BrokerageWrapperData.md)
-- [CancelOrderData](docs/CancelOrderData.md)
-- [CancelOrderResponse](docs/CancelOrderResponse.md)
-- [ConvertPositionData](docs/ConvertPositionData.md)
-- [ConvertPositionRequest](docs/ConvertPositionRequest.md)
-- [ConvertPositionResponse](docs/ConvertPositionResponse.md)
-- [Depth](docs/Depth.md)
-- [DepthMap](docs/DepthMap.md)
-- [DpPlan](docs/DpPlan.md)
-- [ExchangeTimingData](docs/ExchangeTimingData.md)
-- [GetBrokerageResponse](docs/GetBrokerageResponse.md)
-- [GetExchangeTimingResponse](docs/GetExchangeTimingResponse.md)
-- [GetFullMarketQuoteResponse](docs/GetFullMarketQuoteResponse.md)
-- [GetHistoricalCandleResponse](docs/GetHistoricalCandleResponse.md)
-- [GetHoldingsResponse](docs/GetHoldingsResponse.md)
-- [GetHolidayResponse](docs/GetHolidayResponse.md)
-- [GetIntraDayCandleResponse](docs/GetIntraDayCandleResponse.md)
-- [GetMarketQuoteLastTradedPriceResponse](docs/GetMarketQuoteLastTradedPriceResponse.md)
-- [GetMarketQuoteOHLCResponse](docs/GetMarketQuoteOHLCResponse.md)
-- [GetMarketStatusResponse](docs/GetMarketStatusResponse.md)
-- [GetOptionChainResponse](docs/GetOptionChainResponse.md)
-- [GetOptionContractResponse](docs/GetOptionContractResponse.md)
-- [GetOrderBookResponse](docs/GetOrderBookResponse.md)
-- [GetOrderResponse](docs/GetOrderResponse.md)
-- [GetPositionResponse](docs/GetPositionResponse.md)
-- [GetProfileResponse](docs/GetProfileResponse.md)
-- [GetProfitAndLossChargesResponse](docs/GetProfitAndLossChargesResponse.md)
-- [GetTradeResponse](docs/GetTradeResponse.md)
-- [GetTradeWiseProfitAndLossDataResponse](docs/GetTradeWiseProfitAndLossDataResponse.md)
-- [GetTradeWiseProfitAndLossMetaDataResponse](docs/GetTradeWiseProfitAndLossMetaDataResponse.md)
-- [GetUserFundMarginResponse](docs/GetUserFundMarginResponse.md)
-- [HistoricalCandleData](docs/HistoricalCandleData.md)
-- [HoldingsData](docs/HoldingsData.md)
-- [HolidayData](docs/HolidayData.md)
-- [InstrumentData](docs/InstrumentData.md)
-- [IntraDayCandleData](docs/IntraDayCandleData.md)
-- [LogoutResponse](docs/LogoutResponse.md)
-- [MarketData](docs/MarketData.md)
-- [MarketQuoteOHLC](docs/MarketQuoteOHLC.md)
-- [MarketQuoteSymbol](docs/MarketQuoteSymbol.md)
-- [MarketQuoteSymbolLtp](docs/MarketQuoteSymbolLtp.md)
-- [MarketStatusData](docs/MarketStatusData.md)
-- [ModifyOrderData](docs/ModifyOrderData.md)
-- [ModifyOrderRequest](docs/ModifyOrderRequest.md)
-- [ModifyOrderResponse](docs/ModifyOrderResponse.md)
-- [OAuthClientException](docs/OAuthClientException.md)
-- [OAuthClientExceptionCause](docs/OAuthClientExceptionCause.md)
-- [OAuthClientExceptionCauseStackTrace](docs/OAuthClientExceptionCauseStackTrace.md)
-- [OAuthClientExceptionCauseSuppressed](docs/OAuthClientExceptionCauseSuppressed.md)
-- [Ohlc](docs/Ohlc.md)
-- [OptionStrikeData](docs/OptionStrikeData.md)
-- [OrderBookData](docs/OrderBookData.md)
-- [OrderData](docs/OrderData.md)
-- [OtherTaxes](docs/OtherTaxes.md)
-- [PlaceOrderData](docs/PlaceOrderData.md)
-- [PlaceOrderRequest](docs/PlaceOrderRequest.md)
-- [PlaceOrderResponse](docs/PlaceOrderResponse.md)
-- [PositionData](docs/PositionData.md)
-- [Problem](docs/Problem.md)
-- [ProfileData](docs/ProfileData.md)
-- [ProfitAndLossChargesData](docs/ProfitAndLossChargesData.md)
-- [ProfitAndLossChargesTaxes](docs/ProfitAndLossChargesTaxes.md)
-- [ProfitAndLossChargesWrapperData](docs/ProfitAndLossChargesWrapperData.md)
-- [ProfitAndLossMetaData](docs/ProfitAndLossMetaData.md)
-- [ProfitAndLossMetaDataWrapper](docs/ProfitAndLossMetaDataWrapper.md)
-- [ProfitAndLossOtherChargesTaxes](docs/ProfitAndLossOtherChargesTaxes.md)
-- [PutCallOptionChainData](docs/PutCallOptionChainData.md)
-- [TokenRequest](docs/TokenRequest.md)
-- [TokenResponse](docs/TokenResponse.md)
-- [TradeData](docs/TradeData.md)
-- [TradeWiseMetaData](docs/TradeWiseMetaData.md)
-- [TradeWiseProfitAndLossData](docs/TradeWiseProfitAndLossData.md)
-- [UserFundMarginData](docs/UserFundMarginData.md)
-- [WebsocketAuthRedirectResponse](docs/WebsocketAuthRedirectResponse.md)
-- [WebsocketAuthRedirectResponseData](docs/WebsocketAuthRedirectResponseData.md)
+ - [AnalyticsData](docs/AnalyticsData.md)
+ - [ApiGatewayErrorResponse](docs/ApiGatewayErrorResponse.md)
+ - [BrokerageData](docs/BrokerageData.md)
+ - [BrokerageTaxes](docs/BrokerageTaxes.md)
+ - [BrokerageWrapperData](docs/BrokerageWrapperData.md)
+ - [CancelOrderData](docs/CancelOrderData.md)
+ - [CancelOrderResponse](docs/CancelOrderResponse.md)
+ - [ConvertPositionData](docs/ConvertPositionData.md)
+ - [ConvertPositionRequest](docs/ConvertPositionRequest.md)
+ - [ConvertPositionResponse](docs/ConvertPositionResponse.md)
+ - [Depth](docs/Depth.md)
+ - [DepthMap](docs/DepthMap.md)
+ - [DpPlan](docs/DpPlan.md)
+ - [ExchangeTimingData](docs/ExchangeTimingData.md)
+ - [GetBrokerageResponse](docs/GetBrokerageResponse.md)
+ - [GetExchangeTimingResponse](docs/GetExchangeTimingResponse.md)
+ - [GetFullMarketQuoteResponse](docs/GetFullMarketQuoteResponse.md)
+ - [GetHistoricalCandleResponse](docs/GetHistoricalCandleResponse.md)
+ - [GetHoldingsResponse](docs/GetHoldingsResponse.md)
+ - [GetHolidayResponse](docs/GetHolidayResponse.md)
+ - [GetIntraDayCandleResponse](docs/GetIntraDayCandleResponse.md)
+ - [GetMarketQuoteLastTradedPriceResponse](docs/GetMarketQuoteLastTradedPriceResponse.md)
+ - [GetMarketQuoteOHLCResponse](docs/GetMarketQuoteOHLCResponse.md)
+ - [GetMarketStatusResponse](docs/GetMarketStatusResponse.md)
+ - [GetOptionChainResponse](docs/GetOptionChainResponse.md)
+ - [GetOptionContractResponse](docs/GetOptionContractResponse.md)
+ - [GetOrderBookResponse](docs/GetOrderBookResponse.md)
+ - [GetOrderResponse](docs/GetOrderResponse.md)
+ - [GetPositionResponse](docs/GetPositionResponse.md)
+ - [GetProfileResponse](docs/GetProfileResponse.md)
+ - [GetProfitAndLossChargesResponse](docs/GetProfitAndLossChargesResponse.md)
+ - [GetTradeResponse](docs/GetTradeResponse.md)
+ - [GetTradeWiseProfitAndLossDataResponse](docs/GetTradeWiseProfitAndLossDataResponse.md)
+ - [GetTradeWiseProfitAndLossMetaDataResponse](docs/GetTradeWiseProfitAndLossMetaDataResponse.md)
+ - [GetUserFundMarginResponse](docs/GetUserFundMarginResponse.md)
+ - [HistoricalCandleData](docs/HistoricalCandleData.md)
+ - [HoldingsData](docs/HoldingsData.md)
+ - [HolidayData](docs/HolidayData.md)
+ - [InstrumentData](docs/InstrumentData.md)
+ - [IntraDayCandleData](docs/IntraDayCandleData.md)
+ - [LogoutResponse](docs/LogoutResponse.md)
+ - [MarketData](docs/MarketData.md)
+ - [MarketQuoteOHLC](docs/MarketQuoteOHLC.md)
+ - [MarketQuoteSymbol](docs/MarketQuoteSymbol.md)
+ - [MarketQuoteSymbolLtp](docs/MarketQuoteSymbolLtp.md)
+ - [MarketStatusData](docs/MarketStatusData.md)
+ - [ModifyOrderData](docs/ModifyOrderData.md)
+ - [ModifyOrderRequest](docs/ModifyOrderRequest.md)
+ - [ModifyOrderResponse](docs/ModifyOrderResponse.md)
+ - [OAuthClientException](docs/OAuthClientException.md)
+ - [OAuthClientExceptionCause](docs/OAuthClientExceptionCause.md)
+ - [OAuthClientExceptionCauseStackTrace](docs/OAuthClientExceptionCauseStackTrace.md)
+ - [OAuthClientExceptionCauseSuppressed](docs/OAuthClientExceptionCauseSuppressed.md)
+ - [Ohlc](docs/Ohlc.md)
+ - [OptionStrikeData](docs/OptionStrikeData.md)
+ - [OrderBookData](docs/OrderBookData.md)
+ - [OrderData](docs/OrderData.md)
+ - [OtherTaxes](docs/OtherTaxes.md)
+ - [PlaceOrderData](docs/PlaceOrderData.md)
+ - [PlaceOrderRequest](docs/PlaceOrderRequest.md)
+ - [PlaceOrderResponse](docs/PlaceOrderResponse.md)
+ - [PositionData](docs/PositionData.md)
+ - [Problem](docs/Problem.md)
+ - [ProfileData](docs/ProfileData.md)
+ - [ProfitAndLossChargesData](docs/ProfitAndLossChargesData.md)
+ - [ProfitAndLossChargesTaxes](docs/ProfitAndLossChargesTaxes.md)
+ - [ProfitAndLossChargesWrapperData](docs/ProfitAndLossChargesWrapperData.md)
+ - [ProfitAndLossMetaData](docs/ProfitAndLossMetaData.md)
+ - [ProfitAndLossMetaDataWrapper](docs/ProfitAndLossMetaDataWrapper.md)
+ - [ProfitAndLossOtherChargesTaxes](docs/ProfitAndLossOtherChargesTaxes.md)
+ - [PutCallOptionChainData](docs/PutCallOptionChainData.md)
+ - [TokenRequest](docs/TokenRequest.md)
+ - [TokenResponse](docs/TokenResponse.md)
+ - [TradeData](docs/TradeData.md)
+ - [TradeHistoryResponse](docs/TradeHistoryResponse.md)
+ - [TradeHistoryResponseMetaData](docs/TradeHistoryResponseMetaData.md)
+ - [TradeHistoryResponsePageData](docs/TradeHistoryResponsePageData.md)
+ - [TradeHistoryResponseTradeData](docs/TradeHistoryResponseTradeData.md)
+ - [TradeWiseMetaData](docs/TradeWiseMetaData.md)
+ - [TradeWiseProfitAndLossData](docs/TradeWiseProfitAndLossData.md)
+ - [UserFundMarginData](docs/UserFundMarginData.md)
+ - [WebsocketAuthRedirectResponse](docs/WebsocketAuthRedirectResponse.md)
+ - [WebsocketAuthRedirectResponseData](docs/WebsocketAuthRedirectResponseData.md)
 
 
 ## Recommendation
