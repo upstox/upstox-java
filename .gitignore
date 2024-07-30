@@ -23,6 +23,7 @@ build
 .idea/
 .project
 .classpath
+upstox-java-sdk.iml
 
 #Ignore swagger generated files
 .swagger-codegen/

@@ -4,7 +4,7 @@
 
 The official Java client for communicating with the <a href="https://upstox.com/uplink/">Upstox API</a>.
 
-Upstox API is a set of rest APIs that provide data required to build a complete investment and trading platform. Execute orders in real time, manage user portfolio, stream live market data (using Websocket), and more, with the easy to understand API collection. 
+Upstox API is a set of rest APIs that provide data required to build a complete investment and trading platform. Execute orders in real time, manage user portfolio, stream live market data (using Websocket), and more, with the easy to understand API collection.
 
 - API version: v2
 
@@ -56,35 +56,42 @@ All URIs are relative to *https://api.upstox.com/v2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ChargeApi* | [**getBrokerage**](docs/ChargeApi.md#getBrokerage) | **GET** /charges/brokerage | Brokerage details
-*HistoryApi* | [**getHistoricalCandleData**](docs/HistoryApi.md#getHistoricalCandleData) | **GET** /historical-candle/{instrumentKey}/{interval}/{to_date} | Historical candle data
-*HistoryApi* | [**getHistoricalCandleData1**](docs/HistoryApi.md#getHistoricalCandleData1) | **GET** /historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
-*HistoryApi* | [**getIntraDayCandleData**](docs/HistoryApi.md#getIntraDayCandleData) | **GET** /historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
-*LoginApi* | [**authorize**](docs/LoginApi.md#authorize) | **GET** /login/authorization/dialog | Authorize API
-*LoginApi* | [**logout**](docs/LoginApi.md#logout) | **DELETE** /logout | Logout
-*LoginApi* | [**token**](docs/LoginApi.md#token) | **POST** /login/authorization/token | Get token API
-*MarketQuoteApi* | [**getFullMarketQuote**](docs/MarketQuoteApi.md#getFullMarketQuote) | **GET** /market-quote/quotes | Market quotes and instruments - Full market quotes
-*MarketQuoteApi* | [**getMarketQuoteOHLC**](docs/MarketQuoteApi.md#getMarketQuoteOHLC) | **GET** /market-quote/ohlc | Market quotes and instruments - OHLC quotes
-*MarketQuoteApi* | [**ltp**](docs/MarketQuoteApi.md#ltp) | **GET** /market-quote/ltp | Market quotes and instruments - LTP quotes.
-*OrderApi* | [**cancelOrder**](docs/OrderApi.md#cancelOrder) | **DELETE** /order/cancel | Cancel order
-*OrderApi* | [**getOrderBook**](docs/OrderApi.md#getOrderBook) | **GET** /order/retrieve-all | Get order book
-*OrderApi* | [**getOrderDetails**](docs/OrderApi.md#getOrderDetails) | **GET** /order/history | Get order details
-*OrderApi* | [**getTradeHistory**](docs/OrderApi.md#getTradeHistory) | **GET** /order/trades/get-trades-for-day | Get trades
-*OrderApi* | [**getTradesByOrder**](docs/OrderApi.md#getTradesByOrder) | **GET** /order/trades | Get trades for order
-*OrderApi* | [**modifyOrder**](docs/OrderApi.md#modifyOrder) | **PUT** /order/modify | Modify order
-*OrderApi* | [**placeOrder**](docs/OrderApi.md#placeOrder) | **POST** /order/place | Place order
-*PortfolioApi* | [**convertPositions**](docs/PortfolioApi.md#convertPositions) | **PUT** /portfolio/convert-position | Convert Positions
-*PortfolioApi* | [**getHoldings**](docs/PortfolioApi.md#getHoldings) | **GET** /portfolio/long-term-holdings | Get Holdings
-*PortfolioApi* | [**getPositions**](docs/PortfolioApi.md#getPositions) | **GET** /portfolio/short-term-positions | Get Positions
-*TradeProfitAndLossApi* | [**getProfitAndLossCharges**](docs/TradeProfitAndLossApi.md#getProfitAndLossCharges) | **GET** /trade/profit-loss/charges | Get profit and loss on trades
-*TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossData**](docs/TradeProfitAndLossApi.md#getTradeWiseProfitAndLossData) | **GET** /trade/profit-loss/data | Get Trade-wise Profit and Loss Report Data
-*TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossMetaData**](docs/TradeProfitAndLossApi.md#getTradeWiseProfitAndLossMetaData) | **GET** /trade/profit-loss/metadata | Get profit and loss meta data on trades
-*UserApi* | [**getProfile**](docs/UserApi.md#getProfile) | **GET** /user/profile | Get profile
-*UserApi* | [**getUserFundMargin**](docs/UserApi.md#getUserFundMargin) | **GET** /user/get-funds-and-margin | Get User Fund And Margin
-*WebsocketApi* | [**getMarketDataFeed**](docs/WebsocketApi.md#getMarketDataFeed) | **GET** /feed/market-data-feed | Market Data Feed
-*WebsocketApi* | [**getMarketDataFeedAuthorize**](docs/WebsocketApi.md#getMarketDataFeedAuthorize) | **GET** /feed/market-data-feed/authorize | Market Data Feed Authorize
-*WebsocketApi* | [**getPortfolioStreamFeed**](docs/WebsocketApi.md#getPortfolioStreamFeed) | **GET** /feed/portfolio-stream-feed | Portfolio Stream Feed
-*WebsocketApi* | [**getPortfolioStreamFeedAuthorize**](docs/WebsocketApi.md#getPortfolioStreamFeedAuthorize) | **GET** /feed/portfolio-stream-feed/authorize | Portfolio Stream Feed Authorize
+*ChargeApi* | [**getBrokerage**](docs/ChargeApi.md#getBrokerage) | **GET** /v2/charges/brokerage | Brokerage details
+*HistoryApi* | [**getHistoricalCandleData**](docs/HistoryApi.md#getHistoricalCandleData) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date} | Historical candle data
+*HistoryApi* | [**getHistoricalCandleData1**](docs/HistoryApi.md#getHistoricalCandleData1) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
+*HistoryApi* | [**getIntraDayCandleData**](docs/HistoryApi.md#getIntraDayCandleData) | **GET** /v2/historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
+*LoginApi* | [**authorize**](docs/LoginApi.md#authorize) | **GET** /v2/login/authorization/dialog | Authorize API
+*LoginApi* | [**autoLogin**](docs/LoginApi.md#autoLogin) | **GET** /v2/auth/auto-login | Auto Login
+*LoginApi* | [**logout**](docs/LoginApi.md#logout) | **DELETE** /v2/logout | Logout
+*LoginApi* | [**token**](docs/LoginApi.md#token) | **POST** /v2/login/authorization/token | Get token API
+*MarketHolidaysAndTimingsApi* | [**getExchangeTimings**](docs/MarketHolidaysAndTimingsApi.md#getExchangeTimings) | **GET** /v2/market/timings/{date} | Get Exchange Timings on particular date
+*MarketHolidaysAndTimingsApi* | [**getHoliday**](docs/MarketHolidaysAndTimingsApi.md#getHoliday) | **GET** /v2/market/holidays/{date} | Get Holiday on particular date
+*MarketHolidaysAndTimingsApi* | [**getHolidays**](docs/MarketHolidaysAndTimingsApi.md#getHolidays) | **GET** /v2/market/holidays | Get Holiday list of current year
+*MarketHolidaysAndTimingsApi* | [**getMarketStatus**](docs/MarketHolidaysAndTimingsApi.md#getMarketStatus) | **GET** /v2/market/status/{exchange} | Get Market status for particular exchange
+*MarketQuoteApi* | [**getFullMarketQuote**](docs/MarketQuoteApi.md#getFullMarketQuote) | **GET** /v2/market-quote/quotes | Market quotes and instruments - Full market quotes
+*MarketQuoteApi* | [**getMarketQuoteOHLC**](docs/MarketQuoteApi.md#getMarketQuoteOHLC) | **GET** /v2/market-quote/ohlc | Market quotes and instruments - OHLC quotes
+*MarketQuoteApi* | [**ltp**](docs/MarketQuoteApi.md#ltp) | **GET** /v2/market-quote/ltp | Market quotes and instruments - LTP quotes.
+*OptionsApi* | [**getOptionContracts**](docs/OptionsApi.md#getOptionContracts) | **GET** /v2/option/contract | Get option contracts
+*OptionsApi* | [**getPutCallOptionChain**](docs/OptionsApi.md#getPutCallOptionChain) | **GET** /v2/option/chain | Get option chain
+*OrderApi* | [**cancelOrder**](docs/OrderApi.md#cancelOrder) | **DELETE** /v2/order/cancel | Cancel order
+*OrderApi* | [**getOrderBook**](docs/OrderApi.md#getOrderBook) | **GET** /v2/order/retrieve-all | Get order book
+*OrderApi* | [**getOrderDetails**](docs/OrderApi.md#getOrderDetails) | **GET** /v2/order/history | Get order history
+*OrderApi* | [**getTradeHistory**](docs/OrderApi.md#getTradeHistory) | **GET** /v2/order/trades/get-trades-for-day | Get trades
+*OrderApi* | [**getTradesByOrder**](docs/OrderApi.md#getTradesByOrder) | **GET** /v2/order/trades | Get trades for order
+*OrderApi* | [**modifyOrder**](docs/OrderApi.md#modifyOrder) | **PUT** /v2/order/modify | Modify order
+*OrderApi* | [**placeOrder**](docs/OrderApi.md#placeOrder) | **POST** /v2/order/place | Place order
+*PortfolioApi* | [**convertPositions**](docs/PortfolioApi.md#convertPositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
+*PortfolioApi* | [**getHoldings**](docs/PortfolioApi.md#getHoldings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
+*PortfolioApi* | [**getPositions**](docs/PortfolioApi.md#getPositions) | **GET** /v2/portfolio/short-term-positions | Get Positions
+*TradeProfitAndLossApi* | [**getProfitAndLossCharges**](docs/TradeProfitAndLossApi.md#getProfitAndLossCharges) | **GET** /v2/trade/profit-loss/charges | Get profit and loss on trades
+*TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossData**](docs/TradeProfitAndLossApi.md#getTradeWiseProfitAndLossData) | **GET** /v2/trade/profit-loss/data | Get Trade-wise Profit and Loss Report Data
+*TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossMetaData**](docs/TradeProfitAndLossApi.md#getTradeWiseProfitAndLossMetaData) | **GET** /v2/trade/profit-loss/metadata | Get profit and loss meta data on trades
+*UserApi* | [**getProfile**](docs/UserApi.md#getProfile) | **GET** /v2/user/profile | Get profile
+*UserApi* | [**getUserFundMargin**](docs/UserApi.md#getUserFundMargin) | **GET** /v2/user/get-funds-and-margin | Get User Fund And Margin
+*WebsocketApi* | [**getMarketDataFeed**](docs/WebsocketApi.md#getMarketDataFeed) | **GET** /v2/feed/market-data-feed | Market Data Feed
+*WebsocketApi* | [**getMarketDataFeedAuthorize**](docs/WebsocketApi.md#getMarketDataFeedAuthorize) | **GET** /v2/feed/market-data-feed/authorize | Market Data Feed Authorize
+*WebsocketApi* | [**getPortfolioStreamFeed**](docs/WebsocketApi.md#getPortfolioStreamFeed) | **GET** /v2/feed/portfolio-stream-feed | Portfolio Stream Feed
+*WebsocketApi* | [**getPortfolioStreamFeedAuthorize**](docs/WebsocketApi.md#getPortfolioStreamFeedAuthorize) | **GET** /v2/feed/portfolio-stream-feed/authorize | Portfolio Stream Feed Authorize
 
 <br/>
 
@@ -110,7 +117,7 @@ public class MarketFeederTest {
 
         Set<String> instrumentKeys = new HashSet<>();
         instrumentKeys.add("NSE_INDEX|Nifty 50");
-        instrumentKeys.add("NSE_INDEX|Bank Nifty");
+        instrumentKeys.add("NSE_INDEX|Nifty Bank");
 
         OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
         oAuth.setAccessToken(<ACCESS_TOKEN>);
@@ -183,7 +190,7 @@ public class MarketFeederTest {
 
                 Set<String> instrumentKeys = new HashSet<>();
                 instrumentKeys.add("NSE_INDEX|Nifty 50");
-                instrumentKeys.add("NSE_INDEX|Bank Nifty");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
 
                 marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
 
@@ -232,7 +239,7 @@ public class MarketFeederTest {
 
                 scheduler.schedule(() -> {
                     Set<String> instrumentKeys2 = new HashSet<>();
-                    instrumentKeys2.add("NSE_INDEX|Bank Nifty");
+                    instrumentKeys2.add("NSE_INDEX|Nifty Bank");
                     marketDataStreamer.subscribe(instrumentKeys2, Mode.FULL);
                     scheduler.shutdown();
                 }, 5, TimeUnit.SECONDS);
@@ -275,7 +282,7 @@ public class MarketFeederTest {
 
                 Set<String> instrumentKeys = new HashSet<>();
                 instrumentKeys.add("NSE_INDEX|Nifty 50");
-                instrumentKeys.add("NSE_INDEX|Bank Nifty");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
 
                 marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
 
@@ -324,7 +331,7 @@ public class MarketFeederTest {
 
                 Set<String> instrumentKeys = new HashSet<>();
                 instrumentKeys.add("NSE_INDEX|Nifty 50");
-                instrumentKeys.add("NSE_INDEX|Bank Nifty");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
 
                 marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
 
@@ -458,6 +465,7 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
 
 ## Documentation for Models
 
+ - [AnalyticsData](docs/AnalyticsData.md)
  - [ApiGatewayErrorResponse](docs/ApiGatewayErrorResponse.md)
  - [BrokerageData](docs/BrokerageData.md)
  - [BrokerageTaxes](docs/BrokerageTaxes.md)
@@ -470,13 +478,19 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [Depth](docs/Depth.md)
  - [DepthMap](docs/DepthMap.md)
  - [DpPlan](docs/DpPlan.md)
+ - [ExchangeTimingData](docs/ExchangeTimingData.md)
  - [GetBrokerageResponse](docs/GetBrokerageResponse.md)
+ - [GetExchangeTimingResponse](docs/GetExchangeTimingResponse.md)
  - [GetFullMarketQuoteResponse](docs/GetFullMarketQuoteResponse.md)
  - [GetHistoricalCandleResponse](docs/GetHistoricalCandleResponse.md)
  - [GetHoldingsResponse](docs/GetHoldingsResponse.md)
+ - [GetHolidayResponse](docs/GetHolidayResponse.md)
  - [GetIntraDayCandleResponse](docs/GetIntraDayCandleResponse.md)
  - [GetMarketQuoteLastTradedPriceResponse](docs/GetMarketQuoteLastTradedPriceResponse.md)
  - [GetMarketQuoteOHLCResponse](docs/GetMarketQuoteOHLCResponse.md)
+ - [GetMarketStatusResponse](docs/GetMarketStatusResponse.md)
+ - [GetOptionChainResponse](docs/GetOptionChainResponse.md)
+ - [GetOptionContractResponse](docs/GetOptionContractResponse.md)
  - [GetOrderBookResponse](docs/GetOrderBookResponse.md)
  - [GetOrderResponse](docs/GetOrderResponse.md)
  - [GetPositionResponse](docs/GetPositionResponse.md)
@@ -488,11 +502,15 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [GetUserFundMarginResponse](docs/GetUserFundMarginResponse.md)
  - [HistoricalCandleData](docs/HistoricalCandleData.md)
  - [HoldingsData](docs/HoldingsData.md)
+ - [HolidayData](docs/HolidayData.md)
+ - [InstrumentData](docs/InstrumentData.md)
  - [IntraDayCandleData](docs/IntraDayCandleData.md)
  - [LogoutResponse](docs/LogoutResponse.md)
+ - [MarketData](docs/MarketData.md)
  - [MarketQuoteOHLC](docs/MarketQuoteOHLC.md)
  - [MarketQuoteSymbol](docs/MarketQuoteSymbol.md)
  - [MarketQuoteSymbolLtp](docs/MarketQuoteSymbolLtp.md)
+ - [MarketStatusData](docs/MarketStatusData.md)
  - [ModifyOrderData](docs/ModifyOrderData.md)
  - [ModifyOrderRequest](docs/ModifyOrderRequest.md)
  - [ModifyOrderResponse](docs/ModifyOrderResponse.md)
@@ -501,6 +519,7 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [OAuthClientExceptionCauseStackTrace](docs/OAuthClientExceptionCauseStackTrace.md)
  - [OAuthClientExceptionCauseSuppressed](docs/OAuthClientExceptionCauseSuppressed.md)
  - [Ohlc](docs/Ohlc.md)
+ - [OptionStrikeData](docs/OptionStrikeData.md)
  - [OrderBookData](docs/OrderBookData.md)
  - [OrderData](docs/OrderData.md)
  - [OtherTaxes](docs/OtherTaxes.md)
@@ -516,9 +535,14 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [ProfitAndLossMetaData](docs/ProfitAndLossMetaData.md)
  - [ProfitAndLossMetaDataWrapper](docs/ProfitAndLossMetaDataWrapper.md)
  - [ProfitAndLossOtherChargesTaxes](docs/ProfitAndLossOtherChargesTaxes.md)
+ - [PutCallOptionChainData](docs/PutCallOptionChainData.md)
  - [TokenRequest](docs/TokenRequest.md)
  - [TokenResponse](docs/TokenResponse.md)
  - [TradeData](docs/TradeData.md)
+ - [TradeHistoryResponse](docs/TradeHistoryResponse.md)
+ - [TradeHistoryResponseMetaData](docs/TradeHistoryResponseMetaData.md)
+ - [TradeHistoryResponsePageData](docs/TradeHistoryResponsePageData.md)
+ - [TradeHistoryResponseTradeData](docs/TradeHistoryResponseTradeData.md)
  - [TradeWiseMetaData](docs/TradeWiseMetaData.md)
  - [TradeWiseProfitAndLossData](docs/TradeWiseProfitAndLossData.md)
  - [UserFundMarginData](docs/UserFundMarginData.md)

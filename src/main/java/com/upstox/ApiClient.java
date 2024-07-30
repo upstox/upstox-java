@@ -53,8 +53,8 @@ import com.upstox.auth.OAuth;
 
 public class ApiClient {
 
-    private String basePath = "https://api.upstox.com/v2";
-    private String orderBasePath = "https://api-hft.upstox.com/v2";
+    private String basePath = "https://api.upstox.com";
+    private String orderBasePath = "https://api-hft.upstox.com";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;

@@ -6,6 +6,7 @@ import com.upstox.Configuration;
 import com.upstox.api.PlaceOrderRequest;
 import com.upstox.api.PlaceOrderResponse;
 import com.upstox.auth.OAuth;
+import com.upstox.sanity.DataToken;
 import io.swagger.client.api.OrderApi;
 
 public class PlaceOrderTest {
@@ -13,7 +14,7 @@ public class PlaceOrderTest {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
-        OAUTH2.setAccessToken("");
+        OAUTH2.setAccessToken(DataToken.accessToken);
 
         OrderApi apiInstance = new OrderApi();
         PlaceOrderRequest body = new PlaceOrderRequest();
