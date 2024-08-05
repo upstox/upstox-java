@@ -70,7 +70,7 @@ public class HistoryApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/historical-candle/{instrumentKey}/{interval}/{to_date}"
+        String localVarPath = "/v2/historical-candle/{instrumentKey}/{interval}/{to_date}"
             .replaceAll("\\{" + "instrumentKey" + "\\}", apiClient.escapeString(instrumentKey.toString()))
             .replaceAll("\\{" + "interval" + "\\}", apiClient.escapeString(interval.toString()))
             .replaceAll("\\{" + "to_date" + "\\}", apiClient.escapeString(toDate.toString()));
@@ -224,7 +224,7 @@ public class HistoryApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date}"
+        String localVarPath = "/v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date}"
             .replaceAll("\\{" + "instrumentKey" + "\\}", apiClient.escapeString(instrumentKey.toString()))
             .replaceAll("\\{" + "interval" + "\\}", apiClient.escapeString(interval.toString()))
             .replaceAll("\\{" + "to_date" + "\\}", apiClient.escapeString(toDate.toString()))
@@ -384,7 +384,7 @@ public class HistoryApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/historical-candle/intraday/{instrumentKey}/{interval}"
+        String localVarPath = "/v2/historical-candle/intraday/{instrumentKey}/{interval}"
             .replaceAll("\\{" + "instrumentKey" + "\\}", apiClient.escapeString(instrumentKey.toString()))
             .replaceAll("\\{" + "interval" + "\\}", apiClient.escapeString(interval.toString()));
 

@@ -20,9 +20,11 @@ target
 .gradle
 build
 .settings/
+.idea/
 .project
 .classpath
-.idea/
+upstox-java-sdk.iml
+
 
 #Ignore swagger generated files
 .swagger-codegen/
