@@ -33,7 +33,7 @@ public class PortfolioDataStreamer extends Streamer {
     public void setOnHoldingUpdateListener(OnHoldingUpdateListener onHoldingUpdateListener){
         this.onHoldingUpdateListener = onHoldingUpdateListener;
     }
-    public void setOPositionUpdateListener(OnPositionUpdateListener onPositionUpdateListener){
+    public void setOnPositionUpdateListener(OnPositionUpdateListener onPositionUpdateListener){
         this.onPositionUpdateListener = onPositionUpdateListener;
     }
 
