@@ -7,21 +7,34 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.upstox.ApiClient;
 import com.upstox.feeder.exception.StreamerException;
-import com.upstox.feeder.listener.OnCloseListener;
-import com.upstox.feeder.listener.OnErrorListener;
-import com.upstox.feeder.listener.OnMessageListener;
-import com.upstox.feeder.listener.OnOpenListener;
-import com.upstox.feeder.listener.OnOrderUpdateListener;
+import com.upstox.feeder.listener.*;
 
 public class PortfolioDataStreamer extends Streamer {
 
     private OnOrderUpdateListener onOrderUpdateListener;
+    private OnHoldingUpdateListener onHoldingUpdateListener;
+    private OnPositionUpdateListener onPositionUpdateListener;
+    private boolean orderUpdate = true;
+    private boolean holdingUpdate = false;
+    private boolean positionUpdate = false;
 
     private static final String SOCKET_NOT_OPEN_ERROR = "WebSocket is not open.";
     private static final String INVALID_VALUES_ERROR = "Values provided are invalid.";
 
+    private static final String ORDER_UPDATE_LISTENER_FUNCTION_MISSING_ERROR = "Implementation of order update listener function is missing";
+
+    private static final String POSITION_UPDATE_LISTENER_FUNCTION_MISSING_ERROR = "Implementation of position update listener function is missing";
+
+    private static final String HOLDING_UPDATE_LISTENER_FUNCTION_MISSING_ERROR = "Implementation of holding update listener function is missing";
+
     public void setOnOrderUpdateListener(OnOrderUpdateListener onOrderUpdateListener) {
         this.onOrderUpdateListener = onOrderUpdateListener;
+    }
+    public void setOnHoldingUpdateListener(OnHoldingUpdateListener onHoldingUpdateListener){
+        this.onHoldingUpdateListener = onHoldingUpdateListener;
+    }
+    public void setOnPositionUpdateListener(OnPositionUpdateListener onPositionUpdateListener){
+        this.onPositionUpdateListener = onPositionUpdateListener;
     }
 
     public PortfolioDataStreamer(ApiClient apiClient) {
@@ -32,9 +45,22 @@ public class PortfolioDataStreamer extends Streamer {
 
         this.apiClient = apiClient;
     }
+    public PortfolioDataStreamer(ApiClient apiClient, boolean orderUpdate, boolean positionUpdate, boolean holdingUpdate){
+        if (apiClient == null) {
+            throw new StreamerException(INVALID_VALUES_ERROR);
+        }
+
+        this.apiClient = apiClient;
+        this.orderUpdate = orderUpdate;
+        this.positionUpdate = positionUpdate;
+        this.holdingUpdate = holdingUpdate;
+    }
 
     @Override
     public void connect() {
+        if(this.orderUpdate && onOrderUpdateListener == null) throw new StreamerException(ORDER_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
+        if(this.holdingUpdate && onHoldingUpdateListener == null) throw new StreamerException(HOLDING_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
+        if(this.positionUpdate & onPositionUpdateListener == null) throw new StreamerException(POSITION_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
         feeder = new PortfolioDataFeeder(apiClient, new OnOpenListener() {
 
             @Override
@@ -68,7 +94,7 @@ public class PortfolioDataStreamer extends Streamer {
                 handleClose(statusCode, reason);
 
             }
-        });
+        },orderUpdate,holdingUpdate,positionUpdate);
 
         feeder.connect();
     }
@@ -97,9 +123,15 @@ public class PortfolioDataStreamer extends Streamer {
     protected void handleMessage(String message) {
 
         Object updateData = parseUpdateMessage(message);
-
         if (updateData instanceof OrderUpdate && onOrderUpdateListener != null) {
             onOrderUpdateListener.onUpdate((OrderUpdate) updateData);
+        }
+        else if(updateData instanceof HoldingUpdate && onHoldingUpdateListener != null){
+            onHoldingUpdateListener.onUpdate((HoldingUpdate) updateData);
+        }
+        else if(updateData instanceof PositionUpdate && onPositionUpdateListener != null){
+            onPositionUpdateListener.onUpdate((PositionUpdate) updateData);
+
         }
     }
 
@@ -113,7 +145,12 @@ public class PortfolioDataStreamer extends Streamer {
         if ("order".equals(updateType)) {
             return gson.fromJson(data, OrderUpdate.class);
         }
-
+        else if("holding".equals(updateType)){
+            return gson.fromJson(data,HoldingUpdate.class);
+        }
+        else if("position".equals(updateType)){
+            return gson.fromJson(data,PositionUpdate.class);
+        }
         return null;
 
     }

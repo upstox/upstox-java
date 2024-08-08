@@ -2,6 +2,8 @@ package com.upstox.feeder;
 
 import java.net.URI;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -19,14 +21,32 @@ import io.swagger.client.api.WebsocketApi;
 public class PortfolioDataFeeder extends Feeder {
 
     private OnMessageListener onMessageListener;
+    private boolean orderUpdate;
+    private boolean holdingUpdate;
+    private boolean positionUpdate;
+
+    public boolean isOrderUpdate() {
+        return orderUpdate;
+    }
+
+    public boolean isHoldingUpdate() {
+        return holdingUpdate;
+    }
+
+    public boolean isPositionUpdate() {
+        return positionUpdate;
+    }
 
     protected PortfolioDataFeeder(ApiClient apiClient, OnOpenListener onOpenListener,
-            OnMessageListener onMessageListener, OnErrorListener onErrorListener, OnCloseListener onCloseListener) {
+                                  OnMessageListener onMessageListener, OnErrorListener onErrorListener, OnCloseListener onCloseListener, boolean orderUpdate, boolean holdingUpdate, boolean positionUpdate) {
         super(apiClient);
         this.onOpenListener = onOpenListener;
         this.onMessageListener = onMessageListener;
         this.onErrorListener = onErrorListener;
         this.onCloseListener = onCloseListener;
+        this.positionUpdate = positionUpdate;
+        this.holdingUpdate = holdingUpdate;
+        this.orderUpdate = orderUpdate;
     }
 
     @Override
@@ -91,10 +111,12 @@ public class PortfolioDataFeeder extends Feeder {
         this.webSocket.connect();
     }
 
-    private static URI getAuthorizedWebSocketUri(ApiClient authenticatedClient) throws ApiException {
+    private URI getAuthorizedWebSocketUri(ApiClient authenticatedClient) throws ApiException {
         WebsocketApi websocketApi = new WebsocketApi(authenticatedClient);
+        websocketApi.setOrderUpdate(this.orderUpdate);
+        websocketApi.setHoldingUpdate(this.holdingUpdate);
+        websocketApi.setPositionUpdate(this.positionUpdate);
         WebsocketAuthRedirectResponse response = websocketApi.getPortfolioStreamFeedAuthorize("2.0");
-
         return URI.create(response.getData()
                 .getAuthorizedRedirectUri());
     }

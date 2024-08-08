@@ -25,6 +25,7 @@ build
 .classpath
 upstox-java-sdk.iml
 
+
 #Ignore swagger generated files
 .swagger-codegen/
 .vscode/

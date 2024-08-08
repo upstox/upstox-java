@@ -30,7 +30,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.upstox.api</groupId>
   <artifactId>upstox-java-sdk</artifactId>
-  <version>1.3.0</version>
+  <version>1.6.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.upstox.api:upstox-java-sdk:1.3.0"
+compile "com.upstox.api:upstox-java-sdk:1.6.0"
 ```
 
 ## Examples
@@ -441,7 +441,55 @@ public class PortfolioFeederTest {
     }
 }
 ```
+<br/>
 
+Position and holding updates can be enabled by setting the corresponding flag to `true` in the constructor of the `PortfolioDataStreamer` class.
+
+```java
+import com.upstox.feeder.HoldingUpdate;
+import com.upstox.feeder.PositionUpdate;
+
+public class PortfolioFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken( < ACCESS_TOKEN >);
+
+        final PortfolioDataStreamer portfolioDataStreamer = new PortfolioDataStreamer(defaultClient, true, true, true);
+
+        portfolioDataStreamer.setOnOrderUpdateListener(new OnOrderUpdateListener() {
+
+            @Override
+            public void onUpdate(OrderUpdate orderUpdate) {
+                System.out.println(orderUpdate);
+
+            }
+        });
+
+        portfolioDataStreamer.setOnHoldingUpdateListener(new OnHoldingUpdateListener() {
+
+            @Override
+            public void onUpdate(HoldingUpdate holdingUpdate) {
+                System.out.println(holdingUpdate);
+
+            }
+        });
+
+        portfolioDataStreamer.setOnPositionUpdateListener(new OnPositionUpdateListener() {
+
+            @Override
+            public void onUpdate(PositionUpdate positionUpdate) {
+                System.out.println(positionUpdate);
+
+            }
+        });
+
+        portfolioDataStreamer.connect();
+    }
+}
+```
+<br/>
 This example demonstrates initializing the PortfolioDataStreamer, connecting it to the WebSocket, and setting up an event listener to receive and print order updates. Replace <ACCESS_TOKEN> with your valid access token to authenticate the session.
 
 ### Exploring the PortfolioDataStreamer Functionality
