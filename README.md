@@ -30,7 +30,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.upstox.api</groupId>
   <artifactId>upstox-java-sdk</artifactId>
-  <version>1.6.0</version>
+  <version>1.7.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.upstox.api:upstox-java-sdk:1.6.0"
+compile "com.upstox.api:upstox-java-sdk:1.7.0"
 ```
 
 ## Examples
@@ -57,6 +57,7 @@ All URIs are relative to *https://api.upstox.com/v2*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ChargeApi* | [**getBrokerage**](docs/ChargeApi.md#getBrokerage) | **GET** /v2/charges/brokerage | Brokerage details
+*ChargeApi* | [**postMargin**](docs/ChargeApi.md#postMargin) | **POST** /v2/charges/margin | Calculate Margin
 *HistoryApi* | [**getHistoricalCandleData**](docs/HistoryApi.md#getHistoricalCandleData) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date} | Historical candle data
 *HistoryApi* | [**getHistoricalCandleData1**](docs/HistoryApi.md#getHistoricalCandleData1) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
 *HistoryApi* | [**getIntraDayCandleData**](docs/HistoryApi.md#getIntraDayCandleData) | **GET** /v2/historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
@@ -83,6 +84,7 @@ Class | Method | HTTP request | Description
 *PortfolioApi* | [**convertPositions**](docs/PortfolioApi.md#convertPositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
 *PortfolioApi* | [**getHoldings**](docs/PortfolioApi.md#getHoldings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
 *PortfolioApi* | [**getPositions**](docs/PortfolioApi.md#getPositions) | **GET** /v2/portfolio/short-term-positions | Get Positions
+*PostTradeApi* | [**getTradeHistory1**](docs/PostTradeApi.md#getTradeHistory1) | **GET** /v2/charges/historical-trades | 
 *TradeProfitAndLossApi* | [**getProfitAndLossCharges**](docs/TradeProfitAndLossApi.md#getProfitAndLossCharges) | **GET** /v2/trade/profit-loss/charges | Get profit and loss on trades
 *TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossData**](docs/TradeProfitAndLossApi.md#getTradeWiseProfitAndLossData) | **GET** /v2/trade/profit-loss/data | Get Trade-wise Profit and Loss Report Data
 *TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossMetaData**](docs/TradeProfitAndLossApi.md#getTradeWiseProfitAndLossMetaData) | **GET** /v2/trade/profit-loss/metadata | Get profit and loss meta data on trades
@@ -551,9 +553,13 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [HistoricalCandleData](docs/HistoricalCandleData.md)
  - [HoldingsData](docs/HoldingsData.md)
  - [HolidayData](docs/HolidayData.md)
+ - [Instrument](docs/Instrument.md)
  - [InstrumentData](docs/InstrumentData.md)
  - [IntraDayCandleData](docs/IntraDayCandleData.md)
  - [LogoutResponse](docs/LogoutResponse.md)
+ - [Margin](docs/Margin.md)
+ - [MarginData](docs/MarginData.md)
+ - [MarginRequest](docs/MarginRequest.md)
  - [MarketData](docs/MarketData.md)
  - [MarketQuoteOHLC](docs/MarketQuoteOHLC.md)
  - [MarketQuoteSymbol](docs/MarketQuoteSymbol.md)
@@ -575,6 +581,7 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [PlaceOrderRequest](docs/PlaceOrderRequest.md)
  - [PlaceOrderResponse](docs/PlaceOrderResponse.md)
  - [PositionData](docs/PositionData.md)
+ - [PostMarginResponse](docs/PostMarginResponse.md)
  - [Problem](docs/Problem.md)
  - [ProfileData](docs/ProfileData.md)
  - [ProfitAndLossChargesData](docs/ProfitAndLossChargesData.md)

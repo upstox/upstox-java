@@ -8,7 +8,7 @@ import com.upstox.auth.OAuth;
 import io.swagger.client.api.*;
 
 public class SanityTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ApiException {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
@@ -53,6 +53,8 @@ public class SanityTest {
         optionChain();
         marketInformation();
         logout();
+        testPostTrade();
+        testCalculateMargin();
     }
     public static void placeOrder(){
         OrderApi apiInstance = new OrderApi();
@@ -339,5 +341,34 @@ public class SanityTest {
             System.err.println("Exception when calling LoginApi#logout");
             e.printStackTrace();
         }
+    }
+    private static void testCalculateMargin() throws ApiException {
+        ChargeApi api = new ChargeApi();
+        MarginRequest marginRequest = new MarginRequest();
+        Instrument instrument1 = new Instrument();
+        instrument1.setInstrumentKey("NSE_EQ|INE669E01016");
+        instrument1.setQuantity(1);
+        instrument1.setProduct("D");
+        instrument1.setTransactionType("BUY");
+        marginRequest.addInstrumentsItem(instrument1);
+
+
+        Instrument instrument2 = new Instrument();
+        instrument2.setInstrumentKey("NSE_EQ|INE528G01035");
+        instrument2.setQuantity(1);
+        instrument2.setProduct("D");
+        instrument2.setTransactionType("BUY");
+        marginRequest.addInstrumentsItem(instrument2);
+        PostMarginResponse response = api.postMargin(marginRequest);
+
+    }
+
+    private static void testPostTrade() throws ApiException {
+        PostTradeApi api = new PostTradeApi();
+        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,null);
+        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,"EQ");
+        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,"MF");
+        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,"FO");
+        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,"COM");
     }
 }

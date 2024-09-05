@@ -14,6 +14,8 @@ package io.swagger.client.api;
 
 import com.upstox.api.ApiGatewayErrorResponse;
 import com.upstox.api.GetBrokerageResponse;
+import com.upstox.api.MarginRequest;
+import com.upstox.api.PostMarginResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -49,6 +51,21 @@ public class ChargeApiTest {
         Float price = null;
         String apiVersion = null;
         GetBrokerageResponse response = api.getBrokerage(instrumentToken, quantity, product, transactionType, price, apiVersion);
+
+        // TODO: test validations
+    }
+    /**
+     * Calculate Margin
+     *
+     * Compute Margin
+     *
+     * @throws Exception
+     *          if the Api call fails
+     */
+    @Test
+    public void postMarginTest() throws Exception {
+        MarginRequest body = null;
+        PostMarginResponse response = api.postMargin(body);
 
         // TODO: test validations
     }
