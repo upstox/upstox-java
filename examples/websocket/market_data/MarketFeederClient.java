@@ -1,10 +1,12 @@
-package com.upstox.websocket.market;
+package com.upstox.marketdatafeeder.rpc.proto;
 
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+
+import io.swagger.client.api.WebsocketApi;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -19,7 +21,6 @@ import com.upstox.Configuration;
 import com.upstox.api.WebsocketAuthRedirectResponse;
 import com.upstox.auth.OAuth;
 
-import io.swagger.client.api.MarketFeeder.FeedResponse;
 
 public class MarketFeederClient {
 
@@ -113,11 +114,11 @@ public class MarketFeederClient {
         return mainObject;
     }
 
-    private static void handleBinaryMessage(ByteBuffer bytes) {
+    private static <FeedResponse> void handleBinaryMessage(ByteBuffer bytes) {
         System.out.println("Received: " + bytes);
 
         try {
-            FeedResponse feedResponse = FeedResponse.parseFrom(bytes.array());
+            MarketDataFeed.FeedResponse feedResponse = MarketDataFeed.FeedResponse.parseFrom(bytes.array());
 
             // Convert the protobuf object to a JSON string
             String jsonFormat = JsonFormat.printer()
