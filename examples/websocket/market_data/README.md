@@ -78,7 +78,7 @@ dependencies {
 
 Generate the Protobuf classes in Java from `.proto` file.
 
-Before you can generate the Protobuf classes, you need to download the [proto file](https://assets.upstox.com/feed/market-data-feed/v1/MarketDataFeed.proto) and install the Protocol Buffers compiler (protoc).
+Before you can generate the Protobuf classes, you need to download the [proto file](https://assets.upstox.com/feed/market-data-feed/v1.1/MarketDataFeed.proto) and install the Protocol Buffers compiler (protoc).
 
 To download the Protocol Buffers compiler, go to the [Google Protocol Buffers GitHub repository](https://github.com/protocolbuffers/protobuf/releases) and download the appropriate `protoc-<version>-<os>.zip` file for your operating system. Extract the ZIP file and add the `bin` directory to your system PATH.
 
