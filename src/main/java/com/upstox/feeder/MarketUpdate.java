@@ -7,6 +7,7 @@ public class MarketUpdate {
 
     private Type type;
     private Map<String, Feed> feeds;
+    private long currentTs;
 
     public Type getType() {
         return type;
@@ -24,9 +25,17 @@ public class MarketUpdate {
         this.feeds = feeds;
     }
 
+    public long getCurrentTs() {
+        return currentTs;
+    }
+
+    public void setCurrentTs(long currentTs) {
+        this.currentTs = currentTs;
+    }
+
     @Override
     public String toString() {
-        return "FeedResponse [type=" + type + ", feeds=" + feeds + "]";
+        return "FeedResponse [type=" + type + ", feeds=" + feeds +", currentTs=" + currentTs +  "]";
     }
 
     public static class LTPC {
@@ -81,6 +90,8 @@ public class MarketUpdate {
         private int aq; // ask quantity
         private double ap; // ask price
         private int ano; // ask number of orders
+        private long bidQ;  // bid quantity long
+        private long askQ;  // ask quantity long
 
         public int getBq() {
             return bq;
@@ -130,10 +141,25 @@ public class MarketUpdate {
             this.ano = ano;
         }
 
+        public long getAskQ() {
+            return askQ;
+        }
+
+        public void setAskQ(long askQ) {
+            this.askQ = askQ;
+        }
+
+        public long getBidQ() {
+            return bidQ;
+        }
+
+        public void setBidQ(long bidQ) {
+            this.bidQ = bidQ;
+        }
         @Override
         public String toString() {
             return "Quote [bq=" + bq + ", bp=" + bp + ", bno=" + bno + ", aq=" + aq + ", ap=" + ap + ", ano=" + ano
-                    + "]";
+                    + ", askQ=" + askQ + ", bidQ=" + bidQ + "]";
         }
 
     }
@@ -228,6 +254,7 @@ public class MarketUpdate {
         private double close;
         private int volume;
         private long ts;
+        private long vol;
 
         public String getInterval() {
             return interval;
@@ -285,10 +312,17 @@ public class MarketUpdate {
             this.ts = ts;
         }
 
+        public long getVol() {
+            return vol;
+        }
+
+        public void setVol(long vol) {
+            this.vol = vol;
+        }
         @Override
         public String toString() {
             return "OHLC [interval=" + interval + ", open=" + open + ", high=" + high + ", low=" + low + ", close="
-                    + close + ", volume=" + volume + ", ts=" + ts + "]";
+                    + close + ", volume=" + volume + ", ts=" + ts + ", vol=" + vol + "]";
         }
 
     }
