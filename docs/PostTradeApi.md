@@ -4,13 +4,15 @@ All URIs are relative to *https://api-v2.upstox.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getTradeHistory1**](PostTradeApi.md#getTradeHistory1) | **GET** /v2/charges/historical-trades | 
+[**getTradesByDateRange**](PostTradeApi.md#getTradesByDateRange) | **GET** /v2/charges/historical-trades | Get historical trades
 
-<a name="getTradeHistory1"></a>
-# **getTradeHistory1**
-> TradeHistoryResponse getTradeHistory1(startDate, endDate, pageNumber, pageSize, segment)
+<a name="getTradesByDateRange"></a>
+# **getTradesByDateRange**
+> TradeHistoryResponse getTradesByDateRange(startDate, endDate, pageNumber, pageSize, segment)
 
+Get historical trades
 
+This API retrieves the trade history for a specified time interval.
 
 ### Example
 ```java
@@ -34,10 +36,10 @@ Integer pageNumber = 56; // Integer | Page number for which you want to fetch tr
 Integer pageSize = 56; // Integer | How many records you want for a page 
 String segment = ""; // String | Segment for which data is requested can be from the following options EQ - Equity,   FO - Futures and Options,   COM  - Commodity,   CD - Currency Derivatives MF - Mutual Funds
 try {
-    TradeHistoryResponse result = apiInstance.getTradeHistory1(startDate, endDate, pageNumber, pageSize, segment);
+    TradeHistoryResponse result = apiInstance.getTradesByDateRange(startDate, endDate, pageNumber, pageSize, segment);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PostTradeApi#getTradeHistory1");
+    System.err.println("Exception when calling PostTradeApi#getTradesByDateRange");
     e.printStackTrace();
 }
 ```

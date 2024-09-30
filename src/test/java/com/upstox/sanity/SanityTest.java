@@ -44,17 +44,18 @@ public class SanityTest {
         cancelOrder();
         getOrderBook();
         getOrderDetails();
-        getTradeHistory(); //TODO
-        getTradesByOrder(); //TODO
+        getTradeHistory();
+        getTradesByOrder();
         convertPosition();
         getTradeWiseProfitLossMetaData();
         historicalApis();
         marketQuote();
         optionChain();
         marketInformation();
-        logout();
         testPostTrade();
         testCalculateMargin();
+        testOrderStatus();
+        logout();
     }
     public static void placeOrder(){
         OrderApi apiInstance = new OrderApi();
@@ -365,10 +366,22 @@ public class SanityTest {
 
     private static void testPostTrade() throws ApiException {
         PostTradeApi api = new PostTradeApi();
-        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,null);
-        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,"EQ");
-        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,"MF");
-        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,"FO");
-        api.getTradeHistory1("2023-04-01","2024-08-01",1,1000,"COM");
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,null);
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"EQ");
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"MF");
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"FO");
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"COM");
+    }
+
+    private static void testOrderStatus() throws ApiException {
+        OrderApi api = new OrderApi();
+        try {
+            GetOrderDetailsResponse result = api.getOrderStatus("240930010605591");
+            System.out.println(result);
+        }
+
+        catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("Error in order status");
+        }
     }
 }

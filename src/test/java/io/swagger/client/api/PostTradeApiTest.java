@@ -41,13 +41,13 @@ public class PostTradeApiTest {
      *          if the Api call fails
      */
     @Test
-    public void getTradeHistory1Test() throws Exception {
+    public void getTradesByDateRange() throws Exception {
         String startDate = null;
         String endDate = null;
         Integer pageNumber = null;
         Integer pageSize = null;
         String segment = null;
-        TradeHistoryResponse response = api.getTradeHistory1(startDate, endDate, pageNumber, pageSize, segment);
+        TradeHistoryResponse response = api.getTradesByDateRange(startDate, endDate, pageNumber, pageSize, segment);
 
         // TODO: test validations
     }
