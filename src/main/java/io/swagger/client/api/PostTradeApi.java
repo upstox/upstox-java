@@ -55,7 +55,7 @@ public class PostTradeApi {
     }
 
     /**
-     * Build call for getTradeHistory1
+     * Build call for getTradesByDateRange
      * @param startDate Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param endDate Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param pageNumber Page number for which you want to fetch trade history  (required)
@@ -66,7 +66,7 @@ public class PostTradeApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getTradeHistory1Call(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getTradesByDateRangeCall(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
@@ -118,25 +118,25 @@ public class PostTradeApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getTradeHistory1ValidateBeforeCall(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getTradesByDateRangeValidateBeforeCall(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'startDate' is set
         if (startDate == null) {
-            throw new ApiException("Missing the required parameter 'startDate' when calling getTradeHistory1(Async)");
+            throw new ApiException("Missing the required parameter 'startDate' when calling getTradesByDateRange(Async)");
         }
         // verify the required parameter 'endDate' is set
         if (endDate == null) {
-            throw new ApiException("Missing the required parameter 'endDate' when calling getTradeHistory1(Async)");
+            throw new ApiException("Missing the required parameter 'endDate' when calling getTradesByDateRange(Async)");
         }
         // verify the required parameter 'pageNumber' is set
         if (pageNumber == null) {
-            throw new ApiException("Missing the required parameter 'pageNumber' when calling getTradeHistory1(Async)");
+            throw new ApiException("Missing the required parameter 'pageNumber' when calling getTradesByDateRange(Async)");
         }
         // verify the required parameter 'pageSize' is set
         if (pageSize == null) {
-            throw new ApiException("Missing the required parameter 'pageSize' when calling getTradeHistory1(Async)");
+            throw new ApiException("Missing the required parameter 'pageSize' when calling getTradesByDateRange(Async)");
         }
         
-        com.squareup.okhttp.Call call = getTradeHistory1Call(startDate, endDate, pageNumber, pageSize, segment, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getTradesByDateRangeCall(startDate, endDate, pageNumber, pageSize, segment, progressListener, progressRequestListener);
         return call;
 
         
@@ -146,8 +146,8 @@ public class PostTradeApi {
     }
 
     /**
-     * 
-     * 
+     * Get historical trades
+     * This API retrieves the trade history for a specified time interval.
      * @param startDate Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param endDate Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param pageNumber Page number for which you want to fetch trade history  (required)
@@ -156,14 +156,14 @@ public class PostTradeApi {
      * @return TradeHistoryResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public TradeHistoryResponse getTradeHistory1(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment) throws ApiException {
-        ApiResponse<TradeHistoryResponse> resp = getTradeHistory1WithHttpInfo(startDate, endDate, pageNumber, pageSize, segment);
+    public TradeHistoryResponse getTradesByDateRange(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment) throws ApiException {
+        ApiResponse<TradeHistoryResponse> resp = getTradesByDateRangeWithHttpInfo(startDate, endDate, pageNumber, pageSize, segment);
         return resp.getData();
     }
 
     /**
-     * 
-     * 
+     * Get historical trades
+     * This API retrieves the trade history for a specified time interval.
      * @param startDate Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param endDate Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param pageNumber Page number for which you want to fetch trade history  (required)
@@ -172,15 +172,15 @@ public class PostTradeApi {
      * @return ApiResponse&lt;TradeHistoryResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<TradeHistoryResponse> getTradeHistory1WithHttpInfo(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment) throws ApiException {
-        com.squareup.okhttp.Call call = getTradeHistory1ValidateBeforeCall(startDate, endDate, pageNumber, pageSize, segment, null, null);
+    public ApiResponse<TradeHistoryResponse> getTradesByDateRangeWithHttpInfo(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment) throws ApiException {
+        com.squareup.okhttp.Call call = getTradesByDateRangeValidateBeforeCall(startDate, endDate, pageNumber, pageSize, segment, null, null);
         Type localVarReturnType = new TypeToken<TradeHistoryResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     *  (asynchronously)
-     * 
+     * Get historical trades (asynchronously)
+     * This API retrieves the trade history for a specified time interval.
      * @param startDate Date from which trade history needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param endDate Date till which history needs needs to be fetched. Date in YYYY-mm-dd format (required)
      * @param pageNumber Page number for which you want to fetch trade history  (required)
@@ -190,7 +190,7 @@ public class PostTradeApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getTradeHistory1Async(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment, final ApiCallback<TradeHistoryResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call getTradesByDateRangeAsync(String startDate, String endDate, Integer pageNumber, Integer pageSize, String segment, final ApiCallback<TradeHistoryResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -211,7 +211,7 @@ public class PostTradeApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getTradeHistory1ValidateBeforeCall(startDate, endDate, pageNumber, pageSize, segment, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getTradesByDateRangeValidateBeforeCall(startDate, endDate, pageNumber, pageSize, segment, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<TradeHistoryResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

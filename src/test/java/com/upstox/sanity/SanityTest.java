@@ -8,7 +8,7 @@ import com.upstox.auth.OAuth;
 import io.swagger.client.api.*;
 
 public class SanityTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ApiException {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
@@ -44,14 +44,17 @@ public class SanityTest {
         cancelOrder();
         getOrderBook();
         getOrderDetails();
-        getTradeHistory(); //TODO
-        getTradesByOrder(); //TODO
+        getTradeHistory();
+        getTradesByOrder();
         convertPosition();
         getTradeWiseProfitLossMetaData();
         historicalApis();
         marketQuote();
         optionChain();
         marketInformation();
+        testPostTrade();
+        testCalculateMargin();
+        testOrderStatus();
         logout();
     }
     public static void placeOrder(){
@@ -338,6 +341,47 @@ public class SanityTest {
         } catch (ApiException e) {
             System.err.println("Exception when calling LoginApi#logout");
             e.printStackTrace();
+        }
+    }
+    private static void testCalculateMargin() throws ApiException {
+        ChargeApi api = new ChargeApi();
+        MarginRequest marginRequest = new MarginRequest();
+        Instrument instrument1 = new Instrument();
+        instrument1.setInstrumentKey("NSE_EQ|INE669E01016");
+        instrument1.setQuantity(1);
+        instrument1.setProduct("D");
+        instrument1.setTransactionType("BUY");
+        marginRequest.addInstrumentsItem(instrument1);
+
+
+        Instrument instrument2 = new Instrument();
+        instrument2.setInstrumentKey("NSE_EQ|INE528G01035");
+        instrument2.setQuantity(1);
+        instrument2.setProduct("D");
+        instrument2.setTransactionType("BUY");
+        marginRequest.addInstrumentsItem(instrument2);
+        PostMarginResponse response = api.postMargin(marginRequest);
+
+    }
+
+    private static void testPostTrade() throws ApiException {
+        PostTradeApi api = new PostTradeApi();
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,null);
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"EQ");
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"MF");
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"FO");
+        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"COM");
+    }
+
+    private static void testOrderStatus() throws ApiException {
+        OrderApi api = new OrderApi();
+        try {
+            GetOrderDetailsResponse result = api.getOrderStatus("240930010605591");
+            System.out.println(result);
+        }
+
+        catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("Error in order status");
         }
     }
 }
