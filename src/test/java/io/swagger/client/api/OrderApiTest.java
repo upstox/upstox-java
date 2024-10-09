@@ -13,12 +13,15 @@
 package io.swagger.client.api;
 
 import com.upstox.api.ApiGatewayErrorResponse;
+import com.upstox.api.CancelOrExitMultiOrderResponse;
 import com.upstox.api.CancelOrderResponse;
 import com.upstox.api.GetOrderBookResponse;
 import com.upstox.api.GetOrderResponse;
 import com.upstox.api.GetTradeResponse;
 import com.upstox.api.ModifyOrderRequest;
 import com.upstox.api.ModifyOrderResponse;
+import com.upstox.api.MultiOrderRequest;
+import com.upstox.api.MultiOrderResponse;
 import com.upstox.api.PlaceOrderRequest;
 import com.upstox.api.PlaceOrderResponse;
 import org.junit.Test;
@@ -40,6 +43,22 @@ public class OrderApiTest {
     private final OrderApi api = new OrderApi();
 
     /**
+     * Cancel multi order
+     *
+     * API to cancel all the open or pending orders which can be applied to both AMO and regular orders.
+     *
+     * @throws Exception
+     *          if the Api call fails
+     */
+    @Test
+    public void cancelMultiOrderTest() throws Exception {
+        String tag = null;
+        String segment = null;
+        CancelOrExitMultiOrderResponse response = api.cancelMultiOrder(tag, segment);
+
+        // TODO: test validations
+    }
+    /**
      * Cancel order
      *
      * Cancel order API can be used for two purposes: Cancelling an open order which could be an AMO or a normal order It is also used to EXIT a CO or OCO(bracket order)
@@ -52,6 +71,22 @@ public class OrderApiTest {
         String orderId = null;
         String apiVersion = null;
         CancelOrderResponse response = api.cancelOrder(orderId, apiVersion);
+
+        // TODO: test validations
+    }
+    /**
+     * Exit all positions
+     *
+     * This API provides the functionality to exit all the positions
+     *
+     * @throws Exception
+     *          if the Api call fails
+     */
+    @Test
+    public void exitPositionsTest() throws Exception {
+        String tag = null;
+        String segment = null;
+        CancelOrExitMultiOrderResponse response = api.exitPositions(tag, segment);
 
         // TODO: test validations
     }
@@ -131,6 +166,21 @@ public class OrderApiTest {
         ModifyOrderRequest body = null;
         String apiVersion = null;
         ModifyOrderResponse response = api.modifyOrder(body, apiVersion);
+
+        // TODO: test validations
+    }
+    /**
+     * Place multi order
+     *
+     * This API allows you to place multiple orders to the exchange via Upstox.
+     *
+     * @throws Exception
+     *          if the Api call fails
+     */
+    @Test
+    public void placeMultiOrderTest() throws Exception {
+        List<MultiOrderRequest> body = null;
+        MultiOrderResponse response = api.placeMultiOrder(body);
 
         // TODO: test validations
     }

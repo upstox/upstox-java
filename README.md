@@ -30,7 +30,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.upstox.api</groupId>
   <artifactId>upstox-java-sdk</artifactId>
-  <version>1.8.0</version>
+  <version>1.9.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.upstox.api:upstox-java-sdk:1.8.0"
+compile "com.upstox.api:upstox-java-sdk:1.9.0"
 ```
 
 ## Examples
@@ -74,13 +74,16 @@ Class | Method | HTTP request | Description
 *MarketQuoteApi* | [**ltp**](docs/MarketQuoteApi.md#ltp) | **GET** /v2/market-quote/ltp | Market quotes and instruments - LTP quotes.
 *OptionsApi* | [**getOptionContracts**](docs/OptionsApi.md#getOptionContracts) | **GET** /v2/option/contract | Get option contracts
 *OptionsApi* | [**getPutCallOptionChain**](docs/OptionsApi.md#getPutCallOptionChain) | **GET** /v2/option/chain | Get option chain
+*OrderApi* | [**cancelMultiOrder**](docs/OrderApi.md#cancelMultiOrder) | **DELETE** /v2/order/multi/cancel | Cancel multi order
 *OrderApi* | [**cancelOrder**](docs/OrderApi.md#cancelOrder) | **DELETE** /v2/order/cancel | Cancel order
+*OrderApi* | [**exitPositions**](docs/OrderApi.md#exitPositions) | **POST** /v2/order/positions/exit | Exit all positions
 *OrderApi* | [**getOrderBook**](docs/OrderApi.md#getOrderBook) | **GET** /v2/order/retrieve-all | Get order book
 *OrderApi* | [**getOrderDetails**](docs/OrderApi.md#getOrderDetails) | **GET** /v2/order/history | Get order history
 *OrderApi* | [**getOrderStatus**](docs/OrderApi.md#getOrderStatus) | **GET** /v2/order/details | Get order details
 *OrderApi* | [**getTradeHistory**](docs/OrderApi.md#getTradeHistory) | **GET** /v2/order/trades/get-trades-for-day | Get trades
 *OrderApi* | [**getTradesByOrder**](docs/OrderApi.md#getTradesByOrder) | **GET** /v2/order/trades | Get trades for order
 *OrderApi* | [**modifyOrder**](docs/OrderApi.md#modifyOrder) | **PUT** /v2/order/modify | Modify order
+*OrderApi* | [**placeMultiOrder**](docs/OrderApi.md#placeMultiOrder) | **POST** /v2/order/multi/place | Place multi order
 *OrderApi* | [**placeOrder**](docs/OrderApi.md#placeOrder) | **POST** /v2/order/place | Place order
 *PortfolioApi* | [**convertPositions**](docs/PortfolioApi.md#convertPositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
 *PortfolioApi* | [**getHoldings**](docs/PortfolioApi.md#getHoldings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
@@ -518,9 +521,13 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
 
  - [AnalyticsData](docs/AnalyticsData.md)
  - [ApiGatewayErrorResponse](docs/ApiGatewayErrorResponse.md)
+ - [BatchExecutionSummary](docs/BatchExecutionSummary.md)
  - [BrokerageData](docs/BrokerageData.md)
  - [BrokerageTaxes](docs/BrokerageTaxes.md)
  - [BrokerageWrapperData](docs/BrokerageWrapperData.md)
+ - [CancelOrExitMultiOrderData](docs/CancelOrExitMultiOrderData.md)
+ - [CancelOrExitMultiOrderResponse](docs/CancelOrExitMultiOrderResponse.md)
+ - [CancelOrExitOrderErrorData](docs/CancelOrExitOrderErrorData.md)
  - [CancelOrderData](docs/CancelOrderData.md)
  - [CancelOrderResponse](docs/CancelOrderResponse.md)
  - [ConvertPositionData](docs/ConvertPositionData.md)
@@ -570,6 +577,11 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [ModifyOrderData](docs/ModifyOrderData.md)
  - [ModifyOrderRequest](docs/ModifyOrderRequest.md)
  - [ModifyOrderResponse](docs/ModifyOrderResponse.md)
+ - [MultiOrderData](docs/MultiOrderData.md)
+ - [MultiOrderError](docs/MultiOrderError.md)
+ - [MultiOrderRequest](docs/MultiOrderRequest.md)
+ - [MultiOrderResponse](docs/MultiOrderResponse.md)
+ - [MultiOrderSummary](docs/MultiOrderSummary.md)
  - [OAuthClientException](docs/OAuthClientException.md)
  - [OAuthClientExceptionCause](docs/OAuthClientExceptionCause.md)
  - [OAuthClientExceptionCauseStackTrace](docs/OAuthClientExceptionCauseStackTrace.md)
