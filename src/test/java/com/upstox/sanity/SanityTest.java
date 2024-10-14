@@ -7,6 +7,8 @@ import com.upstox.api.*;
 import com.upstox.auth.OAuth;
 import io.swagger.client.api.*;
 
+import java.util.ArrayList;
+
 public class SanityTest {
     public static void main(String[] args) throws ApiException {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -55,6 +57,9 @@ public class SanityTest {
         testPostTrade();
         testCalculateMargin();
         testOrderStatus();
+        testCancelMultiOrder();
+        testExitAllOrder();
+        testPlaceMultiOrder();
         logout();
     }
     public static void placeOrder(){
@@ -382,6 +387,74 @@ public class SanityTest {
 
         catch (ApiException e) {
             if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("Error in order status");
+        }
+    }
+
+    private static void testCancelMultiOrder(){
+        OrderApi apiInstance = new OrderApi();
+
+        try {
+            CancelOrExitMultiOrderResponse result = apiInstance.cancelMultiOrder("java_sdk_testing_tag_1","NSE_EQ");
+            System.out.println(result);
+        } catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI1109")) System.out.println("Error in cancel order");
+        }
+    }
+
+    private static void testPlaceMultiOrder(){
+        OrderApi apiInstance = new OrderApi();
+        MultiOrderRequest request1 = new MultiOrderRequest();
+        request1.setQuantity(1);
+        request1.setProduct(MultiOrderRequest.ProductEnum.D);
+        request1.setValidity(MultiOrderRequest.ValidityEnum.DAY);
+        request1.setPrice(0F);
+        request1.setTag("java_sdk_tester1");
+        request1.setInstrumentToken("NSE_EQ|INE669E01016");
+        request1.orderType(MultiOrderRequest.OrderTypeEnum.MARKET);
+        request1.setTransactionType(MultiOrderRequest.TransactionTypeEnum.BUY);
+        request1.setDisclosedQuantity(0);
+        request1.setTriggerPrice(0F);
+        request1.setIsAmo(true);
+        request1.setCorrelationId("cid1");
+        request1.setSlice(true);
+
+
+        MultiOrderRequest request2 = new MultiOrderRequest();
+        request2.setQuantity(1);
+        request2.setProduct(MultiOrderRequest.ProductEnum.D);
+        request2.setValidity(MultiOrderRequest.ValidityEnum.DAY);
+        request2.setPrice(8.7F);
+        request2.setTag("java_sdk_tester2");
+        request2.setInstrumentToken("NSE_EQ|INE669E01016");
+        request2.orderType(MultiOrderRequest.OrderTypeEnum.LIMIT);
+        request2.setTransactionType(MultiOrderRequest.TransactionTypeEnum.BUY);
+        request2.setDisclosedQuantity(0);
+        request2.setTriggerPrice(0F);
+        request2.setIsAmo(true);
+        request2.setCorrelationId("cid2");
+        request2.setSlice(true);
+
+        String apiVersion = "2.0"; // String | API Version Header
+        try {
+            ArrayList<MultiOrderRequest> list = new ArrayList<>();
+            list.add(request1);
+            list.add(request2);
+            MultiOrderResponse result = apiInstance.placeMultiOrder(list);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrderApi#placeOrder ");
+            e.printStackTrace();
+            System.out.println(e.getResponseBody());
+        }
+    }
+    private static void testExitAllOrder(){
+        OrderApi apiInstance = new OrderApi();
+
+        try {
+            CancelOrExitMultiOrderResponse result = apiInstance.exitPositions("java_sdk_testing_tag_1",null);
+            System.out.println(result);
+        } catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI1111") && !e.getResponseBody().contains("UDAPI1113")) System.out.println("Error in exit all order");
         }
     }
 }
