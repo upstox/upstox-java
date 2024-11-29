@@ -213,9 +213,10 @@ public class WebsocketApi {
      */
     public com.squareup.okhttp.Call getMarketDataFeedAuthorizeCall(String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-        
-        // create path and map variables
-        String localVarPath = "/v2/feed/market-data-feed/authorize";
+
+        String localVarPath = apiVersion.equals("2.0")
+                ? "/v2/feed/market-data-feed/authorize"
+                : "/v3/feed/market-data-feed/authorize";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();

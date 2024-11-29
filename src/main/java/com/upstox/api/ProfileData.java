@@ -51,7 +51,9 @@ public class ProfileData {
     @SerializedName("BFO")
     BFO("BFO"),
     @SerializedName("MCX")
-    MCX("MCX");
+    MCX("MCX"),
+    @SerializedName("NSCOM")
+    NSCOM("NSCOM");
 
     private String value;
 

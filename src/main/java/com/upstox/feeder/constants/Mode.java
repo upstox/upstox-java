@@ -1,5 +1,5 @@
 package com.upstox.feeder.constants;
 
 public enum Mode {
-    LTPC, FULL
+    LTPC, FULL, OPTION_GREEKS, FULL_D30
 }
