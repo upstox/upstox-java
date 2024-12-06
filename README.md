@@ -114,6 +114,325 @@ Both functions are designed to simplify the process of subscribing to essential 
 
 ### MarketDataStreamer
 
+<details>
+<summary style="cursor: pointer; font-size: 1.2em;">V3</summary>
+<p>
+
+The `MarketDataStreamerV3` interface is designed for effortless connection to the market WebSocket, enabling users to receive instantaneous updates on various instruments. The following example demonstrates how to quickly set up and start receiving market updates for selected instrument keys:
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        Set<String> instrumentKeys = new HashSet<>();
+        instrumentKeys.add("NSE_INDEX|Nifty 50");
+        instrumentKeys.add("NSE_INDEX|Nifty Bank");
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACESS_TOKEN>);
+
+        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient, instrumentKeys, Mode.FULL_D30);
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateV3Listener() {
+
+            @Override
+            public void onUpdate(MarketUpdateV3 marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+In this example, you first authenticate using an access token, then instantiate MarketDataStreamerV3 with specific instrument keys and a subscription mode. Upon connecting, the streamer listens for market updates, which are logged to the console as they arrive.
+
+Feel free to adjust the access token placeholder and any other specifics to better fit your actual implementation or usage scenario.
+
+### Exploring the MarketDataStreamerV3 Functionality
+
+#### Modes
+- **Mode.LTPC**: ltpc provides information solely about the most recent trade, encompassing details such as the last trade price, time of the last trade, quantity traded, and the closing price from the previous day.
+- **Mode.FULL**: The full option offers comprehensive information, including the latest trade prices, D5 depth, 1-minute, 30-minute, and daily candlestick data, along with some additional details.
+- **Mode.FULL_D30**: full_d30 includes Full mode data plus 30 market level quotes.
+- **Mode.OPTION_GREEKS**: Contains only option greeks.
+
+#### Functions
+1. **constructor MarketDataStreamerV3(apiClient)**: Initializes the streamer.
+1. **constructor MarketDataStreamerV3(apiClient, instrumentKeys, mode)**: Initializes the streamer with instrument keys and mode (`Mode.FULL`, `Mode.LTPC`, `Mode.FULL_D30` or `Mode.OPTION_GREEKS`).
+2. **connect()**: Establishes the WebSocket connection.
+3. **subscribe(instrumentKeys, mode)**: Subscribes to updates for given instrument keys in the specified mode. Both parameters are mandatory.
+4. **unsubscribe(instrumentKeys)**: Stops updates for the specified instrument keys.
+5. **changeMode(instrumentKeys, mode)**: Switches the mode for already subscribed instrument keys.
+6. **disconnect()**: Ends the active WebSocket connection.
+7. **autoReconnect(enable)**: Enable/Disable the auto reconnect capability.
+7. **autoReconnect(enable, interval, retryCount)**: Customizes auto-reconnect functionality. Parameters include a flag to enable/disable it, the interval(in seconds) between attempts, and the maximum number of retries.
+
+#### Events Listeners
+- **onOpenListener**: Called on successful connection establishment.
+- **onCloseListener**: Called when WebSocket connection has been closed.
+- **OnMarketUpdateV3Listener**: Delivers market updates.
+- **onErrorListener**: Signals an error has occurred.
+- **onReconnectingListener**: Announced when a reconnect attempt is initiated.
+- **onAutoReconnectStoppedListener**: Informs when auto-reconnect efforts have ceased after exhausting the retry count.
+
+The following documentation includes examples to illustrate the usage of these functions and events, providing a practical understanding of how to interact with the MarketDataStreamerV3 effectively.
+
+<br/>
+
+1. Subscribing to Market Data on Connection Open with MarketDataStreamerV3
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient);
+
+        marketDataStreamer.setOnOpenListener(new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                System.out.println("Connection Established");
+
+                Set<String> instrumentKeys = new HashSet<>();
+                instrumentKeys.add("NSE_INDEX|Nifty 50");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
+
+                marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
+
+            }
+        });
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateV3Listener() {
+
+            @Override
+            public void onUpdate(MarketUpdateV3 marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+2. Subscribing to Instruments with Delays
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient);
+
+        marketDataStreamer.setOnOpenListener(new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                System.out.println("Connection Established");
+
+                Set<String> instrumentKeys1 = new HashSet<>();
+                instrumentKeys1.add("NSE_INDEX|Nifty 50");
+
+                marketDataStreamer.subscribe(instrumentKeys1, Mode.FULL);
+
+                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+
+                scheduler.schedule(() -> {
+                    Set<String> instrumentKeys2 = new HashSet<>();
+                    instrumentKeys2.add("NSE_INDEX|Nifty Bank");
+                    marketDataStreamer.subscribe(instrumentKeys2, Mode.FULL);
+                    scheduler.shutdown();
+                }, 5, TimeUnit.SECONDS);
+
+            }
+        });
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateV3Listener() {
+
+            @Override
+            public void onUpdate(MarketUpdateV3 marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    
+    }
+}
+```
+
+<br/>
+
+3. Subscribing and Unsubscribing to Instruments
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient);
+
+        marketDataStreamer.setOnOpenListener(new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                System.out.println("Connection Established");
+
+                Set<String> instrumentKeys = new HashSet<>();
+                instrumentKeys.add("NSE_INDEX|Nifty 50");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
+
+                marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
+
+                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+
+                scheduler.schedule(() -> {
+                    marketDataStreamer.unsubscribe(instrumentKeys);
+                    scheduler.shutdown();
+                }, 5, TimeUnit.SECONDS);
+
+            }
+        });
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateV3Listener() {
+
+            @Override
+            public void onUpdate(MarketUpdateV3 marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+4. Subscribe, Change Mode and Unsubscribe
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient);
+
+        marketDataStreamer.setOnOpenListener(new OnOpenListener() {
+
+            @Override
+            public void onOpen() {
+                System.out.println("Connection Established");
+
+                Set<String> instrumentKeys = new HashSet<>();
+                instrumentKeys.add("NSE_INDEX|Nifty 50");
+                instrumentKeys.add("NSE_INDEX|Nifty Bank");
+
+                marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
+
+                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+
+                scheduler.schedule(() -> {
+                    marketDataStreamer.changeMode(instrumentKeys, Mode.LTPC);
+                    scheduler.shutdown();
+                }, 5, TimeUnit.SECONDS);
+
+                scheduler.schedule(() -> {
+                    marketDataStreamer.unsubscribe(instrumentKeys);
+                    scheduler.shutdown();
+                }, 10, TimeUnit.SECONDS);
+
+            }
+        });
+
+        marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateV3Listener() {
+
+            @Override
+            public void onUpdate(MarketUpdateV3 marketUpdate) {
+                System.out.println(marketUpdate);
+            }
+        });
+
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+5. Disable Auto-Reconnect
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient);
+
+        marketDataStreamer.setOnAutoReconnectStoppedListener(new OnAutoReconnectStoppedListener() {
+
+            @Override
+            public void onHault(String message) {
+                System.out.println(message);
+
+            }
+        });
+
+        marketDataStreamer.autoReconnect(false);
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+
+6. Modify Auto-Reconnect parameters
+
+```java
+public class MarketFeederTest {
+    public static void main(String[] args) throws ApiException {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
+        oAuth.setAccessToken(<ACCESS_TOKEN>);
+
+        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient);
+
+        marketDataStreamer.autoReconnect(true, 10, 3);
+        marketDataStreamer.connect();
+    }
+}
+```
+
+<br/>
+</p>
+</details>
+
+<details>
+<summary style="cursor: pointer; font-size: 1.2em;">V2</summary>
+<p>
+
 The `MarketDataStreamer` interface is designed for effortless connection to the market WebSocket, enabling users to receive instantaneous updates on various instruments. The following example demonstrates how to quickly set up and start receiving market updates for selected instrument keys:
 
 ```java
@@ -419,6 +738,8 @@ public class MarketFeederTest {
 ```
 
 <br/>
+</p>
+</details>
 
 ### PortfolioDataStreamer
 
