@@ -132,7 +132,7 @@ public class MarketFeederTest {
         OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
         oAuth.setAccessToken(<ACESS_TOKEN>);
 
-        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient, instrumentKeys, Mode.FULL_D30);
+        final MarketDataStreamerV3 marketDataStreamer = new MarketDataStreamerV3(defaultClient, instrumentKeys, Mode.FULL);
 
         marketDataStreamer.setOnMarketUpdateListener(new OnMarketUpdateV3Listener() {
 
@@ -156,12 +156,11 @@ Feel free to adjust the access token placeholder and any other specifics to bett
 #### Modes
 - **Mode.LTPC**: ltpc provides information solely about the most recent trade, encompassing details such as the last trade price, time of the last trade, quantity traded, and the closing price from the previous day.
 - **Mode.FULL**: The full option offers comprehensive information, including the latest trade prices, D5 depth, 1-minute, 30-minute, and daily candlestick data, along with some additional details.
-- **Mode.FULL_D30**: full_d30 includes Full mode data plus 30 market level quotes.
 - **Mode.OPTION_GREEKS**: Contains only option greeks.
 
 #### Functions
 1. **constructor MarketDataStreamerV3(apiClient)**: Initializes the streamer.
-1. **constructor MarketDataStreamerV3(apiClient, instrumentKeys, mode)**: Initializes the streamer with instrument keys and mode (`Mode.FULL`, `Mode.LTPC`, `Mode.FULL_D30` or `Mode.OPTION_GREEKS`).
+1. **constructor MarketDataStreamerV3(apiClient, instrumentKeys, mode)**: Initializes the streamer with instrument keys and mode (`Mode.FULL`, `Mode.LTPC` or `Mode.OPTION_GREEKS`).
 2. **connect()**: Establishes the WebSocket connection.
 3. **subscribe(instrumentKeys, mode)**: Subscribes to updates for given instrument keys in the specified mode. Both parameters are mandatory.
 4. **unsubscribe(instrumentKeys)**: Stops updates for the specified instrument keys.
