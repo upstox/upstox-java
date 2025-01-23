@@ -30,7 +30,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.upstox.api</groupId>
   <artifactId>upstox-java-sdk</artifactId>
-  <version>1.10.0</version>
+  <version>1.11.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.upstox.api:upstox-java-sdk:1.10.0"
+compile "com.upstox.api:upstox-java-sdk:1.11.0"
 ```
 
 ## Examples
@@ -84,7 +84,10 @@ Class | Method | HTTP request | Description
 *OrderApi* | [**getTradesByOrder**](docs/OrderApi.md#getTradesByOrder) | **GET** /v2/order/trades | Get trades for order
 *OrderApi* | [**modifyOrder**](docs/OrderApi.md#modifyOrder) | **PUT** /v2/order/modify | Modify order
 *OrderApi* | [**placeMultiOrder**](docs/OrderApi.md#placeMultiOrder) | **POST** /v2/order/multi/place | Place multi order
-*OrderApi* | [**placeOrder**](docs/OrderApi.md#placeOrder) | **POST** /v2/order/place | Place order
+*OrderApi* | [**placeOrder1**](docs/OrderApi.md#placeOrder1) | **POST** /v2/order/place | Place order
+*OrderApiV3* | [**cancelOrder**](docs/OrderControllerV3Api.md#cancelOrder) | **DELETE** /v3/order/cancel | 
+*OrderApiV3* | [**modifyOrder**](docs/OrderControllerV3Api.md#modifyOrder) | **PUT** /v3/order/modify | 
+*OrderApiV3* | [**placeOrder**](docs/OrderControllerV3Api.md#placeOrder) | **POST** /v3/order/place | 
 *PortfolioApi* | [**convertPositions**](docs/PortfolioApi.md#convertPositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
 *PortfolioApi* | [**getHoldings**](docs/PortfolioApi.md#getHoldings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
 *PortfolioApi* | [**getPositions**](docs/PortfolioApi.md#getPositions) | **GET** /v2/portfolio/short-term-positions | Get Positions
@@ -850,6 +853,7 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [CancelOrExitOrderErrorData](docs/CancelOrExitOrderErrorData.md)
  - [CancelOrderData](docs/CancelOrderData.md)
  - [CancelOrderResponse](docs/CancelOrderResponse.md)
+ - [CancelOrderV3Response](docs/CancelOrderV3Response.md)
  - [ConvertPositionData](docs/ConvertPositionData.md)
  - [ConvertPositionRequest](docs/ConvertPositionRequest.md)
  - [ConvertPositionResponse](docs/ConvertPositionResponse.md)
@@ -882,6 +886,9 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [HistoricalCandleData](docs/HistoricalCandleData.md)
  - [HoldingsData](docs/HoldingsData.md)
  - [HolidayData](docs/HolidayData.md)
+ - [IndieUserInitTokenData](docs/IndieUserInitTokenData.md)
+ - [IndieUserInitTokenResponse](docs/IndieUserInitTokenResponse.md)
+ - [IndieUserTokenRequest](docs/IndieUserTokenRequest.md)
  - [Instrument](docs/Instrument.md)
  - [InstrumentData](docs/InstrumentData.md)
  - [IntraDayCandleData](docs/IntraDayCandleData.md)
@@ -897,11 +904,13 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [ModifyOrderData](docs/ModifyOrderData.md)
  - [ModifyOrderRequest](docs/ModifyOrderRequest.md)
  - [ModifyOrderResponse](docs/ModifyOrderResponse.md)
+ - [ModifyOrderV3Response](docs/ModifyOrderV3Response.md)
  - [MultiOrderData](docs/MultiOrderData.md)
  - [MultiOrderError](docs/MultiOrderError.md)
  - [MultiOrderRequest](docs/MultiOrderRequest.md)
  - [MultiOrderResponse](docs/MultiOrderResponse.md)
  - [MultiOrderSummary](docs/MultiOrderSummary.md)
+ - [MultiOrderV3Data](docs/MultiOrderV3Data.md)
  - [OAuthClientException](docs/OAuthClientException.md)
  - [OAuthClientExceptionCause](docs/OAuthClientExceptionCause.md)
  - [OAuthClientExceptionCauseStackTrace](docs/OAuthClientExceptionCauseStackTrace.md)
@@ -910,10 +919,13 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [OptionStrikeData](docs/OptionStrikeData.md)
  - [OrderBookData](docs/OrderBookData.md)
  - [OrderData](docs/OrderData.md)
+ - [OrderMetadata](docs/OrderMetadata.md)
  - [OtherTaxes](docs/OtherTaxes.md)
  - [PlaceOrderData](docs/PlaceOrderData.md)
  - [PlaceOrderRequest](docs/PlaceOrderRequest.md)
  - [PlaceOrderResponse](docs/PlaceOrderResponse.md)
+ - [PlaceOrderV3Request](docs/PlaceOrderV3Request.md)
+ - [PlaceOrderV3Response](docs/PlaceOrderV3Response.md)
  - [PositionData](docs/PositionData.md)
  - [PostMarginResponse](docs/PostMarginResponse.md)
  - [Problem](docs/Problem.md)

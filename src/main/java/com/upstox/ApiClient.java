@@ -55,6 +55,7 @@ public class ApiClient {
 
     private String basePath = "https://api.upstox.com";
     private String orderBasePath = "https://api-hft.upstox.com";
+    private boolean sandbox = false;
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;
@@ -82,6 +83,28 @@ public class ApiClient {
         httpClient = new OkHttpClient();
 
 
+        verifyingSsl = true;
+
+        json = new JSON();
+
+        // Set default User-Agent.
+        setUserAgent("Swagger-Codegen/1.0.0/java");
+
+        // Setup authentications (key: authentication name, value: authentication).
+        authentications = new HashMap<String, Authentication>();
+        authentications.put("OAUTH2", new OAuth());
+        // Prevent the authentications from being modified.
+        authentications = Collections.unmodifiableMap(authentications);
+    }
+
+    public ApiClient(boolean sandbox) {
+        httpClient = new OkHttpClient();
+
+        this.sandbox = sandbox;
+        if(this.sandbox){
+            this.orderBasePath = "https://api-sandbox.upstox.com";
+            this.basePath = "https://api-sandbox.upstox.com";
+        }
         verifyingSsl = true;
 
         json = new JSON();
@@ -976,7 +999,7 @@ public class ApiClient {
     public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         updateParamsForAuth(authNames, queryParams, headerParams);
         headerParams.put("X-Upstox-SDK-Language","java");
-        headerParams.put("X-Upstox-SDK-Version","1.10.0");
+        headerParams.put("X-Upstox-SDK-Version","1.11.0");
         final String url = buildUrl(path, queryParams, collectionQueryParams);
         final Request.Builder reqBuilder = new Request.Builder().url(url);
         processHeaderParams(headerParams, reqBuilder);
