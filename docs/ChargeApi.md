@@ -69,3 +69,56 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, */*
 
+<a name="postMargin"></a>
+# **postMargin**
+> PostMarginResponse postMargin(body)
+
+Calculate Margin
+
+Compute Margin
+
+### Example
+```java
+// Import classes:
+//import com.upstox.ApiClient;
+//import com.upstox.ApiException;
+//import com.upstox.Configuration;
+//import com.upstox.auth.*;
+//import io.swagger.client.api.ChargeApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure OAuth2 access token for authorization: OAUTH2
+OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
+OAUTH2.setAccessToken("YOUR ACCESS TOKEN");
+
+ChargeApi apiInstance = new ChargeApi();
+MarginRequest body = new MarginRequest(); // MarginRequest | 
+try {
+    PostMarginResponse result = apiInstance.postMargin(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ChargeApi#postMargin");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**MarginRequest**](MarginRequest.md)|  |
+
+### Return type
+
+[**PostMarginResponse**](PostMarginResponse.md)
+
+### Authorization
+
+[OAUTH2](../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: */*, application/json
+

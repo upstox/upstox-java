@@ -93,7 +93,9 @@ public class WebsocketApi {
         Object localVarPostBody = null;
         
         // create path and map variables
-        String localVarPath = "/v2/feed/market-data-feed";
+        String localVarPath = apiVersion.equals("2.0")
+                ? "/v2/feed/market-data-feed"
+                : "/v3/feed/market-data-feed";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -155,7 +157,11 @@ public class WebsocketApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public void getMarketDataFeed(String apiVersion) throws ApiException {
-        getMarketDataFeedWithHttpInfo(apiVersion);
+        getMarketDataFeedWithHttpInfo("2.0");
+    }
+
+    public void getMarketDataFeedV3() throws ApiException {
+        getMarketDataFeedWithHttpInfo("3.0");
     }
 
     /**
@@ -279,10 +285,14 @@ public class WebsocketApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public WebsocketAuthRedirectResponse getMarketDataFeedAuthorize(String apiVersion) throws ApiException {
-        ApiResponse<WebsocketAuthRedirectResponse> resp = getMarketDataFeedAuthorizeWithHttpInfo(apiVersion);
+        ApiResponse<WebsocketAuthRedirectResponse> resp = getMarketDataFeedAuthorizeWithHttpInfo("2.0");
         return resp.getData();
     }
 
+    public WebsocketAuthRedirectResponse getMarketDataFeedAuthorizeV3() throws ApiException {
+        ApiResponse<WebsocketAuthRedirectResponse> resp = getMarketDataFeedAuthorizeWithHttpInfo("3.0");
+        return resp.getData();
+    }
     /**
      * Market Data Feed Authorize
      * This API provides the functionality to retrieve the socket endpoint URI for Market updates.

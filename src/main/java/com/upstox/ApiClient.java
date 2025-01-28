@@ -75,6 +75,7 @@ public class ApiClient {
     private JSON json;
 
     private HttpLoggingInterceptor loggingInterceptor;
+    private Set<String> sandboxEndpoints = new HashSet<>();
 
     /*
      * Constructor for ApiClient
@@ -95,6 +96,7 @@ public class ApiClient {
         authentications.put("OAUTH2", new OAuth());
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
+        initialiseSandboxPoints();
     }
 
     public ApiClient(boolean sandbox) {
@@ -117,6 +119,7 @@ public class ApiClient {
         authentications.put("OAUTH2", new OAuth());
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
+        initialiseSandboxPoints();
     }
 
     /**
@@ -128,6 +131,15 @@ public class ApiClient {
         return basePath;
     }
 
+    private void initialiseSandboxPoints(){
+        sandboxEndpoints.add("/v2/order/place");
+        sandboxEndpoints.add("/v2/order/modify");
+        sandboxEndpoints.add("/v2/order/cancel");
+        sandboxEndpoints.add("/v2/order/multi/place");
+        sandboxEndpoints.add("/v3/order/place");
+        sandboxEndpoints.add("/v3/order/modify");
+        sandboxEndpoints.add("/v3/order/cancel");
+    }
     /**
      * Set base path
      *
@@ -976,6 +988,9 @@ public class ApiClient {
      * @throws ApiException If fail to serialize the request body object
      */
     public Call buildCall(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        if(this.sandbox && (!sandboxEndpoints.contains(path))){
+            throw new RuntimeException("This API is not available in sandbox mode.");
+        }
         Request request = buildRequest(path, method, queryParams, collectionQueryParams, body, headerParams, formParams, authNames, progressRequestListener);
 
         return httpClient.newCall(request);

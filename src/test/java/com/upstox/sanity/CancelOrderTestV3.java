@@ -14,7 +14,13 @@ public class CancelOrderTestV3 {
         OAUTH2.setAccessToken(DataToken.accessToken);
 
         OrderApiV3 apiInstance = new OrderApiV3();
-        System.out.println(apiInstance.cancelOrder("250123010432502"));
-
+        try {
+            System.out.println(apiInstance.cancelOrder("250128010534339"));;
+        }
+        catch (ApiException e) {
+            System.err.println("Exception when calling OrderApi#cancelOrder ");
+            System.out.println(e.getResponseBody());
+            e.printStackTrace();
+        }
     }
 }

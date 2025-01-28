@@ -4,17 +4,76 @@ All URIs are relative to *https://api-v2.upstox.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancelOrder**](OrderApi.md#cancelOrder) | **DELETE** /order/cancel | Cancel order
-[**getOrderBook**](OrderApi.md#getOrderBook) | **GET** /order/retrieve-all | Get order book
-[**getOrderDetails**](OrderApi.md#getOrderDetails) | **GET** /order/history | Get order details
-[**getTradeHistory**](OrderApi.md#getTradeHistory) | **GET** /order/trades/get-trades-for-day | Get trades
-[**getTradesByOrder**](OrderApi.md#getTradesByOrder) | **GET** /order/trades | Get trades for order
-[**modifyOrder**](OrderApi.md#modifyOrder) | **PUT** /order/modify | Modify order
-[**placeOrder**](OrderApi.md#placeOrder) | **POST** /order/place | Place order
+[**cancelMultiOrder**](OrderApi.md#cancelMultiOrder) | **DELETE** /v2/order/multi/cancel | Cancel multi order
+[**cancelOrder1**](OrderApi.md#cancelOrder1) | **DELETE** /v2/order/cancel | Cancel order
+[**exitPositions**](OrderApi.md#exitPositions) | **POST** /v2/order/positions/exit | Exit all positions
+[**getOrderBook**](OrderApi.md#getOrderBook) | **GET** /v2/order/retrieve-all | Get order book
+[**getOrderDetails**](OrderApi.md#getOrderDetails) | **GET** /v2/order/history | Get order history
+[**getOrderStatus**](OrderApi.md#getOrderStatus) | **GET** /v2/order/details | Get order details
+[**getTradeHistory**](OrderApi.md#getTradeHistory) | **GET** /v2/order/trades/get-trades-for-day | Get trades
+[**getTradesByOrder**](OrderApi.md#getTradesByOrder) | **GET** /v2/order/trades | Get trades for order
+[**modifyOrder1**](OrderApi.md#modifyOrder1) | **PUT** /v2/order/modify | Modify order
+[**placeMultiOrder**](OrderApi.md#placeMultiOrder) | **POST** /v2/order/multi/place | Place multi order
+[**placeOrder1**](OrderApi.md#placeOrder1) | **POST** /v2/order/place | Place order
 
-<a name="cancelOrder"></a>
-# **cancelOrder**
-> CancelOrderResponse cancelOrder(orderId, apiVersion)
+<a name="cancelMultiOrder"></a>
+# **cancelMultiOrder**
+> CancelOrExitMultiOrderResponse cancelMultiOrder(tag, segment)
+
+Cancel multi order
+
+API to cancel all the open or pending orders which can be applied to both AMO and regular orders.
+
+### Example
+```java
+// Import classes:
+//import com.upstox.ApiClient;
+//import com.upstox.ApiException;
+//import com.upstox.Configuration;
+//import com.upstox.auth.*;
+//import io.swagger.client.api.OrderApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure OAuth2 access token for authorization: OAUTH2
+OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
+OAUTH2.setAccessToken("YOUR ACCESS TOKEN");
+
+OrderApi apiInstance = new OrderApi();
+String tag = "tag_example"; // String | The tag associated with the orders for which the orders must be cancelled
+String segment = "segment_example"; // String | The segment for which the orders must be cancelled
+try {
+    CancelOrExitMultiOrderResponse result = apiInstance.cancelMultiOrder(tag, segment);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrderApi#cancelMultiOrder");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag** | **String**| The tag associated with the orders for which the orders must be cancelled | [optional]
+ **segment** | **String**| The segment for which the orders must be cancelled | [optional]
+
+### Return type
+
+[**CancelOrExitMultiOrderResponse**](CancelOrExitMultiOrderResponse.md)
+
+### Authorization
+
+[OAUTH2](../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*, application/json
+
+<a name="cancelOrder1"></a>
+# **cancelOrder1**
+> CancelOrderResponse cancelOrder1(orderId)
 
 Cancel order
 
@@ -66,6 +125,61 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, */*
+
+<a name="exitPositions"></a>
+# **exitPositions**
+> CancelOrExitMultiOrderResponse exitPositions(tag, segment)
+
+Exit all positions
+
+This API provides the functionality to exit all the positions 
+
+### Example
+```java
+// Import classes:
+//import com.upstox.ApiClient;
+//import com.upstox.ApiException;
+//import com.upstox.Configuration;
+//import com.upstox.auth.*;
+//import io.swagger.client.api.OrderApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure OAuth2 access token for authorization: OAUTH2
+OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
+OAUTH2.setAccessToken("YOUR ACCESS TOKEN");
+
+OrderApi apiInstance = new OrderApi();
+String tag = "tag_example"; // String | The tag associated with the positions for which the positions must be exit
+String segment = "segment_example"; // String | The segment for which the positions must be exit
+try {
+    CancelOrExitMultiOrderResponse result = apiInstance.exitPositions(tag, segment);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrderApi#exitPositions");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tag** | **String**| The tag associated with the positions for which the positions must be exit | [optional]
+ **segment** | **String**| The segment for which the positions must be exit | [optional]
+
+### Return type
+
+[**CancelOrExitMultiOrderResponse**](CancelOrExitMultiOrderResponse.md)
+
+### Authorization
+
+[OAUTH2](../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*, application/json
 
 <a name="getOrderBook"></a>
 # **getOrderBook**
@@ -176,6 +290,59 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, */*
+
+<a name="getOrderStatus"></a>
+# **getOrderStatus**
+> GetOrderDetailsResponse getOrderStatus(orderId)
+
+Get order details
+
+This API provides the recent detail of the particular order the user has placed. The orders placed by the user is transient for a day and are cleared by the end of the trading session.\\n\\nThe order details can be requested using order_id.  
+
+### Example
+```java
+// Import classes:
+//import com.upstox.ApiClient;
+//import com.upstox.ApiException;
+//import com.upstox.Configuration;
+//import com.upstox.auth.*;
+//import io.swagger.client.api.OrderApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure OAuth2 access token for authorization: OAUTH2
+OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
+OAUTH2.setAccessToken("YOUR ACCESS TOKEN");
+
+OrderApi apiInstance = new OrderApi();
+String orderId = "orderId_example"; // String | The order reference ID for which the order details is required
+try {
+    GetOrderDetailsResponse result = apiInstance.getOrderStatus(orderId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrderApi#getOrderStatus");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | **String**| The order reference ID for which the order details is required | [optional]
+
+### Return type
+
+[**GetOrderDetailsResponse**](GetOrderDetailsResponse.md)
+
+### Authorization
+
+[OAUTH2](../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*, application/json
 
 <a name="getTradeHistory"></a>
 # **getTradeHistory**
@@ -340,9 +507,62 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, */*
 
-<a name="placeOrder"></a>
-# **placeOrder**
-> PlaceOrderResponse placeOrder(body, apiVersion)
+<a name="placeMultiOrder"></a>
+# **placeMultiOrder**
+> MultiOrderResponse placeMultiOrder(body)
+
+Place multi order
+
+This API allows you to place multiple orders to the exchange via Upstox.
+
+### Example
+```java
+// Import classes:
+//import com.upstox.ApiClient;
+//import com.upstox.ApiException;
+//import com.upstox.Configuration;
+//import com.upstox.auth.*;
+//import io.swagger.client.api.OrderApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure OAuth2 access token for authorization: OAUTH2
+OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
+OAUTH2.setAccessToken("YOUR ACCESS TOKEN");
+
+OrderApi apiInstance = new OrderApi();
+List<MultiOrderRequest> body = Arrays.asList(new MultiOrderRequest()); // List<MultiOrderRequest> | 
+try {
+    MultiOrderResponse result = apiInstance.placeMultiOrder(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling OrderApi#placeMultiOrder");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**List&lt;MultiOrderRequest&gt;**](MultiOrderRequest.md)|  |
+
+### Return type
+
+[**MultiOrderResponse**](MultiOrderResponse.md)
+
+### Authorization
+
+[OAUTH2](../README.md#OAUTH2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: */*, application/json
+
+<a name="placeOrder1"></a>
+# **placeOrder1**
+> PlaceOrderResponse placeOrder1(body)
 
 Place order
 

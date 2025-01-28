@@ -48,6 +48,11 @@ public class SandboxSanityTest {
             e.printStackTrace();
             org.junit.Assert.fail("Placing order threw an exception: " + e.getMessage());
         }
+//        try {
+//            orderApi.exitPositions("","");
+//        } catch (ApiException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Test

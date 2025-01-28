@@ -43,6 +43,49 @@ Add this dependency to your project's build file:
 compile "com.upstox.api:upstox-java-sdk:1.11.0"
 ```
 
+## Sandbox Mode
+We recommend using the sandbox environment for testing purposes. To enable sandbox mode, set the `sandbox` flag to `True` in the `ApiClient` object.
+
+```java
+import com.upstox.ApiClient;
+import com.upstox.ApiException;
+import com.upstox.Configuration;
+import com.upstox.api.*;
+import com.upstox.auth.OAuth;
+import io.swagger.client.api.OrderApiV3;
+public class Main{
+    public static void main(String[] args) {
+        boolean sandbox = true;
+        ApiClient sandboxClient = new ApiClient(sandbox);
+        OAuth OAUTH2 = (OAuth) sandboxClient.getAuthentication("OAUTH2");
+        OAUTH2.setAccessToken("SANDBOX_ACCESS_TOKEN");
+        Configuration.setDefaultApiClient(sandboxClient);
+        OrderApiV3 orderApiV3 = new OrderApiV3();
+        PlaceOrderV3Request body = new PlaceOrderV3Request();
+        body.setQuantity(10);
+        body.setProduct(PlaceOrderV3Request.ProductEnum.D);
+        body.setValidity(PlaceOrderV3Request.ValidityEnum.DAY);
+        body.setPrice(9F);
+        body.setTag("string");
+        body.setInstrumentToken("NSE_EQ|INE669E01016");
+        body.orderType(PlaceOrderV3Request.OrderTypeEnum.LIMIT);
+        body.setTransactionType(PlaceOrderV3Request.TransactionTypeEnum.BUY);
+        body.setDisclosedQuantity(0);
+        body.setTriggerPrice(0F);
+        body.setIsAmo(false);
+        body.setSlice(true);
+        try {
+            PlaceOrderV3Response result = orderApiV3.placeOrder(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrderApi#placeOrder ");
+            e.printStackTrace();
+        }
+    }
+}
+```
+To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
+
 ## Examples
 
 [Sample Implementations](examples/) can be found within `/examples` folder.

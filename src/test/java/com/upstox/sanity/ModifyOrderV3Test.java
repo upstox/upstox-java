@@ -22,15 +22,16 @@ public class ModifyOrderV3Test {
         body.setDisclosedQuantity(0);
         body.setTriggerPrice(0F);
         body.setOrderType(ModifyOrderRequest.OrderTypeEnum.LIMIT);
-        body.setOrderId("250123010432502");
+        body.setOrderId("250128010532402");
         String apiVersion = "2.0"; // String | API Version Header
         try {
             ModifyOrderV3Response result = apiInstance.modifyOrder(body);
             System.out.println(result);
         } catch (ApiException e) {
             if(!e.getResponseBody().contains("UDAPI100010")) {
-                System.out.println("Error in modify order");
+                System.err.println(e.getResponseBody());
             }
+
         }
     }
 }
