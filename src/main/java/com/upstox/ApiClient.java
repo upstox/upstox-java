@@ -96,7 +96,6 @@ public class ApiClient {
         authentications.put("OAUTH2", new OAuth());
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
-        initialiseSandboxPoints();
     }
 
     public ApiClient(boolean sandbox) {
@@ -106,6 +105,7 @@ public class ApiClient {
         if(this.sandbox){
             this.orderBasePath = "https://api-sandbox.upstox.com";
             this.basePath = "https://api-sandbox.upstox.com";
+            initialiseSandboxPoints();
         }
         verifyingSsl = true;
 
@@ -119,7 +119,7 @@ public class ApiClient {
         authentications.put("OAUTH2", new OAuth());
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
-        initialiseSandboxPoints();
+
     }
 
     /**
