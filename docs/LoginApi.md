@@ -60,6 +60,53 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, */*
 
+<a name="initTokenRequestForIndieUser"></a>
+# **initTokenRequestForIndieUser**
+> IndieUserInitTokenResponse initTokenRequestForIndieUser(body, clientId)
+
+Init token API
+
+This API provides the initialize the generate token and it&#x27;s expiry for an indie user
+
+### Example
+```java
+// Import classes:
+//import com.upstox.ApiException;
+//import io.swagger.client.api.LoginApi;
+
+
+LoginApi apiInstance = new LoginApi();
+IndieUserTokenRequest body = new IndieUserTokenRequest(); // IndieUserTokenRequest | 
+String clientId = "clientId_example"; // String | 
+try {
+    IndieUserInitTokenResponse result = apiInstance.initTokenRequestForIndieUser(body, clientId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling LoginApi#initTokenRequestForIndieUser");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**IndieUserTokenRequest**](IndieUserTokenRequest.md)|  |
+ **clientId** | **String**|  |
+
+### Return type
+
+[**IndieUserInitTokenResponse**](IndieUserInitTokenResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: */*, application/json
+
 <a name="logout"></a>
 # **logout**
 > LogoutResponse logout(apiVersion)
