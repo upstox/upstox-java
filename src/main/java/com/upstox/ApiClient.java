@@ -1014,7 +1014,7 @@ public class ApiClient {
     public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         updateParamsForAuth(authNames, queryParams, headerParams);
         headerParams.put("X-Upstox-SDK-Language","java");
-        headerParams.put("X-Upstox-SDK-Version","1.11.0");
+        headerParams.put("X-Upstox-SDK-Version","1.11.1");
         final String url = buildUrl(path, queryParams, collectionQueryParams);
         final Request.Builder reqBuilder = new Request.Builder().url(url);
         processHeaderParams(headerParams, reqBuilder);
