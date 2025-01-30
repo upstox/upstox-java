@@ -153,7 +153,7 @@ public class MarketDataFeederV3 extends Feeder {
 
     private static URI getAuthorizedWebSocketUri(ApiClient authenticatedClient) throws ApiException {
         WebsocketApi websocketApi = new WebsocketApi(authenticatedClient);
-        WebsocketAuthRedirectResponse response = websocketApi.getMarketDataFeedAuthorize("3.0");
+        WebsocketAuthRedirectResponse response = websocketApi.getMarketDataFeedAuthorizeV3();
 
         return URI.create(response.getData()
                 .getAuthorizedRedirectUri());
