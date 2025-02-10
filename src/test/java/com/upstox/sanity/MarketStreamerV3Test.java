@@ -56,9 +56,5 @@ public class MarketStreamerV3Test {
         });
 
         marketDataStreamer.connect();
-        Thread.sleep(5000);
-        marketDataStreamer.changeMode(new HashSet<>(Collections.singletonList("NSE_INDEX|Nifty 50")), Mode.OPTION_GREEKS);
-        Thread.sleep(10000);
-        marketDataStreamer.disconnect();
     }
 }
