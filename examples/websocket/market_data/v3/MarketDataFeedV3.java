@@ -418,11 +418,13 @@ public final class MarketDataFeedV3 {
     long getLtt();
 
     /**
-     * <pre>
-     *close price
-     * </pre>
-     *
-     * <code>double cp = 3;</code>
+     * <code>int64 ltq = 3;</code>
+     * @return The ltq.
+     */
+    long getLtq();
+
+    /**
+     * <code>double cp = 4;</code>
      * @return The cp.
      */
     double getCp();
@@ -489,14 +491,21 @@ public final class MarketDataFeedV3 {
       return ltt_;
     }
 
-    public static final int CP_FIELD_NUMBER = 3;
+    public static final int LTQ_FIELD_NUMBER = 3;
+    private long ltq_;
+    /**
+     * <code>int64 ltq = 3;</code>
+     * @return The ltq.
+     */
+    @java.lang.Override
+    public long getLtq() {
+      return ltq_;
+    }
+
+    public static final int CP_FIELD_NUMBER = 4;
     private double cp_;
     /**
-     * <pre>
-     *close price
-     * </pre>
-     *
-     * <code>double cp = 3;</code>
+     * <code>double cp = 4;</code>
      * @return The cp.
      */
     @java.lang.Override
@@ -524,8 +533,11 @@ public final class MarketDataFeedV3 {
       if (ltt_ != 0L) {
         output.writeInt64(2, ltt_);
       }
+      if (ltq_ != 0L) {
+        output.writeInt64(3, ltq_);
+      }
       if (java.lang.Double.doubleToRawLongBits(cp_) != 0) {
-        output.writeDouble(3, cp_);
+        output.writeDouble(4, cp_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -544,9 +556,13 @@ public final class MarketDataFeedV3 {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, ltt_);
       }
+      if (ltq_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, ltq_);
+      }
       if (java.lang.Double.doubleToRawLongBits(cp_) != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, cp_);
+          .computeDoubleSize(4, cp_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -568,6 +584,8 @@ public final class MarketDataFeedV3 {
               other.getLtp())) return false;
       if (getLtt()
           != other.getLtt()) return false;
+      if (getLtq()
+          != other.getLtq()) return false;
       if (java.lang.Double.doubleToLongBits(getCp())
           != java.lang.Double.doubleToLongBits(
               other.getCp())) return false;
@@ -588,6 +606,9 @@ public final class MarketDataFeedV3 {
       hash = (37 * hash) + LTT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getLtt());
+      hash = (37 * hash) + LTQ_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLtq());
       hash = (37 * hash) + CP_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getCp()));
@@ -723,6 +744,8 @@ public final class MarketDataFeedV3 {
 
         ltt_ = 0L;
 
+        ltq_ = 0L;
+
         cp_ = 0D;
 
         return this;
@@ -753,6 +776,7 @@ public final class MarketDataFeedV3 {
         com.upstox.marketdatafeederv3udapi.rpc.proto.MarketDataFeedV3.LTPC result = new com.upstox.marketdatafeederv3udapi.rpc.proto.MarketDataFeedV3.LTPC(this);
         result.ltp_ = ltp_;
         result.ltt_ = ltt_;
+        result.ltq_ = ltq_;
         result.cp_ = cp_;
         onBuilt();
         return result;
@@ -808,6 +832,9 @@ public final class MarketDataFeedV3 {
         if (other.getLtt() != 0L) {
           setLtt(other.getLtt());
         }
+        if (other.getLtq() != 0L) {
+          setLtq(other.getLtq());
+        }
         if (other.getCp() != 0D) {
           setCp(other.getCp());
         }
@@ -847,11 +874,16 @@ public final class MarketDataFeedV3 {
 
                 break;
               } // case 16
-              case 25: {
+              case 24: {
+                ltq_ = input.readInt64();
+
+                break;
+              } // case 24
+              case 33: {
                 cp_ = input.readDouble();
 
                 break;
-              } // case 25
+              } // case 33
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -930,13 +962,40 @@ public final class MarketDataFeedV3 {
         return this;
       }
 
+      private long ltq_ ;
+      /**
+       * <code>int64 ltq = 3;</code>
+       * @return The ltq.
+       */
+      @java.lang.Override
+      public long getLtq() {
+        return ltq_;
+      }
+      /**
+       * <code>int64 ltq = 3;</code>
+       * @param value The ltq to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLtq(long value) {
+        
+        ltq_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 ltq = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLtq() {
+        
+        ltq_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private double cp_ ;
       /**
-       * <pre>
-       *close price
-       * </pre>
-       *
-       * <code>double cp = 3;</code>
+       * <code>double cp = 4;</code>
        * @return The cp.
        */
       @java.lang.Override
@@ -944,11 +1003,7 @@ public final class MarketDataFeedV3 {
         return cp_;
       }
       /**
-       * <pre>
-       *close price
-       * </pre>
-       *
-       * <code>double cp = 3;</code>
+       * <code>double cp = 4;</code>
        * @param value The cp to set.
        * @return This builder for chaining.
        */
@@ -959,11 +1014,7 @@ public final class MarketDataFeedV3 {
         return this;
       }
       /**
-       * <pre>
-       *close price
-       * </pre>
-       *
-       * <code>double cp = 3;</code>
+       * <code>double cp = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearCp() {
@@ -13051,75 +13102,75 @@ com.upstox.marketdatafeederv3udapi.rpc.proto.MarketDataFeedV3.Feed defaultValue)
   static {
     java.lang.String[] descriptorData = {
       "\n\026MarketDataFeedV3.proto\022,com.upstox.mar" +
-      "ketdatafeederv3udapi.rpc.proto\",\n\004LTPC\022\013" +
-      "\n\003ltp\030\001 \001(\001\022\013\n\003ltt\030\002 \001(\003\022\n\n\002cp\030\003 \001(\001\"W\n\013" +
-      "MarketLevel\022H\n\013bidAskQuote\030\001 \003(\01323.com.u" +
+      "ketdatafeederv3udapi.rpc.proto\"9\n\004LTPC\022\013" +
+      "\n\003ltp\030\001 \001(\001\022\013\n\003ltt\030\002 \001(\003\022\013\n\003ltq\030\003 \001(\003\022\n\n" +
+      "\002cp\030\004 \001(\001\"W\n\013MarketLevel\022H\n\013bidAskQuote\030" +
+      "\001 \003(\01323.com.upstox.marketdatafeederv3uda" +
+      "pi.rpc.proto.Quote\"N\n\nMarketOHLC\022@\n\004ohlc" +
+      "\030\001 \003(\01322.com.upstox.marketdatafeederv3ud" +
+      "api.rpc.proto.OHLC\"?\n\005Quote\022\014\n\004bidQ\030\001 \001(" +
+      "\003\022\014\n\004bidP\030\002 \001(\001\022\014\n\004askQ\030\003 \001(\003\022\014\n\004askP\030\004 " +
+      "\001(\001\"V\n\014OptionGreeks\022\r\n\005delta\030\001 \001(\001\022\r\n\005th" +
+      "eta\030\002 \001(\001\022\r\n\005gamma\030\003 \001(\001\022\014\n\004vega\030\004 \001(\001\022\013" +
+      "\n\003rho\030\005 \001(\001\"i\n\004OHLC\022\020\n\010interval\030\001 \001(\t\022\014\n" +
+      "\004open\030\002 \001(\001\022\014\n\004high\030\003 \001(\001\022\013\n\003low\030\004 \001(\001\022\r" +
+      "\n\005close\030\005 \001(\001\022\013\n\003vol\030\006 \001(\003\022\n\n\002ts\030\007 \001(\003\"\216" +
+      "\003\n\016MarketFullFeed\022@\n\004ltpc\030\001 \001(\01322.com.up" +
+      "stox.marketdatafeederv3udapi.rpc.proto.L" +
+      "TPC\022N\n\013marketLevel\030\002 \001(\01329.com.upstox.ma" +
+      "rketdatafeederv3udapi.rpc.proto.MarketLe" +
+      "vel\022P\n\014optionGreeks\030\003 \001(\0132:.com.upstox.m" +
+      "arketdatafeederv3udapi.rpc.proto.OptionG" +
+      "reeks\022L\n\nmarketOHLC\030\004 \001(\01328.com.upstox.m" +
+      "arketdatafeederv3udapi.rpc.proto.MarketO" +
+      "HLC\022\013\n\003atp\030\005 \001(\001\022\013\n\003vtt\030\006 \001(\003\022\n\n\002oi\030\007 \001(" +
+      "\001\022\n\n\002iv\030\010 \001(\001\022\013\n\003tbq\030\t \001(\001\022\013\n\003tsq\030\n \001(\001\"" +
+      "\237\001\n\rIndexFullFeed\022@\n\004ltpc\030\001 \001(\01322.com.up" +
+      "stox.marketdatafeederv3udapi.rpc.proto.L" +
+      "TPC\022L\n\nmarketOHLC\030\002 \001(\01328.com.upstox.mar" +
+      "ketdatafeederv3udapi.rpc.proto.MarketOHL" +
+      "C\"\275\001\n\010FullFeed\022P\n\010marketFF\030\001 \001(\0132<.com.u" +
       "pstox.marketdatafeederv3udapi.rpc.proto." +
-      "Quote\"N\n\nMarketOHLC\022@\n\004ohlc\030\001 \003(\01322.com." +
+      "MarketFullFeedH\000\022N\n\007indexFF\030\002 \001(\0132;.com." +
       "upstox.marketdatafeederv3udapi.rpc.proto" +
-      ".OHLC\"?\n\005Quote\022\014\n\004bidQ\030\001 \001(\003\022\014\n\004bidP\030\002 \001" +
-      "(\001\022\014\n\004askQ\030\003 \001(\003\022\014\n\004askP\030\004 \001(\001\"V\n\014Option" +
-      "Greeks\022\r\n\005delta\030\001 \001(\001\022\r\n\005theta\030\002 \001(\001\022\r\n\005" +
-      "gamma\030\003 \001(\001\022\014\n\004vega\030\004 \001(\001\022\013\n\003rho\030\005 \001(\001\"i" +
-      "\n\004OHLC\022\020\n\010interval\030\001 \001(\t\022\014\n\004open\030\002 \001(\001\022\014" +
-      "\n\004high\030\003 \001(\001\022\013\n\003low\030\004 \001(\001\022\r\n\005close\030\005 \001(\001" +
-      "\022\013\n\003vol\030\006 \001(\003\022\n\n\002ts\030\007 \001(\003\"\216\003\n\016MarketFull" +
-      "Feed\022@\n\004ltpc\030\001 \001(\01322.com.upstox.marketda" +
-      "tafeederv3udapi.rpc.proto.LTPC\022N\n\013market" +
-      "Level\030\002 \001(\01329.com.upstox.marketdatafeede" +
-      "rv3udapi.rpc.proto.MarketLevel\022P\n\014option" +
-      "Greeks\030\003 \001(\0132:.com.upstox.marketdatafeed" +
-      "erv3udapi.rpc.proto.OptionGreeks\022L\n\nmark" +
-      "etOHLC\030\004 \001(\01328.com.upstox.marketdatafeed" +
-      "erv3udapi.rpc.proto.MarketOHLC\022\013\n\003atp\030\005 " +
-      "\001(\001\022\013\n\003vtt\030\006 \001(\003\022\n\n\002oi\030\007 \001(\001\022\n\n\002iv\030\010 \001(\001" +
-      "\022\013\n\003tbq\030\t \001(\001\022\013\n\003tsq\030\n \001(\001\"\237\001\n\rIndexFull" +
-      "Feed\022@\n\004ltpc\030\001 \001(\01322.com.upstox.marketda" +
-      "tafeederv3udapi.rpc.proto.LTPC\022L\n\nmarket" +
-      "OHLC\030\002 \001(\01328.com.upstox.marketdatafeeder" +
-      "v3udapi.rpc.proto.MarketOHLC\"\275\001\n\010FullFee" +
-      "d\022P\n\010marketFF\030\001 \001(\0132<.com.upstox.marketd" +
-      "atafeederv3udapi.rpc.proto.MarketFullFee" +
-      "dH\000\022N\n\007indexFF\030\002 \001(\0132;.com.upstox.market" +
-      "datafeederv3udapi.rpc.proto.IndexFullFee" +
-      "dH\000B\017\n\rFullFeedUnion\"\230\002\n\024FirstLevelWithG" +
-      "reeks\022@\n\004ltpc\030\001 \001(\01322.com.upstox.marketd" +
-      "atafeederv3udapi.rpc.proto.LTPC\022G\n\nfirst" +
-      "Depth\030\002 \001(\01323.com.upstox.marketdatafeede" +
-      "rv3udapi.rpc.proto.Quote\022P\n\014optionGreeks" +
-      "\030\003 \001(\0132:.com.upstox.marketdatafeederv3ud" +
-      "api.rpc.proto.OptionGreeks\022\013\n\003vtt\030\004 \001(\003\022" +
-      "\n\n\002oi\030\005 \001(\001\022\n\n\002iv\030\006 \001(\001\"\327\002\n\004Feed\022B\n\004ltpc" +
-      "\030\001 \001(\01322.com.upstox.marketdatafeederv3ud" +
-      "api.rpc.proto.LTPCH\000\022J\n\010fullFeed\030\002 \001(\01326" +
-      ".com.upstox.marketdatafeederv3udapi.rpc." +
-      "proto.FullFeedH\000\022b\n\024firstLevelWithGreeks" +
-      "\030\003 \001(\0132B.com.upstox.marketdatafeederv3ud" +
-      "api.rpc.proto.FirstLevelWithGreeksH\000\022N\n\013" +
-      "requestMode\030\004 \001(\01629.com.upstox.marketdat" +
-      "afeederv3udapi.rpc.proto.RequestModeB\013\n\t" +
-      "FeedUnion\"\342\001\n\nMarketInfo\022b\n\rsegmentStatu" +
-      "s\030\001 \003(\0132K.com.upstox.marketdatafeederv3u" +
-      "dapi.rpc.proto.MarketInfo.SegmentStatusE" +
-      "ntry\032p\n\022SegmentStatusEntry\022\013\n\003key\030\001 \001(\t\022" +
-      "I\n\005value\030\002 \001(\0162:.com.upstox.marketdatafe" +
-      "ederv3udapi.rpc.proto.MarketStatus:\0028\001\"\351" +
-      "\002\n\014FeedResponse\022@\n\004type\030\001 \001(\01622.com.upst" +
-      "ox.marketdatafeederv3udapi.rpc.proto.Typ" +
-      "e\022T\n\005feeds\030\002 \003(\0132E.com.upstox.marketdata" +
-      "feederv3udapi.rpc.proto.FeedResponse.Fee" +
-      "dsEntry\022\021\n\tcurrentTs\030\003 \001(\003\022L\n\nmarketInfo" +
-      "\030\004 \001(\01328.com.upstox.marketdatafeederv3ud" +
-      "api.rpc.proto.MarketInfo\032`\n\nFeedsEntry\022\013" +
-      "\n\003key\030\001 \001(\t\022A\n\005value\030\002 \001(\01322.com.upstox." +
-      "marketdatafeederv3udapi.rpc.proto.Feed:\002" +
-      "8\001*8\n\004Type\022\020\n\014initial_feed\020\000\022\r\n\tlive_fee" +
-      "d\020\001\022\017\n\013market_info\020\002*E\n\013RequestMode\022\010\n\004l" +
-      "tpc\020\000\022\013\n\007full_d5\020\001\022\021\n\roption_greeks\020\002\022\014\n" +
-      "\010full_d30\020\003*{\n\014MarketStatus\022\022\n\016PRE_OPEN_" +
-      "START\020\000\022\020\n\014PRE_OPEN_END\020\001\022\017\n\013NORMAL_OPEN" +
-      "\020\002\022\020\n\014NORMAL_CLOSE\020\003\022\021\n\rCLOSING_START\020\004\022" +
-      "\017\n\013CLOSING_END\020\005b\006proto3"
+      ".IndexFullFeedH\000B\017\n\rFullFeedUnion\"\230\002\n\024Fi" +
+      "rstLevelWithGreeks\022@\n\004ltpc\030\001 \001(\01322.com.u" +
+      "pstox.marketdatafeederv3udapi.rpc.proto." +
+      "LTPC\022G\n\nfirstDepth\030\002 \001(\01323.com.upstox.ma" +
+      "rketdatafeederv3udapi.rpc.proto.Quote\022P\n" +
+      "\014optionGreeks\030\003 \001(\0132:.com.upstox.marketd" +
+      "atafeederv3udapi.rpc.proto.OptionGreeks\022" +
+      "\013\n\003vtt\030\004 \001(\003\022\n\n\002oi\030\005 \001(\001\022\n\n\002iv\030\006 \001(\001\"\327\002\n" +
+      "\004Feed\022B\n\004ltpc\030\001 \001(\01322.com.upstox.marketd" +
+      "atafeederv3udapi.rpc.proto.LTPCH\000\022J\n\010ful" +
+      "lFeed\030\002 \001(\01326.com.upstox.marketdatafeede" +
+      "rv3udapi.rpc.proto.FullFeedH\000\022b\n\024firstLe" +
+      "velWithGreeks\030\003 \001(\0132B.com.upstox.marketd" +
+      "atafeederv3udapi.rpc.proto.FirstLevelWit" +
+      "hGreeksH\000\022N\n\013requestMode\030\004 \001(\01629.com.ups" +
+      "tox.marketdatafeederv3udapi.rpc.proto.Re" +
+      "questModeB\013\n\tFeedUnion\"\342\001\n\nMarketInfo\022b\n" +
+      "\rsegmentStatus\030\001 \003(\0132K.com.upstox.market" +
+      "datafeederv3udapi.rpc.proto.MarketInfo.S" +
+      "egmentStatusEntry\032p\n\022SegmentStatusEntry\022" +
+      "\013\n\003key\030\001 \001(\t\022I\n\005value\030\002 \001(\0162:.com.upstox" +
+      ".marketdatafeederv3udapi.rpc.proto.Marke" +
+      "tStatus:\0028\001\"\351\002\n\014FeedResponse\022@\n\004type\030\001 \001" +
+      "(\01622.com.upstox.marketdatafeederv3udapi." +
+      "rpc.proto.Type\022T\n\005feeds\030\002 \003(\0132E.com.upst" +
+      "ox.marketdatafeederv3udapi.rpc.proto.Fee" +
+      "dResponse.FeedsEntry\022\021\n\tcurrentTs\030\003 \001(\003\022" +
+      "L\n\nmarketInfo\030\004 \001(\01328.com.upstox.marketd" +
+      "atafeederv3udapi.rpc.proto.MarketInfo\032`\n" +
+      "\nFeedsEntry\022\013\n\003key\030\001 \001(\t\022A\n\005value\030\002 \001(\0132" +
+      "2.com.upstox.marketdatafeederv3udapi.rpc" +
+      ".proto.Feed:\0028\001*8\n\004Type\022\020\n\014initial_feed\020" +
+      "\000\022\r\n\tlive_feed\020\001\022\017\n\013market_info\020\002*E\n\013Req" +
+      "uestMode\022\010\n\004ltpc\020\000\022\013\n\007full_d5\020\001\022\021\n\roptio" +
+      "n_greeks\020\002\022\014\n\010full_d30\020\003*{\n\014MarketStatus" +
+      "\022\022\n\016PRE_OPEN_START\020\000\022\020\n\014PRE_OPEN_END\020\001\022\017" +
+      "\n\013NORMAL_OPEN\020\002\022\020\n\014NORMAL_CLOSE\020\003\022\021\n\rCLO" +
+      "SING_START\020\004\022\017\n\013CLOSING_END\020\005b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -13130,7 +13181,7 @@ com.upstox.marketdatafeederv3udapi.rpc.proto.MarketDataFeedV3.Feed defaultValue)
     internal_static_com_upstox_marketdatafeederv3udapi_rpc_proto_LTPC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_upstox_marketdatafeederv3udapi_rpc_proto_LTPC_descriptor,
-        new java.lang.String[] { "Ltp", "Ltt", "Cp", });
+        new java.lang.String[] { "Ltp", "Ltt", "Ltq", "Cp", });
     internal_static_com_upstox_marketdatafeederv3udapi_rpc_proto_MarketLevel_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_upstox_marketdatafeederv3udapi_rpc_proto_MarketLevel_fieldAccessorTable = new

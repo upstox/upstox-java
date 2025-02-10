@@ -25,7 +25,7 @@ public class MarketFeederClient {
     public static void main(String[] args) throws Exception {
 
         // Define your access token
-        String accessToken = "SANDBOX_ACCESS_TOKEN";
+        String accessToken = "YOUR_ACCESS_TOKEN";
 
         WebSocketClient client = createWebSocketClient(getWebsocketUrl(accessToken));
         client.connect();

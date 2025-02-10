@@ -55,6 +55,7 @@ public class MarketUpdateV3 {
     public static class LTPC {
         private double ltp;
         private long ltt;
+        private long ltq;
         private double cp;
 
         public double getLtp() {
@@ -69,8 +70,16 @@ public class MarketUpdateV3 {
             return ltt;
         }
 
+        public long getLtq() {
+            return ltq;
+        }
+
         public void setLtt(long ltt) {
             this.ltt = ltt;
+        }
+
+        public void setLtq(long ltq) {
+            this.ltq = ltq;
         }
 
         public double getCp() {
@@ -86,6 +95,7 @@ public class MarketUpdateV3 {
             return "LTPC{" +
                     "ltp=" + ltp +
                     ", ltt=" + ltt +
+                    ", ltq=" + ltq +
                     ", cp=" + cp +
                     '}';
         }
