@@ -8,6 +8,9 @@ import com.upstox.auth.OAuth;
 import io.swagger.client.api.*;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.upstox.api.GetGttOrderResponse.StatusEnum.SUCCESS;
 
 public class SanityTest {
     public static void main(String[] args) throws ApiException {
@@ -60,6 +63,7 @@ public class SanityTest {
         testCancelMultiOrder();
         testExitAllOrder();
         testPlaceMultiOrder();
+        testV3Orders();
         logout();
     }
     public static void placeOrder(){
@@ -456,5 +460,135 @@ public class SanityTest {
         } catch (ApiException e) {
             if(!e.getResponseBody().contains("UDAPI1111") && !e.getResponseBody().contains("UDAPI1113")) System.out.println("Error in exit all order");
         }
+    }
+    private static void testV3Orders(){
+        OrderApiV3 apiInstance = new OrderApiV3();
+        GttPlaceOrderRequest gttPlaceOrderRequest = new GttPlaceOrderRequest();
+        gttPlaceOrderRequest.setQuantity(1);
+        gttPlaceOrderRequest.setProduct(GttPlaceOrderRequest.ProductEnum.D);
+        gttPlaceOrderRequest.setInstrumentToken("NSE_EQ|INE669E01016");
+        gttPlaceOrderRequest.setType(GttPlaceOrderRequest.TypeEnum.MULTIPLE);
+        gttPlaceOrderRequest.setTransactionType(GttPlaceOrderRequest.TransactionTypeEnum.BUY);
+        List<GttRule> gttRules = new ArrayList<>();
+        GttRule entryRule = new GttRule();
+        entryRule.setStrategy(GttRule.StrategyEnum.ENTRY);
+        entryRule.setTriggerType(GttRule.TriggerTypeEnum.ABOVE);
+        entryRule.setTriggerPrice(7D);
+        gttRules.add(entryRule);
+
+        GttRule stopLossRule = new GttRule();
+        stopLossRule.setStrategy(GttRule.StrategyEnum.STOPLOSS);
+        stopLossRule.setTriggerType(GttRule.TriggerTypeEnum.IMMEDIATE);
+        stopLossRule.setTriggerPrice(6D);
+        gttRules.add(stopLossRule);
+
+        GttRule targetRule = new GttRule();
+        targetRule.setStrategy(GttRule.StrategyEnum.TARGET);
+        targetRule.setTriggerType(GttRule.TriggerTypeEnum.IMMEDIATE);
+        targetRule.setTriggerPrice(60D);
+        gttRules.add(targetRule);
+
+        gttPlaceOrderRequest.setRules(gttRules);
+
+        try {
+            GttTriggerOrderResponse result = apiInstance.placeGTTOrder(gttPlaceOrderRequest);
+            System.out.println("GTT place order => "  + result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrderApi#placeOrder ");
+            e.printStackTrace();
+            System.out.println(e.getResponseBody());
+        }
+
+
+        GttModifyOrderRequest modifyOrderRequest = new GttModifyOrderRequest();
+        modifyOrderRequest.setQuantity(2);
+        modifyOrderRequest.setGttOrderId("GTT-C25040144712");
+        modifyOrderRequest.setType(GttModifyOrderRequest.TypeEnum.MULTIPLE);
+        modifyOrderRequest.setRules(gttRules);
+
+        try {
+            GttTriggerOrderResponse result = apiInstance.modifyGTTOrder(modifyOrderRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("error in modify gtt error");
+        }
+
+        GttCancelOrderRequest gttCancelOrderRequest = new GttCancelOrderRequest();
+        gttCancelOrderRequest.setGttOrderId("GTT-C25040144712");
+        try {
+            GttTriggerOrderResponse result = apiInstance.cancelGTTOrder(gttCancelOrderRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("error in cancel gtt error");
+        }
+
+        try {
+            GetGttOrderResponse result = apiInstance.getGttOrderDetails("GTT-C25040144712");
+            if(result.getStatus() != SUCCESS) System.out.println("error in get gtt order details");
+        }
+        catch (ApiException e) {
+            System.err.println("Exception when calling get gtt order details ");
+            e.printStackTrace();
+            System.out.println(e.getResponseBody());
+        }
+        PlaceOrderV3Request body = new PlaceOrderV3Request();
+        body.setQuantity(1);
+        body.setProduct(PlaceOrderV3Request.ProductEnum.D);
+        body.setValidity(PlaceOrderV3Request.ValidityEnum.DAY);
+        body.setPrice(9F);
+        body.setTag("string");
+        body.setInstrumentToken("NSE_EQ|INE669E01016");
+        body.orderType(PlaceOrderV3Request.OrderTypeEnum.LIMIT);
+        body.setTransactionType(PlaceOrderV3Request.TransactionTypeEnum.BUY);
+        body.setDisclosedQuantity(0);
+        body.setTriggerPrice(0F);
+        body.setIsAmo(true);
+
+        try {
+            PlaceOrderV3Response result = apiInstance.placeOrder(body);
+            System.out.println( "Place order v3 =>" + result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrderApi#placeOrder ");
+            e.printStackTrace();
+        }
+
+        ModifyOrderRequest modifyOrderRequest1 = new ModifyOrderRequest();
+        modifyOrderRequest1.setQuantity(2);
+        modifyOrderRequest1.setValidity(ModifyOrderRequest.ValidityEnum.DAY);
+        modifyOrderRequest1.setPrice(9F);
+        modifyOrderRequest1.setDisclosedQuantity(0);
+        modifyOrderRequest1.setTriggerPrice(0F);
+        modifyOrderRequest1.setOrderType(ModifyOrderRequest.OrderTypeEnum.LIMIT);
+        modifyOrderRequest1.setOrderId("250128010532402");
+        try {
+            ModifyOrderV3Response result = apiInstance.modifyOrder(modifyOrderRequest1);
+            System.out.println(result);
+        } catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI100010")) {
+                System.err.println(e.getResponseBody());
+            }
+        }
+
+        try {
+            System.out.println(apiInstance.cancelOrder("250128010534339"));;
+        }
+        catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI100010")) {
+                System.err.println(e.getResponseBody());
+            }
+        }
+
+        LoginApi loginApi = new LoginApi();
+        IndieUserTokenRequest indieUserTokenRequest = new IndieUserTokenRequest();
+        indieUserTokenRequest.setClientSecret("naen");
+        try {
+            IndieUserInitTokenResponse indieUserInitTokenResponse = loginApi.initTokenRequestForIndieUser(indieUserTokenRequest, "e82");
+            System.out.println(indieUserInitTokenResponse);
+        } catch (ApiException e) {
+            if(!e.getResponseBody().contains("UDAPI100069")) {
+                System.err.println(e.getResponseBody());
+            }
+        }
+
     }
 }
