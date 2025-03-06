@@ -13,6 +13,6 @@ public class WebsocketApiTest {
 
         OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
         oAuth.setAccessToken(DataToken.accessToken);
-        System.out.println(websocketApi.getPortfolioStreamFeedAuthorize("2.0",false,false,false));
+        System.out.println(websocketApi.getPortfolioStreamFeedAuthorize("2.0",false,false,false,true));
     }
 }
