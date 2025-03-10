@@ -34,6 +34,9 @@ public class Rule {
   @SerializedName("status")
   private String status = null;
 
+  @SerializedName("message")
+  private String message = null;
+
   @SerializedName("trigger_type")
   private String triggerType = null;
 
@@ -80,6 +83,24 @@ public class Rule {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public Rule message(String message) {
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * Get message
+   * @return message
+  **/
+  @Schema(description = "")
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 
   public Rule triggerType(String triggerType) {
@@ -166,6 +187,7 @@ public class Rule {
     Rule rule = (Rule) o;
     return Objects.equals(this.strategy, rule.strategy) &&
         Objects.equals(this.status, rule.status) &&
+        Objects.equals(this.message, rule.message) &&
         Objects.equals(this.triggerType, rule.triggerType) &&
         Objects.equals(this.triggerPrice, rule.triggerPrice) &&
         Objects.equals(this.transactionType, rule.transactionType) &&
@@ -174,7 +196,7 @@ public class Rule {
 
   @Override
   public int hashCode() {
-    return Objects.hash(strategy, status, triggerType, triggerPrice, transactionType, orderId);
+    return Objects.hash(strategy, status, message, triggerType, triggerPrice, transactionType, orderId);
   }
 
 
@@ -185,6 +207,7 @@ public class Rule {
     
     sb.append("    strategy: ").append(toIndentedString(strategy)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    triggerType: ").append(toIndentedString(triggerType)).append("\n");
     sb.append("    triggerPrice: ").append(toIndentedString(triggerPrice)).append("\n");
     sb.append("    transactionType: ").append(toIndentedString(transactionType)).append("\n");
