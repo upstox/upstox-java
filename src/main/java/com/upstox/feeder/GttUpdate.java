@@ -52,6 +52,9 @@ public class GttUpdate {
         @SerializedName("order_id")
         private String orderId;
 
+        @SerializedName("message")
+        private String message;
+
         // Getters and Setters
         public String getStrategy() {
             return strategy;
@@ -101,6 +104,14 @@ public class GttUpdate {
             this.orderId = orderId;
         }
 
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
         @Override
         public String toString() {
             return "Rule{" +
@@ -109,6 +120,7 @@ public class GttUpdate {
                     ", triggerPrice=" + triggerPrice +
                     ", transactionType='" + transactionType + '\'' +
                     ", status='" + status + '\'' +
+                    ", message='" + message + '\'' +
                     ", orderId='" + orderId + '\'' +
                     '}';
         }
