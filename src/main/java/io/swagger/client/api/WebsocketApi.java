@@ -40,6 +40,7 @@ public class WebsocketApi {
     private boolean orderUpdate = true;
     private boolean positionUpdate = false;
     private boolean holdingUpdate = false;
+    private boolean gttUpdate = false;
 
     public boolean isOrderUpdate() {
         return orderUpdate;
@@ -63,6 +64,14 @@ public class WebsocketApi {
 
     public void setHoldingUpdate(boolean holdingUpdate) {
         this.holdingUpdate = holdingUpdate;
+    }
+
+    public boolean isGttUpdate() {
+        return gttUpdate;
+    }
+
+    public void setGttUpdate(boolean gttUpdate) {
+        this.gttUpdate = gttUpdate;
     }
 
     public WebsocketApi() {
@@ -397,6 +406,7 @@ public class WebsocketApi {
         if(this.orderUpdate) updateTypes.add("order");
         if(this.positionUpdate) updateTypes.add("position");
         if(this.holdingUpdate) updateTypes.add("holding");
+        if(this.gttUpdate) updateTypes.add("gtt_order");
         if(updateTypes.isEmpty()) return "";
         String res = "?update_types=";
         for(int i=0;i<updateTypes.size()-1;i++){
@@ -563,6 +573,17 @@ public class WebsocketApi {
         ApiResponse<WebsocketAuthRedirectResponse> resp = getPortfolioStreamFeedAuthorizeWithHttpInfo(apiVersion);
         return resp.getData();
     }
+
+    public WebsocketAuthRedirectResponse getPortfolioStreamFeedAuthorize(String apiVersion,boolean orderUpdate,boolean positionUpdate, boolean holdingUpdate, boolean gttUpdate) throws ApiException {
+        this.orderUpdate = orderUpdate;
+        this.positionUpdate = positionUpdate;
+        this.holdingUpdate = holdingUpdate;
+        this.gttUpdate = gttUpdate;
+        ApiResponse<WebsocketAuthRedirectResponse> resp = getPortfolioStreamFeedAuthorizeWithHttpInfo(apiVersion);
+        return resp.getData();
+    }
+
+
     /**
      * Portfolio Stream Feed Authorize
      *  This API provides the functionality to retrieve the socket endpoint URI for Portfolio updates.

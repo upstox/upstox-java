@@ -15,7 +15,7 @@ public class PortfolioStreamerTest {
         OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
         oAuth.setAccessToken(DataToken.accessToken);
 
-        final PortfolioDataStreamer portfolioDataStreamer = new PortfolioDataStreamer(defaultClient,true,true,true);
+        final PortfolioDataStreamer portfolioDataStreamer = new PortfolioDataStreamer(defaultClient,true,true,true, true);
 
         portfolioDataStreamer.setOnOrderUpdateListener(orderUpdate -> System.out.println("orderUpdate= " + orderUpdate));
 
@@ -23,6 +23,7 @@ public class PortfolioStreamerTest {
 
         portfolioDataStreamer.setOnHoldingUpdateListener((holdingUpdate) -> System.out.println("holdingUpdate= " + holdingUpdate));
         portfolioDataStreamer.setOnPositionUpdateListener(positionUpdate -> System.out.println("positionUpdate= " + positionUpdate));
+        portfolioDataStreamer.setOnGttUpdateListener(gttUpdate -> System.out.println("gttUpdate= " + gttUpdate));
 
         portfolioDataStreamer.connect();
     }

@@ -24,6 +24,7 @@ public class PortfolioDataFeeder extends Feeder {
     private boolean orderUpdate;
     private boolean holdingUpdate;
     private boolean positionUpdate;
+    private boolean gttUpdate;
 
     public boolean isOrderUpdate() {
         return orderUpdate;
@@ -37,8 +38,12 @@ public class PortfolioDataFeeder extends Feeder {
         return positionUpdate;
     }
 
+    public boolean isGttUpdate() {
+        return gttUpdate;
+    }
+
     protected PortfolioDataFeeder(ApiClient apiClient, OnOpenListener onOpenListener,
-                                  OnMessageListener onMessageListener, OnErrorListener onErrorListener, OnCloseListener onCloseListener, boolean orderUpdate, boolean holdingUpdate, boolean positionUpdate) {
+                                  OnMessageListener onMessageListener, OnErrorListener onErrorListener, OnCloseListener onCloseListener, boolean orderUpdate, boolean holdingUpdate, boolean positionUpdate, boolean gttUpdate) {
         super(apiClient);
         this.onOpenListener = onOpenListener;
         this.onMessageListener = onMessageListener;
@@ -47,6 +52,7 @@ public class PortfolioDataFeeder extends Feeder {
         this.positionUpdate = positionUpdate;
         this.holdingUpdate = holdingUpdate;
         this.orderUpdate = orderUpdate;
+        this.gttUpdate = gttUpdate;
     }
 
     @Override
@@ -116,6 +122,7 @@ public class PortfolioDataFeeder extends Feeder {
         websocketApi.setOrderUpdate(this.orderUpdate);
         websocketApi.setHoldingUpdate(this.holdingUpdate);
         websocketApi.setPositionUpdate(this.positionUpdate);
+        websocketApi.setGttUpdate(this.gttUpdate);
         WebsocketAuthRedirectResponse response = websocketApi.getPortfolioStreamFeedAuthorize("2.0");
         return URI.create(response.getData()
                 .getAuthorizedRedirectUri());

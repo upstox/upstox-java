@@ -14,9 +14,11 @@ public class PortfolioDataStreamer extends Streamer {
     private OnOrderUpdateListener onOrderUpdateListener;
     private OnHoldingUpdateListener onHoldingUpdateListener;
     private OnPositionUpdateListener onPositionUpdateListener;
+    private OnGttUpdateListener onGttUpdateListener;
     private boolean orderUpdate = true;
     private boolean holdingUpdate = false;
     private boolean positionUpdate = false;
+    private boolean gttUpdate = false;
 
     private static final String SOCKET_NOT_OPEN_ERROR = "WebSocket is not open.";
     private static final String INVALID_VALUES_ERROR = "Values provided are invalid.";
@@ -27,6 +29,8 @@ public class PortfolioDataStreamer extends Streamer {
 
     private static final String HOLDING_UPDATE_LISTENER_FUNCTION_MISSING_ERROR = "Implementation of holding update listener function is missing";
 
+    private static final String GTT_UPDATE_LISTENER_FUNCTION_MISSING_ERROR = "Implementation of gtt update listener function is missing";
+
     public void setOnOrderUpdateListener(OnOrderUpdateListener onOrderUpdateListener) {
         this.onOrderUpdateListener = onOrderUpdateListener;
     }
@@ -35,6 +39,9 @@ public class PortfolioDataStreamer extends Streamer {
     }
     public void setOnPositionUpdateListener(OnPositionUpdateListener onPositionUpdateListener){
         this.onPositionUpdateListener = onPositionUpdateListener;
+    }
+    public void setOnGttUpdateListener(OnGttUpdateListener onGttUpdateListener){
+        this.onGttUpdateListener = onGttUpdateListener;
     }
 
     public PortfolioDataStreamer(ApiClient apiClient) {
@@ -56,11 +63,25 @@ public class PortfolioDataStreamer extends Streamer {
         this.holdingUpdate = holdingUpdate;
     }
 
+    public PortfolioDataStreamer(ApiClient apiClient, boolean orderUpdate, boolean positionUpdate, boolean holdingUpdate, boolean gttUpdate){
+        if (apiClient == null) {
+            throw new StreamerException(INVALID_VALUES_ERROR);
+        }
+
+        this.apiClient = apiClient;
+        this.orderUpdate = orderUpdate;
+        this.positionUpdate = positionUpdate;
+        this.holdingUpdate = holdingUpdate;
+        this.gttUpdate = gttUpdate;
+    }
+
+
     @Override
     public void connect() {
         if(this.orderUpdate && onOrderUpdateListener == null) throw new StreamerException(ORDER_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
         if(this.holdingUpdate && onHoldingUpdateListener == null) throw new StreamerException(HOLDING_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
         if(this.positionUpdate & onPositionUpdateListener == null) throw new StreamerException(POSITION_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
+        if(this.gttUpdate && onGttUpdateListener == null) throw new StreamerException(GTT_UPDATE_LISTENER_FUNCTION_MISSING_ERROR);
         feeder = new PortfolioDataFeeder(apiClient, new OnOpenListener() {
 
             @Override
@@ -94,7 +115,7 @@ public class PortfolioDataStreamer extends Streamer {
                 handleClose(statusCode, reason);
 
             }
-        },orderUpdate,holdingUpdate,positionUpdate);
+        },orderUpdate,holdingUpdate,positionUpdate,gttUpdate);
 
         feeder.connect();
     }
@@ -131,7 +152,9 @@ public class PortfolioDataStreamer extends Streamer {
         }
         else if(updateData instanceof PositionUpdate && onPositionUpdateListener != null){
             onPositionUpdateListener.onUpdate((PositionUpdate) updateData);
-
+        }
+        else if(updateData instanceof GttUpdate && onGttUpdateListener != null){
+            onGttUpdateListener.onUpdate((GttUpdate) updateData);
         }
     }
 
@@ -151,7 +174,9 @@ public class PortfolioDataStreamer extends Streamer {
         else if("position".equals(updateType)){
             return gson.fromJson(data,PositionUpdate.class);
         }
+        else if("gtt_order".equals(updateType)){
+            return gson.fromJson(data,GttUpdate.class);
+        }
         return null;
-
     }
 }

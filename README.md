@@ -30,7 +30,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.upstox.api</groupId>
   <artifactId>upstox-java-sdk</artifactId>
-  <version>1.13</version>
+  <version>1.14</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.upstox.api:upstox-java-sdk:1.13"
+compile "com.upstox.api:upstox-java-sdk:1.14"
 ```
 
 ## Sandbox Mode
@@ -815,7 +815,7 @@ public class PortfolioFeederTest {
 ```
 <br/>
 
-Position and holding updates can be enabled by setting the corresponding flag to `true` in the constructor of the `PortfolioDataStreamer` class.
+Position, holding, GTT updates can be enabled by setting the corresponding flag to `true` in the constructor of the `PortfolioDataStreamer` class.
 
 ```java
 import com.upstox.feeder.HoldingUpdate;
@@ -828,7 +828,7 @@ public class PortfolioFeederTest {
         OAuth oAuth = (OAuth) defaultClient.getAuthentication("OAUTH2");
         oAuth.setAccessToken( < ACCESS_TOKEN >);
 
-        final PortfolioDataStreamer portfolioDataStreamer = new PortfolioDataStreamer(defaultClient, true, true, true);
+        final PortfolioDataStreamer portfolioDataStreamer = new PortfolioDataStreamer(defaultClient, true, true, true, true);
 
         portfolioDataStreamer.setOnOrderUpdateListener(new OnOrderUpdateListener() {
 
@@ -857,6 +857,15 @@ public class PortfolioFeederTest {
             }
         });
 
+        portfolioDataStreamer.setOnGttUpdateListener(new OnGttUpdateListener() {
+
+            @Override
+            public void onUpdate(GttUpdate gttUpdate) {
+                System.out.println(gttUpdate);
+
+            }
+        });
+        
         portfolioDataStreamer.connect();
     }
 }
