@@ -38,6 +38,7 @@ public class MarketDataStreamerV3 extends Streamer {
         subscriptions = new HashMap<>();
         subscriptions.put(Mode.LTPC, new HashSet<>());
         subscriptions.put(Mode.FULL, new HashSet<>());
+        subscriptions.put(Mode.FULL_D30, new HashSet<>());
         subscriptions.put(Mode.OPTION_GREEKS, new HashSet<>());
     }
 
@@ -51,6 +52,7 @@ public class MarketDataStreamerV3 extends Streamer {
         subscriptions = new HashMap<>();
         subscriptions.put(Mode.LTPC, new HashSet<>());
         subscriptions.put(Mode.FULL, new HashSet<>());
+        subscriptions.put(Mode.FULL_D30, new HashSet<>());
         subscriptions.put(Mode.OPTION_GREEKS, new HashSet<>());
 
         // Populate initial subscriptions if provided
