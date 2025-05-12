@@ -35,7 +35,7 @@ public class MarketStreamerV3Test {
                 instrumentKeys.add("NSE_INDEX|Nifty 50");
                 instrumentKeys.add("MCX_FO|439037");
 
-                marketDataStreamer.subscribe(instrumentKeys, Mode.FULL);
+                marketDataStreamer.subscribe(instrumentKeys, Mode.FULL_D30);
 
             }
         });
