@@ -101,9 +101,16 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ChargeApi* | [**getBrokerage**](docs/ChargeApi.md#getBrokerage) | **GET** /v2/charges/brokerage | Brokerage details
 *ChargeApi* | [**postMargin**](docs/ChargeApi.md#postMargin) | **POST** /v2/charges/margin | Calculate Margin
-*HistoryApi* | [**getHistoricalCandleData**](docs/HistoryApi.md#getHistoricalCandleData) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date} | Historical candle data
-*HistoryApi* | [**getHistoricalCandleData1**](docs/HistoryApi.md#getHistoricalCandleData1) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
-*HistoryApi* | [**getIntraDayCandleData**](docs/HistoryApi.md#getIntraDayCandleData) | **GET** /v2/historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
+*ExpiredInstrumentApi* | [**getExpiredFutureContracts**](docs/ExpiredInstrumentApi.md#getExpiredFutureContracts) | **GET** /v2/expired-instruments/future/contract | Expired instruments - Get future contracts
+*ExpiredInstrumentApi* | [**getExpiredHistoricalCandleData**](docs/ExpiredInstrumentApi.md#getExpiredHistoricalCandleData) | **GET** /v2/expired-instruments/historical-candle/{expired_instrument_key}/{interval}/{to_date}/{from_date} | Expired Historical candle data
+*ExpiredInstrumentApi* | [**getExpiredOptionContracts**](docs/ExpiredInstrumentApi.md#getExpiredOptionContracts) | **GET** /v2/expired-instruments/option/contract | Get expired option contracts
+*ExpiredInstrumentApi* | [**getExpiries**](docs/ExpiredInstrumentApi.md#getExpiries) | **GET** /v2/expired-instruments/expiries | Expired instruments - Get expiries
+*HistoryApi* | [**getHistoricalCandleData2**](docs/HistoryApi.md#getHistoricalCandleData2) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date} | Historical candle data
+*HistoryApi* | [**getHistoricalCandleData3**](docs/HistoryApi.md#getHistoricalCandleData3) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
+*HistoryApi* | [**getIntraDayCandleData1**](docs/HistoryApi.md#getIntraDayCandleData1) | **GET** /v2/historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
+*HistoryV3Api* | [**getHistoricalCandleData**](docs/HistoryV3Api.md#getHistoricalCandleData) | **GET** /v3/historical-candle/{instrumentKey}/{unit}/{interval}/{to_date} | Historical candle data
+*HistoryV3Api* | [**getHistoricalCandleData1**](docs/HistoryV3Api.md#getHistoricalCandleData1) | **GET** /v3/historical-candle/{instrumentKey}/{unit}/{interval}/{to_date}/{from_date} | Historical candle data
+*HistoryV3Api* | [**getIntraDayCandleData**](docs/HistoryV3Api.md#getIntraDayCandleData) | **GET** /v3/historical-candle/intraday/{instrumentKey}/{unit}/{interval} | Intra day candle data
 *LoginApi* | [**authorize**](docs/LoginApi.md#authorize) | **GET** /v2/login/authorization/dialog | Authorize API
 *LoginApi* | [**autoLogin**](docs/LoginApi.md#autoLogin) | **GET** /v2/auth/auto-login | Auto Login
 *LoginApi* | [**logout**](docs/LoginApi.md#logout) | **DELETE** /v2/logout | Logout
@@ -115,6 +122,9 @@ Class | Method | HTTP request | Description
 *MarketQuoteApi* | [**getFullMarketQuote**](docs/MarketQuoteApi.md#getFullMarketQuote) | **GET** /v2/market-quote/quotes | Market quotes and instruments - Full market quotes
 *MarketQuoteApi* | [**getMarketQuoteOHLC**](docs/MarketQuoteApi.md#getMarketQuoteOHLC) | **GET** /v2/market-quote/ohlc | Market quotes and instruments - OHLC quotes
 *MarketQuoteApi* | [**ltp**](docs/MarketQuoteApi.md#ltp) | **GET** /v2/market-quote/ltp | Market quotes and instruments - LTP quotes.
+*MarketQuoteV3Api* | [**getLtp**](docs/MarketQuoteV3Api.md#getLtp) | **GET** /v3/market-quote/ltp | Market quotes and instruments - LTP quotes.
+*MarketQuoteV3Api* | [**getMarketQuoteOHLC**](docs/MarketQuoteV3Api.md#getMarketQuoteOHLC) | **GET** /v3/market-quote/ohlc | Market quotes and instruments - OHLC quotes
+*MarketQuoteV3Api* | [**getMarketQuoteOptionGreek**](docs/MarketQuoteV3Api.md#getMarketQuoteOptionGreek) | **GET** /v3/market-quote/option-greek | Market quotes and instruments - Option Greek
 *OptionsApi* | [**getOptionContracts**](docs/OptionsApi.md#getOptionContracts) | **GET** /v2/option/contract | Get option contracts
 *OptionsApi* | [**getPutCallOptionChain**](docs/OptionsApi.md#getPutCallOptionChain) | **GET** /v2/option/chain | Get option chain
 *OrderApi* | [**cancelMultiOrder**](docs/OrderApi.md#cancelMultiOrder) | **DELETE** /v2/order/multi/cancel | Cancel multi order
@@ -133,6 +143,7 @@ Class | Method | HTTP request | Description
 *OrderApiV3* | [**placeOrder**](docs/OrderControllerV3Api.md#placeOrder) | **POST** /v3/order/place | 
 *PortfolioApi* | [**convertPositions**](docs/PortfolioApi.md#convertPositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
 *PortfolioApi* | [**getHoldings**](docs/PortfolioApi.md#getHoldings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
+*PortfolioApi* | [**getMtfPositions**](docs/PortfolioApi.md#getMtfPositions) | **GET** /v3/portfolio/mtf-positions | Get MTF positions
 *PortfolioApi* | [**getPositions**](docs/PortfolioApi.md#getPositions) | **GET** /v2/portfolio/short-term-positions | Get Positions
 *PostTradeApi* | [**getTradesByDateRange**](docs/PostTradeApi.md#getTradesByDateRange) | **GET** /v2/charges/historical-trades | Get historical trades
 *TradeProfitAndLossApi* | [**getProfitAndLossCharges**](docs/TradeProfitAndLossApi.md#getProfitAndLossCharges) | **GET** /v2/trade/profit-loss/charges | Get profit and loss on trades
@@ -913,15 +924,22 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [DepthMap](docs/DepthMap.md)
  - [DpPlan](docs/DpPlan.md)
  - [ExchangeTimingData](docs/ExchangeTimingData.md)
+ - [ExpiredFutureData](docs/ExpiredFutureData.md)
  - [GetBrokerageResponse](docs/GetBrokerageResponse.md)
  - [GetExchangeTimingResponse](docs/GetExchangeTimingResponse.md)
+ - [GetExpiredFuturesContractResponse](docs/GetExpiredFuturesContractResponse.md)
+ - [GetExpiriesResponse](docs/GetExpiriesResponse.md)
  - [GetFullMarketQuoteResponse](docs/GetFullMarketQuoteResponse.md)
+ - [GetGttOrderResponse](docs/GetGttOrderResponse.md)
  - [GetHistoricalCandleResponse](docs/GetHistoricalCandleResponse.md)
  - [GetHoldingsResponse](docs/GetHoldingsResponse.md)
  - [GetHolidayResponse](docs/GetHolidayResponse.md)
  - [GetIntraDayCandleResponse](docs/GetIntraDayCandleResponse.md)
  - [GetMarketQuoteLastTradedPriceResponse](docs/GetMarketQuoteLastTradedPriceResponse.md)
+ - [GetMarketQuoteLastTradedPriceResponseV3](docs/GetMarketQuoteLastTradedPriceResponseV3.md)
  - [GetMarketQuoteOHLCResponse](docs/GetMarketQuoteOHLCResponse.md)
+ - [GetMarketQuoteOHLCResponseV3](docs/GetMarketQuoteOHLCResponseV3.md)
+ - [GetMarketQuoteOptionGreekResponseV3](docs/GetMarketQuoteOptionGreekResponseV3.md)
  - [GetMarketStatusResponse](docs/GetMarketStatusResponse.md)
  - [GetOptionChainResponse](docs/GetOptionChainResponse.md)
  - [GetOptionContractResponse](docs/GetOptionContractResponse.md)
@@ -950,8 +968,11 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [MarginRequest](docs/MarginRequest.md)
  - [MarketData](docs/MarketData.md)
  - [MarketQuoteOHLC](docs/MarketQuoteOHLC.md)
+ - [MarketQuoteOHLCV3](docs/MarketQuoteOHLCV3.md)
+ - [MarketQuoteOptionGreekV3](docs/MarketQuoteOptionGreekV3.md)
  - [MarketQuoteSymbol](docs/MarketQuoteSymbol.md)
  - [MarketQuoteSymbolLtp](docs/MarketQuoteSymbolLtp.md)
+ - [MarketQuoteSymbolLtpV3](docs/MarketQuoteSymbolLtpV3.md)
  - [MarketStatusData](docs/MarketStatusData.md)
  - [ModifyOrderData](docs/ModifyOrderData.md)
  - [ModifyOrderRequest](docs/ModifyOrderRequest.md)
@@ -968,6 +989,7 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
  - [OAuthClientExceptionCauseStackTrace](docs/OAuthClientExceptionCauseStackTrace.md)
  - [OAuthClientExceptionCauseSuppressed](docs/OAuthClientExceptionCauseSuppressed.md)
  - [Ohlc](docs/Ohlc.md)
+ - [OhlcV3](docs/OhlcV3.md)
  - [OptionStrikeData](docs/OptionStrikeData.md)
  - [OrderBookData](docs/OrderBookData.md)
  - [OrderData](docs/OrderData.md)

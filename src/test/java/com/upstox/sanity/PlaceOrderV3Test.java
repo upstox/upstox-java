@@ -18,7 +18,7 @@ public class PlaceOrderV3Test {
         OrderApiV3 apiInstance = new OrderApiV3();
         PlaceOrderV3Request body = new PlaceOrderV3Request();
         body.setQuantity(1);
-        body.setProduct(PlaceOrderV3Request.ProductEnum.D);
+        body.setProduct(PlaceOrderV3Request.ProductEnum.MTF);
         body.setValidity(PlaceOrderV3Request.ValidityEnum.DAY);
         body.setPrice(9F);
         body.setTag("string");
