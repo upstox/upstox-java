@@ -18,7 +18,7 @@ public class PlaceOrderTest {
         OrderApi apiInstance = new OrderApi();
         PlaceOrderRequest body = new PlaceOrderRequest();
         body.setQuantity(1);
-        body.setProduct(PlaceOrderRequest.ProductEnum.D);
+        body.setProduct(PlaceOrderRequest.ProductEnum.MTF);
         body.setValidity(PlaceOrderRequest.ValidityEnum.DAY);
         body.setPrice(0F);
         body.setTag("string");

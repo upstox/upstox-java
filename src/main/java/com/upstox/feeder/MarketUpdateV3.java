@@ -635,7 +635,7 @@ public class MarketUpdateV3 {
     }
 
     public enum RequestMode {
-        ltpc, full_d5, option_greeks
+        ltpc, full_d5, option_greeks, full_d30
     }
 
     public enum MarketStatus {

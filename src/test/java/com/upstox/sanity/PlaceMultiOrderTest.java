@@ -20,7 +20,7 @@ public class PlaceMultiOrderTest {
         OrderApi apiInstance = new OrderApi();
         MultiOrderRequest request1 = new MultiOrderRequest();
         request1.setQuantity(1);
-        request1.setProduct(MultiOrderRequest.ProductEnum.D);
+        request1.setProduct(MultiOrderRequest.ProductEnum.MTF);
         request1.setValidity(MultiOrderRequest.ValidityEnum.DAY);
         request1.setPrice(0F);
         request1.setTag("java_sdk_tester1");

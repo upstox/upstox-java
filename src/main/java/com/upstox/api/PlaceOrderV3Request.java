@@ -39,7 +39,9 @@ public class PlaceOrderV3Request {
     @SerializedName("I")
     I("I"),
     @SerializedName("D")
-    D("D");
+    D("D"),
+    @SerializedName("MTF")
+    MTF("MTF");
 
     private String value;
 
