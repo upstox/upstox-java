@@ -631,7 +631,7 @@ public class MarketFeederTest {
 ```
 
 <br/>
-
+ 
 3. Subscribing and Unsubscribing to Instruments
 
 ```java
