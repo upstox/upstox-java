@@ -36,112 +36,15 @@ public class ProfileData {
   /**
    * Lists the exchanges to which the user has access
    */
-  @JsonAdapter(ExchangesEnum.Adapter.class)
-  public enum ExchangesEnum {
-    @SerializedName("NSE")
-    NSE("NSE"),
-    @SerializedName("NFO")
-    NFO("NFO"),
-    @SerializedName("CDS")
-    CDS("CDS"),
-    @SerializedName("BSE")
-    BSE("BSE"),
-    @SerializedName("BCD")
-    BCD("BCD"),
-    @SerializedName("BFO")
-    BFO("BFO"),
-    @SerializedName("MCX")
-    MCX("MCX"),
-    @SerializedName("NSCOM")
-    NSCOM("NSCOM");
-
-    private String value;
-
-    ExchangesEnum(String value) {
-      this.value = value;
-    }
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-    public static ExchangesEnum fromValue(String input) {
-      for (ExchangesEnum b : ExchangesEnum.values()) {
-        if (b.value.equals(input)) {
-          return b;
-        }
-      }
-      return null;
-    }
-    public static class Adapter extends TypeAdapter<ExchangesEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ExchangesEnum enumeration) throws IOException {
-        jsonWriter.value(String.valueOf(enumeration.getValue()));
-      }
-
-      @Override
-      public ExchangesEnum read(final JsonReader jsonReader) throws IOException {
-        Object value = jsonReader.nextString();
-        return ExchangesEnum.fromValue((String)(value));
-      }
-    }
-  }  @SerializedName("exchanges")
-  private List<ExchangesEnum> exchanges = null;
+  @SerializedName("exchanges")
+  private List<String> exchanges = null;
 
   /**
    * Lists the products types to which the user has access
    */
-  @JsonAdapter(ProductsEnum.Adapter.class)
-  public enum ProductsEnum {
-    @SerializedName("I")
-    I("I"),
-    @SerializedName("D")
-    D("D"),
-    @SerializedName("CO")
-    CO("CO"),
-    @SerializedName("OCO")
-    OCO("OCO"),
-    @SerializedName("MTF")
-    MTF("MTF");
 
-    private String value;
-
-    ProductsEnum(String value) {
-      this.value = value;
-    }
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-    public static ProductsEnum fromValue(String input) {
-      for (ProductsEnum b : ProductsEnum.values()) {
-        if (b.value.equals(input)) {
-          return b;
-        }
-      }
-      return null;
-    }
-    public static class Adapter extends TypeAdapter<ProductsEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ProductsEnum enumeration) throws IOException {
-        jsonWriter.value(String.valueOf(enumeration.getValue()));
-      }
-
-      @Override
-      public ProductsEnum read(final JsonReader jsonReader) throws IOException {
-        Object value = jsonReader.nextString();
-        return ProductsEnum.fromValue((String)(value));
-      }
-    }
-  }  @SerializedName("products")
-  private List<ProductsEnum> products = null;
+  @SerializedName("products")
+  private List<String> products = null;
 
   @SerializedName("broker")
   private String broker = null;
@@ -225,7 +128,7 @@ public class ProfileData {
    * @return exchanges
   **/
   @Schema(example = "NSE", description = "Lists the exchanges to which the user has access")
-  public List<ExchangesEnum> getExchanges() {
+  public List<String> getExchanges() {
     return exchanges;
   }
 
@@ -234,7 +137,7 @@ public class ProfileData {
    * @return products
   **/
   @Schema(example = "D", description = "Lists the products types to which the user has access")
-  public List<ProductsEnum> getProducts() {
+  public List<String> getProducts() {
     return products;
   }
 

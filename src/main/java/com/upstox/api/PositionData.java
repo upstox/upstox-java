@@ -31,58 +31,9 @@ public class PositionData {
   /**
    * Exchange to which the order is associated
    */
-  @JsonAdapter(ExchangeEnum.Adapter.class)
-  public enum ExchangeEnum {
-    @SerializedName("NSE")
-    NSE("NSE"),
-    @SerializedName("NFO")
-    NFO("NFO"),
-    @SerializedName("CDS")
-    CDS("CDS"),
-    @SerializedName("BSE")
-    BSE("BSE"),
-    @SerializedName("BCD")
-    BCD("BCD"),
-    @SerializedName("BFO")
-    BFO("BFO"),
-    @SerializedName("MCX")
-    MCX("MCX");
 
-    private String value;
-
-    ExchangeEnum(String value) {
-      this.value = value;
-    }
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-    public static ExchangeEnum fromValue(String input) {
-      for (ExchangeEnum b : ExchangeEnum.values()) {
-        if (b.value.equals(input)) {
-          return b;
-        }
-      }
-      return null;
-    }
-    public static class Adapter extends TypeAdapter<ExchangeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ExchangeEnum enumeration) throws IOException {
-        jsonWriter.value(String.valueOf(enumeration.getValue()));
-      }
-
-      @Override
-      public ExchangeEnum read(final JsonReader jsonReader) throws IOException {
-        Object value = jsonReader.nextString();
-        return ExchangeEnum.fromValue((String)(value));
-      }
-    }
-  }  @SerializedName("exchange")
-  private ExchangeEnum exchange = null;
+  @SerializedName("exchange")
+  private String exchange = null;
 
   @SerializedName("multiplier")
   private Float multiplier = null;
@@ -173,7 +124,7 @@ public class PositionData {
    * @return exchange
   **/
   @Schema(example = "NSE", description = "Exchange to which the order is associated")
-  public ExchangeEnum getExchange() {
+  public String getExchange() {
     return exchange;
   }
 

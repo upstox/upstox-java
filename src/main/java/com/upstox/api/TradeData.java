@@ -31,110 +31,15 @@ public class TradeData {
   /**
    * Exchange to which the order is associated
    */
-  @JsonAdapter(ExchangeEnum.Adapter.class)
-  public enum ExchangeEnum {
-    @SerializedName("NSE")
-    NSE("NSE"),
-    @SerializedName("NFO")
-    NFO("NFO"),
-    @SerializedName("CDS")
-    CDS("CDS"),
-    @SerializedName("BSE")
-    BSE("BSE"),
-    @SerializedName("BCD")
-    BCD("BCD"),
-    @SerializedName("BFO")
-    BFO("BFO"),
-    @SerializedName("MCX")
-    MCX("MCX");
 
-    private String value;
-
-    ExchangeEnum(String value) {
-      this.value = value;
-    }
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-    public static ExchangeEnum fromValue(String input) {
-      for (ExchangeEnum b : ExchangeEnum.values()) {
-        if (b.value.equals(input)) {
-          return b;
-        }
-      }
-      return null;
-    }
-    public static class Adapter extends TypeAdapter<ExchangeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ExchangeEnum enumeration) throws IOException {
-        jsonWriter.value(String.valueOf(enumeration.getValue()));
-      }
-
-      @Override
-      public ExchangeEnum read(final JsonReader jsonReader) throws IOException {
-        Object value = jsonReader.nextString();
-        return ExchangeEnum.fromValue((String)(value));
-      }
-    }
-  }  @SerializedName("exchange")
-  private ExchangeEnum exchange = null;
+  @SerializedName("exchange")
+  private String exchange = null;
 
   /**
    * Shows if the order was either Intraday, Delivery, CO or OCO
    */
-  @JsonAdapter(ProductEnum.Adapter.class)
-  public enum ProductEnum {
-    @SerializedName("I")
-    I("I"),
-    @SerializedName("D")
-    D("D"),
-    @SerializedName("CO")
-    CO("CO"),
-    @SerializedName("OCO")
-    OCO("OCO"),
-    @SerializedName("MTF")
-    MTF("MTF");
-
-    private String value;
-
-    ProductEnum(String value) {
-      this.value = value;
-    }
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-    public static ProductEnum fromValue(String input) {
-      for (ProductEnum b : ProductEnum.values()) {
-        if (b.value.equals(input)) {
-          return b;
-        }
-      }
-      return null;
-    }
-    public static class Adapter extends TypeAdapter<ProductEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ProductEnum enumeration) throws IOException {
-        jsonWriter.value(String.valueOf(enumeration.getValue()));
-      }
-
-      @Override
-      public ProductEnum read(final JsonReader jsonReader) throws IOException {
-        Object value = jsonReader.nextString();
-        return ProductEnum.fromValue((String)(value));
-      }
-    }
-  }  @SerializedName("product")
-  private ProductEnum product = null;
+  @SerializedName("product")
+  private String product = null;
 
   @SerializedName("tradingsymbol")
   private String tradingsymbol = null;
@@ -270,7 +175,7 @@ public class TradeData {
    * @return exchange
   **/
   @Schema(example = "NSE", description = "Exchange to which the order is associated")
-  public ExchangeEnum getExchange() {
+  public String getExchange() {
     return exchange;
   }
 
@@ -279,7 +184,7 @@ public class TradeData {
    * @return product
   **/
   @Schema(example = "D", description = "Shows if the order was either Intraday, Delivery, CO or OCO")
-  public ProductEnum getProduct() {
+  public String getProduct() {
     return product;
   }
 
