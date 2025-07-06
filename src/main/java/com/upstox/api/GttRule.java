@@ -127,6 +127,9 @@ public class GttRule {
   @SerializedName("trigger_price")
   private Double triggerPrice = null;
 
+  @SerializedName("trailing_gap")
+  private Double trailingGap = null;
+
   public GttRule strategy(StrategyEnum strategy) {
     this.strategy = strategy;
     return this;
@@ -181,6 +184,24 @@ public class GttRule {
     this.triggerPrice = triggerPrice;
   }
 
+  public GttRule trailingGap(Double trailingGap) {
+    this.trailingGap = trailingGap;
+    return this;
+  }
+
+   /**
+   * Optional parameter defining the trailing gap for the GTT order
+   * @return trailingGap
+  **/
+  @Schema(example = "0.5", description = "Optional parameter defining the trailing gap for the GTT order")
+  public Double getTrailingGap() {
+    return trailingGap;
+  }
+
+  public void setTrailingGap(Double trailingGap) {
+    this.trailingGap = trailingGap;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -193,12 +214,13 @@ public class GttRule {
     GttRule gttRule = (GttRule) o;
     return Objects.equals(this.strategy, gttRule.strategy) &&
         Objects.equals(this.triggerType, gttRule.triggerType) &&
-        Objects.equals(this.triggerPrice, gttRule.triggerPrice);
+        Objects.equals(this.triggerPrice, gttRule.triggerPrice) &&
+        Objects.equals(this.trailingGap, gttRule.trailingGap);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(strategy, triggerType, triggerPrice);
+    return Objects.hash(strategy, triggerType, triggerPrice, trailingGap);
   }
 
 
@@ -210,6 +232,7 @@ public class GttRule {
     sb.append("    strategy: ").append(toIndentedString(strategy)).append("\n");
     sb.append("    triggerType: ").append(toIndentedString(triggerType)).append("\n");
     sb.append("    triggerPrice: ").append(toIndentedString(triggerPrice)).append("\n");
+    sb.append("    trailingGap: ").append(toIndentedString(trailingGap)).append("\n");
     sb.append("}");
     return sb.toString();
   }

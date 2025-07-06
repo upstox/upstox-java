@@ -55,6 +55,9 @@ public class GttUpdate {
         @SerializedName("message")
         private String message;
 
+        @SerializedName("trailing_gap")
+        private Double trailingGap;
+
         // Getters and Setters
         public String getStrategy() {
             return strategy;
@@ -70,6 +73,14 @@ public class GttUpdate {
 
         public void setTriggerType(String triggerType) {
             this.triggerType = triggerType;
+        }
+
+        public Double getTrailingGap() {
+            return trailingGap;
+        }
+
+        public void setTrailingGap(Double trailingGap) {
+            this.trailingGap = trailingGap;
         }
 
         public double getTriggerPrice() {
@@ -122,6 +133,7 @@ public class GttUpdate {
                     ", status='" + status + '\'' +
                     ", message='" + message + '\'' +
                     ", orderId='" + orderId + '\'' +
+                    ", trailingGap=" + trailingGap +
                     '}';
         }
     }

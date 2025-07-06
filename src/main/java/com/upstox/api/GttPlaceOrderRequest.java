@@ -81,14 +81,16 @@ public class GttPlaceOrderRequest {
   private Integer quantity = null;
 
   /**
-   * Signifies if the order was either Intraday, Delivery, CO or OCO
+   * Signifies if the order was either Intraday, Delivery or MTF
    */
   @JsonAdapter(ProductEnum.Adapter.class)
   public enum ProductEnum {
     @SerializedName("I")
     I("I"),
     @SerializedName("D")
-    D("D");
+    D("D"),
+    @SerializedName("MTF")
+    MTF("MTF");
 
     private String value;
 
@@ -220,10 +222,10 @@ public class GttPlaceOrderRequest {
   }
 
    /**
-   * Signifies if the order was either Intraday, Delivery, CO or OCO
+   * Signifies if the order was either Intraday, Delivery or MTF
    * @return product
   **/
-  @Schema(example = "D", required = true, description = "Signifies if the order was either Intraday, Delivery, CO or OCO")
+  @Schema(example = "D", required = true, description = "Signifies if the order was either Intraday, Delivery or MTF")
   public ProductEnum getProduct() {
     return product;
   }

@@ -49,6 +49,9 @@ public class Rule {
   @SerializedName("order_id")
   private String orderId = null;
 
+  @SerializedName("trailing_gap")
+  private Double trailingGap = null;
+
   public Rule strategy(String strategy) {
     this.strategy = strategy;
     return this;
@@ -175,6 +178,24 @@ public class Rule {
     this.orderId = orderId;
   }
 
+  public Rule trailingGap(Double trailingGap) {
+    this.trailingGap = trailingGap;
+    return this;
+  }
+
+   /**
+   * Get trailingGap
+   * @return trailingGap
+  **/
+  @Schema(description = "")
+  public Double getTrailingGap() {
+    return trailingGap;
+  }
+
+  public void setTrailingGap(Double trailingGap) {
+    this.trailingGap = trailingGap;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -191,12 +212,13 @@ public class Rule {
         Objects.equals(this.triggerType, rule.triggerType) &&
         Objects.equals(this.triggerPrice, rule.triggerPrice) &&
         Objects.equals(this.transactionType, rule.transactionType) &&
-        Objects.equals(this.orderId, rule.orderId);
+        Objects.equals(this.orderId, rule.orderId) &&
+        Objects.equals(this.trailingGap, rule.trailingGap);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(strategy, status, message, triggerType, triggerPrice, transactionType, orderId);
+    return Objects.hash(strategy, status, message, triggerType, triggerPrice, transactionType, orderId, trailingGap);
   }
 
 
@@ -212,6 +234,7 @@ public class Rule {
     sb.append("    triggerPrice: ").append(toIndentedString(triggerPrice)).append("\n");
     sb.append("    transactionType: ").append(toIndentedString(transactionType)).append("\n");
     sb.append("    orderId: ").append(toIndentedString(orderId)).append("\n");
+    sb.append("    trailingGap: ").append(toIndentedString(trailingGap)).append("\n");
     sb.append("}");
     return sb.toString();
   }
