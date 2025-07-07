@@ -33,7 +33,7 @@ jobs:
       with:
         servers: |
           [{
-            "id": "ossrh",
+            "id": "central",
             "username": "${{ secrets.SONATYPE_USERNAME }}",
             "password": "${{ secrets.SONATYPE_PASSWORD }}"
           },{
