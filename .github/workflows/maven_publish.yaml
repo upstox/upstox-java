@@ -34,8 +34,8 @@ jobs:
         servers: |
           [{
             "id": "central",
-            "username": "${{ secrets.SONATYPE_USERNAME }}",
-            "password": "${{ secrets.SONATYPE_PASSWORD }}"
+            "username": "${{ secrets.CENTRAL_USERNAME }}",
+            "password": "${{ secrets.CENTRAL_PASSWORD }}"
           },{
             "id": "gpg.passphrase",
             "passphrase": "${{ secrets.GPG_PASSPHRASE }}",
@@ -50,8 +50,8 @@ jobs:
         mvn clean install org.apache.maven.plugins:maven-gpg-plugin:sign -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }};
         mvn -P release-sign-artifacts deploy
       env:
-        MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        MAVEN_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+        MAVEN_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
         MAVEN_OPTS: "-Dgpg.executable=gpg -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -Dgpg.loopback=true"
