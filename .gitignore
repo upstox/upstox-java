@@ -32,3 +32,5 @@ upstox-java-sdk.iml
 .swagger-codegen-ignore
 git_push.sh
 
+#cursor
+.cursor/
