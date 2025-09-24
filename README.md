@@ -84,6 +84,58 @@ public class Main{
     }
 }
 ```
+
+### Using Algo ID with Orders
+
+The SDK supports passing an algorithm ID for order tracking and management. When provided, the SDK will pass the algo ID as `X-Algo-Id` header.
+
+```java
+import com.upstox.ApiClient;
+import com.upstox.ApiException;
+import com.upstox.Configuration;
+import com.upstox.api.*;
+import com.upstox.auth.OAuth;
+import io.swagger.client.api.OrderApiV3;
+
+public class AlgoIdExample {
+    public static void main(String[] args) {
+        boolean sandbox = true;
+        ApiClient sandboxClient = new ApiClient(sandbox);
+        OAuth OAUTH2 = (OAuth) sandboxClient.getAuthentication("OAUTH2");
+        OAUTH2.setAccessToken("SANDBOX_ACCESS_TOKEN");
+        Configuration.setDefaultApiClient(sandboxClient);
+        
+        OrderApiV3 orderApiV3 = new OrderApiV3();
+        PlaceOrderV3Request body = new PlaceOrderV3Request();
+        body.setQuantity(1);
+        body.setProduct(PlaceOrderV3Request.ProductEnum.D);
+        body.setValidity(PlaceOrderV3Request.ValidityEnum.DAY);
+        body.setPrice(100F);
+        body.setTag("algo_strategy_v1");
+        body.setInstrumentToken("NSE_EQ|INE669E01016");
+        body.orderType(PlaceOrderV3Request.OrderTypeEnum.LIMIT);
+        body.setTransactionType(PlaceOrderV3Request.TransactionTypeEnum.BUY);
+        body.setDisclosedQuantity(0);
+        body.setTriggerPrice(0F);
+        body.setIsAmo(false);
+        
+        // Custom algo identifier for tracking
+        String algoId = "my-trading-algorithm-v1.0";
+        
+        try {
+            // Place order with algo_id parameter
+            PlaceOrderV3Response result = orderApiV3.placeOrder(body, algoId);
+            System.out.println("Order placed with Algo ID: " + result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling OrderApiV3#placeOrder with algo_id");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Other order methods (modify, cancel, etc.) follow the same pattern by accepting an optional `algo_id` as the last parameter.
+
 To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
 
 ## Examples
