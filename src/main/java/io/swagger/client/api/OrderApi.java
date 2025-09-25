@@ -80,7 +80,7 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call cancelMultiOrderCall(String tag, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call cancelMultiOrderCall(String tag, String segment, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -89,11 +89,13 @@ public class OrderApi {
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         if (tag != null)
-            localVarQueryParams.addAll(apiClient.parameterToPair("tag", tag));
+        localVarQueryParams.addAll(apiClient.parameterToPair("tag", tag));
         if (segment != null)
-            localVarQueryParams.addAll(apiClient.parameterToPair("segment", segment));
+        localVarQueryParams.addAll(apiClient.parameterToPair("segment", segment));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (algoId != null)
+            localVarHeaderParams.put("X-Algo-Id", apiClient.parameterToString(algoId));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -129,9 +131,9 @@ public class OrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call cancelMultiOrderValidateBeforeCall(String tag, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call cancelMultiOrderValidateBeforeCall(String tag, String segment, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
 
-        com.squareup.okhttp.Call call = cancelMultiOrderCall(tag, segment, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = cancelMultiOrderCall(tag, segment, algoId, progressListener, progressRequestListener);
         return call;
 
 
@@ -149,7 +151,21 @@ public class OrderApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public CancelOrExitMultiOrderResponse cancelMultiOrder(String tag, String segment) throws ApiException {
-        ApiResponse<CancelOrExitMultiOrderResponse> resp = cancelMultiOrderWithHttpInfo(tag, segment);
+        ApiResponse<CancelOrExitMultiOrderResponse> resp = cancelMultiOrderWithHttpInfo(tag, segment, null);
+        return resp.getData();
+    }
+
+    /**
+     * Cancel multi order
+     * API to cancel all the open or pending orders which can be applied to both AMO and regular orders.
+     * @param tag The tag associated with the orders for which the orders must be cancelled (optional)
+     * @param segment The segment for which the orders must be cancelled (optional)
+     * @param algoId Algo ID Header (optional)
+     * @return CancelOrExitMultiOrderResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public CancelOrExitMultiOrderResponse cancelMultiOrder(String tag, String segment, String algoId) throws ApiException {
+        ApiResponse<CancelOrExitMultiOrderResponse> resp = cancelMultiOrderWithHttpInfo(tag, segment, algoId);
         return resp.getData();
     }
 
@@ -161,8 +177,8 @@ public class OrderApi {
      * @return ApiResponse&lt;CancelOrExitMultiOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CancelOrExitMultiOrderResponse> cancelMultiOrderWithHttpInfo(String tag, String segment) throws ApiException {
-        com.squareup.okhttp.Call call = cancelMultiOrderValidateBeforeCall(tag, segment, null, null);
+    public ApiResponse<CancelOrExitMultiOrderResponse> cancelMultiOrderWithHttpInfo(String tag, String segment, String algoId) throws ApiException {
+        com.squareup.okhttp.Call call = cancelMultiOrderValidateBeforeCall(tag, segment, algoId, null, null);
         Type localVarReturnType = new TypeToken<CancelOrExitMultiOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -176,7 +192,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call cancelMultiOrderAsync(String tag, String segment, final ApiCallback<CancelOrExitMultiOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call cancelMultiOrderAsync(String tag, String segment, String algoId, final ApiCallback<CancelOrExitMultiOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -197,7 +213,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = cancelMultiOrderValidateBeforeCall(tag, segment, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = cancelMultiOrderValidateBeforeCall(tag, segment, algoId, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CancelOrExitMultiOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -212,7 +228,7 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call cancelOrderCall(String orderId, String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call cancelOrderCall(String orderId, String apiVersion, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
@@ -225,7 +241,9 @@ public class OrderApi {
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         if (apiVersion != null)
-        localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
+            localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
+        if (algoId != null)
+            localVarHeaderParams.put("X-Algo-Id", apiClient.parameterToString(algoId));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -258,7 +276,7 @@ public class OrderApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call cancelOrderValidateBeforeCall(String orderId, String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call cancelOrderValidateBeforeCall(String orderId, String apiVersion, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'orderId' is set
         if (orderId == null) {
             throw new ApiException("Missing the required parameter 'orderId' when calling cancelOrder(Async)");
@@ -268,7 +286,7 @@ public class OrderApi {
             throw new ApiException("Missing the required parameter 'apiVersion' when calling cancelOrder(Async)");
         }
         
-        com.squareup.okhttp.Call call = cancelOrderCall(orderId, apiVersion, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = cancelOrderCall(orderId, apiVersion, algoId, progressListener, progressRequestListener);
         return call;
 
         
@@ -286,7 +304,21 @@ public class OrderApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public CancelOrderResponse cancelOrder(String orderId, String apiVersion) throws ApiException {
-        ApiResponse<CancelOrderResponse> resp = cancelOrderWithHttpInfo(orderId, apiVersion);
+        ApiResponse<CancelOrderResponse> resp = cancelOrderWithHttpInfo(orderId, apiVersion, null);
+        return resp.getData();
+    }
+
+    /**
+     * Cancel order
+     * Cancel order API can be used for two purposes: Cancelling an open order which could be an AMO or a normal order It is also used to EXIT a CO or OCO(bracket order)
+     * @param orderId The order ID for which the order must be cancelled (required)
+     * @param apiVersion API Version Header (required)
+     * @param algoId Algo ID Header (optional)
+     * @return CancelOrderResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public CancelOrderResponse cancelOrder(String orderId, String apiVersion, String algoId) throws ApiException {
+        ApiResponse<CancelOrderResponse> resp = cancelOrderWithHttpInfo(orderId, apiVersion, algoId);
         return resp.getData();
     }
 
@@ -298,8 +330,8 @@ public class OrderApi {
      * @return ApiResponse&lt;CancelOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CancelOrderResponse> cancelOrderWithHttpInfo(String orderId, String apiVersion) throws ApiException {
-        com.squareup.okhttp.Call call = cancelOrderValidateBeforeCall(orderId, apiVersion, null, null);
+    public ApiResponse<CancelOrderResponse> cancelOrderWithHttpInfo(String orderId, String apiVersion, String algoId) throws ApiException {
+        com.squareup.okhttp.Call call = cancelOrderValidateBeforeCall(orderId, apiVersion, algoId, null, null);
         Type localVarReturnType = new TypeToken<CancelOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -313,7 +345,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call cancelOrderAsync(String orderId, String apiVersion, final ApiCallback<CancelOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call cancelOrderAsync(String orderId, String apiVersion, String algoId, final ApiCallback<CancelOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -334,7 +366,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = cancelOrderValidateBeforeCall(orderId, apiVersion, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = cancelOrderValidateBeforeCall(orderId, apiVersion, algoId, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CancelOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -348,20 +380,22 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call exitPositionsCall(String tag, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call exitPositionsCall(String tag, String segment, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-
+        
         // create path and map variables
         String localVarPath = "/v2/order/positions/exit";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         if (tag != null)
-            localVarQueryParams.addAll(apiClient.parameterToPair("tag", tag));
+        localVarQueryParams.addAll(apiClient.parameterToPair("tag", tag));
         if (segment != null)
-            localVarQueryParams.addAll(apiClient.parameterToPair("segment", segment));
+        localVarQueryParams.addAll(apiClient.parameterToPair("segment", segment));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (algoId != null)
+            localVarHeaderParams.put("X-Algo-Id", apiClient.parameterToString(algoId));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -397,9 +431,9 @@ public class OrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call exitPositionsValidateBeforeCall(String tag, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-
-        com.squareup.okhttp.Call call = exitPositionsCall(tag, segment, progressListener, progressRequestListener);
+    private com.squareup.okhttp.Call exitPositionsValidateBeforeCall(String tag, String segment, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = exitPositionsCall(tag, segment, algoId, progressListener, progressRequestListener);
         return call;
 
 
@@ -417,7 +451,21 @@ public class OrderApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public CancelOrExitMultiOrderResponse exitPositions(String tag, String segment) throws ApiException {
-        ApiResponse<CancelOrExitMultiOrderResponse> resp = exitPositionsWithHttpInfo(tag, segment);
+        ApiResponse<CancelOrExitMultiOrderResponse> resp = exitPositionsWithHttpInfo(tag, segment, null);
+        return resp.getData();
+    }
+
+    /**
+     * Exit all positions
+     * This API provides the functionality to exit all the positions
+     * @param tag The tag associated with the positions for which the positions must be exit (optional)
+     * @param segment The segment for which the positions must be exit (optional)
+     * @param algoId Algo ID Header (optional)
+     * @return CancelOrExitMultiOrderResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public CancelOrExitMultiOrderResponse exitPositions(String tag, String segment, String algoId) throws ApiException {
+        ApiResponse<CancelOrExitMultiOrderResponse> resp = exitPositionsWithHttpInfo(tag, segment, algoId);
         return resp.getData();
     }
 
@@ -429,8 +477,8 @@ public class OrderApi {
      * @return ApiResponse&lt;CancelOrExitMultiOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CancelOrExitMultiOrderResponse> exitPositionsWithHttpInfo(String tag, String segment) throws ApiException {
-        com.squareup.okhttp.Call call = exitPositionsValidateBeforeCall(tag, segment, null, null);
+    public ApiResponse<CancelOrExitMultiOrderResponse> exitPositionsWithHttpInfo(String tag, String segment, String algoId) throws ApiException {
+        com.squareup.okhttp.Call call = exitPositionsValidateBeforeCall(tag, segment, algoId, null, null);
         Type localVarReturnType = new TypeToken<CancelOrExitMultiOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -444,7 +492,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call exitPositionsAsync(String tag, String segment, final ApiCallback<CancelOrExitMultiOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call exitPositionsAsync(String tag, String segment, String algoId, final ApiCallback<CancelOrExitMultiOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -465,7 +513,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = exitPositionsValidateBeforeCall(tag, segment, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = exitPositionsValidateBeforeCall(tag, segment, algoId, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<CancelOrExitMultiOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -1127,7 +1175,7 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call modifyOrderCall(ModifyOrderRequest body, String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call modifyOrderCall(ModifyOrderRequest body, String apiVersion, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
@@ -1138,7 +1186,9 @@ public class OrderApi {
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         if (apiVersion != null)
-        localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
+            localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
+        if (algoId != null)
+            localVarHeaderParams.put("X-Algo-Id", apiClient.parameterToString(algoId));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -1171,7 +1221,7 @@ public class OrderApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call modifyOrderValidateBeforeCall(ModifyOrderRequest body, String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call modifyOrderValidateBeforeCall(ModifyOrderRequest body, String apiVersion, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling modifyOrder(Async)");
@@ -1181,7 +1231,7 @@ public class OrderApi {
             throw new ApiException("Missing the required parameter 'apiVersion' when calling modifyOrder(Async)");
         }
         
-        com.squareup.okhttp.Call call = modifyOrderCall(body, apiVersion, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = modifyOrderCall(body, apiVersion, algoId, progressListener, progressRequestListener);
         return call;
 
         
@@ -1199,7 +1249,21 @@ public class OrderApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public ModifyOrderResponse modifyOrder(ModifyOrderRequest body, String apiVersion) throws ApiException {
-        ApiResponse<ModifyOrderResponse> resp = modifyOrderWithHttpInfo(body, apiVersion);
+        ApiResponse<ModifyOrderResponse> resp = modifyOrderWithHttpInfo(body, apiVersion, null);
+        return resp.getData();
+    }
+
+    /**
+     * Modify order
+     * This API allows you to modify an order. For modification orderId is mandatory. With orderId you need to send the optional parameter which needs to be modified. In case the optional parameters aren&#x27;t sent, the default will be considered from the original order
+     * @param body  (required)
+     * @param apiVersion API Version Header (required)
+     * @param algoId Algo ID Header (optional)
+     * @return ModifyOrderResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ModifyOrderResponse modifyOrder(ModifyOrderRequest body, String apiVersion, String algoId) throws ApiException {
+        ApiResponse<ModifyOrderResponse> resp = modifyOrderWithHttpInfo(body, apiVersion, algoId);
         return resp.getData();
     }
 
@@ -1211,8 +1275,8 @@ public class OrderApi {
      * @return ApiResponse&lt;ModifyOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModifyOrderResponse> modifyOrderWithHttpInfo(ModifyOrderRequest body, String apiVersion) throws ApiException {
-        com.squareup.okhttp.Call call = modifyOrderValidateBeforeCall(body, apiVersion, null, null);
+    public ApiResponse<ModifyOrderResponse> modifyOrderWithHttpInfo(ModifyOrderRequest body, String apiVersion, String algoId) throws ApiException {
+        com.squareup.okhttp.Call call = modifyOrderValidateBeforeCall(body, apiVersion, algoId, null, null);
         Type localVarReturnType = new TypeToken<ModifyOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -1226,7 +1290,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call modifyOrderAsync(ModifyOrderRequest body, String apiVersion, final ApiCallback<ModifyOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call modifyOrderAsync(ModifyOrderRequest body, String apiVersion, String algoId, final ApiCallback<ModifyOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1247,7 +1311,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = modifyOrderValidateBeforeCall(body, apiVersion, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = modifyOrderValidateBeforeCall(body, apiVersion, algoId, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<ModifyOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -1260,7 +1324,7 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call placeMultiOrderCall(List<MultiOrderRequest> body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call placeMultiOrderCall(List<MultiOrderRequest> body, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
 
         // create path and map variables
@@ -1270,6 +1334,8 @@ public class OrderApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (algoId != null)
+            localVarHeaderParams.put("X-Algo-Id", apiClient.parameterToString(algoId));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -1305,13 +1371,13 @@ public class OrderApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call placeMultiOrderValidateBeforeCall(List<MultiOrderRequest> body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call placeMultiOrderValidateBeforeCall(List<MultiOrderRequest> body, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling placeMultiOrder(Async)");
         }
-
-        com.squareup.okhttp.Call call = placeMultiOrderCall(body, progressListener, progressRequestListener);
+        
+        com.squareup.okhttp.Call call = placeMultiOrderCall(body, algoId, progressListener, progressRequestListener);
         return call;
 
 
@@ -1328,7 +1394,20 @@ public class OrderApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public MultiOrderResponse placeMultiOrder(List<MultiOrderRequest> body) throws ApiException {
-        ApiResponse<MultiOrderResponse> resp = placeMultiOrderWithHttpInfo(body);
+        ApiResponse<MultiOrderResponse> resp = placeMultiOrderWithHttpInfo(body, null);
+        return resp.getData();
+    }
+
+    /**
+     * Place multi order
+     * This API allows you to place multiple orders to the exchange via Upstox.
+     * @param body  (required)
+     * @param algoId Algo ID Header (optional)
+     * @return MultiOrderResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public MultiOrderResponse placeMultiOrder(List<MultiOrderRequest> body, String algoId) throws ApiException {
+        ApiResponse<MultiOrderResponse> resp = placeMultiOrderWithHttpInfo(body, algoId);
         return resp.getData();
     }
 
@@ -1339,8 +1418,8 @@ public class OrderApi {
      * @return ApiResponse&lt;MultiOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<MultiOrderResponse> placeMultiOrderWithHttpInfo(List<MultiOrderRequest> body) throws ApiException {
-        com.squareup.okhttp.Call call = placeMultiOrderValidateBeforeCall(body, null, null);
+    public ApiResponse<MultiOrderResponse> placeMultiOrderWithHttpInfo(List<MultiOrderRequest> body, String algoId) throws ApiException {
+        com.squareup.okhttp.Call call = placeMultiOrderValidateBeforeCall(body, algoId, null, null);
         Type localVarReturnType = new TypeToken<MultiOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -1353,7 +1432,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call placeMultiOrderAsync(List<MultiOrderRequest> body, final ApiCallback<MultiOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call placeMultiOrderAsync(List<MultiOrderRequest> body, String algoId, final ApiCallback<MultiOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1374,7 +1453,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = placeMultiOrderValidateBeforeCall(body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = placeMultiOrderValidateBeforeCall(body, algoId, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<MultiOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
@@ -1456,7 +1535,7 @@ public class OrderApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call placeOrderCall(PlaceOrderRequest body, String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call placeOrderCall(PlaceOrderRequest body, String apiVersion, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
         
         // create path and map variables
@@ -1467,7 +1546,9 @@ public class OrderApi {
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         if (apiVersion != null)
-        localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
+            localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
+        if (algoId != null)
+            localVarHeaderParams.put("X-Algo-Id", apiClient.parameterToString(algoId));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -1500,7 +1581,7 @@ public class OrderApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call placeOrderValidateBeforeCall(PlaceOrderRequest body, String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call placeOrderValidateBeforeCall(PlaceOrderRequest body, String apiVersion, String algoId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling placeOrder(Async)");
@@ -1510,7 +1591,7 @@ public class OrderApi {
             throw new ApiException("Missing the required parameter 'apiVersion' when calling placeOrder(Async)");
         }
         
-        com.squareup.okhttp.Call call = placeOrderCall(body, apiVersion, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = placeOrderCall(body, apiVersion, algoId, progressListener, progressRequestListener);
         return call;
 
         
@@ -1528,7 +1609,21 @@ public class OrderApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public PlaceOrderResponse placeOrder(PlaceOrderRequest body, String apiVersion) throws ApiException {
-        ApiResponse<PlaceOrderResponse> resp = placeOrderWithHttpInfo(body, apiVersion);
+        ApiResponse<PlaceOrderResponse> resp = placeOrderWithHttpInfo(body, apiVersion, null);
+        return resp.getData();
+    }
+
+    /**
+     * Place order
+     * This API allows you to place an order to the exchange via Upstox.
+     * @param body  (required)
+     * @param apiVersion API Version Header (required)
+     * @param algoId Algo ID Header (optional)
+     * @return PlaceOrderResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public PlaceOrderResponse placeOrder(PlaceOrderRequest body, String apiVersion, String algoId) throws ApiException {
+        ApiResponse<PlaceOrderResponse> resp = placeOrderWithHttpInfo(body, apiVersion, algoId);
         return resp.getData();
     }
 
@@ -1540,8 +1635,8 @@ public class OrderApi {
      * @return ApiResponse&lt;PlaceOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<PlaceOrderResponse> placeOrderWithHttpInfo(PlaceOrderRequest body, String apiVersion) throws ApiException {
-        com.squareup.okhttp.Call call = placeOrderValidateBeforeCall(body, apiVersion, null, null);
+    public ApiResponse<PlaceOrderResponse> placeOrderWithHttpInfo(PlaceOrderRequest body, String apiVersion, String algoId) throws ApiException {
+        com.squareup.okhttp.Call call = placeOrderValidateBeforeCall(body, apiVersion, algoId, null, null);
         Type localVarReturnType = new TypeToken<PlaceOrderResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -1555,7 +1650,7 @@ public class OrderApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call placeOrderAsync(PlaceOrderRequest body, String apiVersion, final ApiCallback<PlaceOrderResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call placeOrderAsync(PlaceOrderRequest body, String apiVersion, String algoId, final ApiCallback<PlaceOrderResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -1576,7 +1671,7 @@ public class OrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = placeOrderValidateBeforeCall(body, apiVersion, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = placeOrderValidateBeforeCall(body, apiVersion, algoId, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<PlaceOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
