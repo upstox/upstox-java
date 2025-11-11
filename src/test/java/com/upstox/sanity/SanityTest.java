@@ -224,8 +224,8 @@ public class SanityTest {
         String apiVersion = "2.0";
         String instrumentKey = "NSE_EQ|INE669E01016";
         String interval = "1minute";
-        String toDate = "2024-06-13";
-        String fromDate = "2024-01-12";
+        String toDate = "2025-06-30";
+        String fromDate = "2025-06-12";
         try {
             GetHistoricalCandleResponse result = apiInstance.getHistoricalCandleData1(instrumentKey, interval, toDate, fromDate, apiVersion);
             if(result.getStatus().equals(GetHistoricalCandleResponse.StatusEnum.ERROR)){
