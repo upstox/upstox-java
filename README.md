@@ -30,7 +30,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.upstox.api</groupId>
   <artifactId>upstox-java-sdk</artifactId>
-  <version>1.18</version>
+  <version>1.19</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.upstox.api:upstox-java-sdk:1.18"
+compile "com.upstox.api:upstox-java-sdk:1.19"
 ```
 
 ## Sandbox Mode
@@ -85,9 +85,9 @@ public class Main{
 }
 ```
 
-### Using Algo ID with Orders
+### Using Algo Name with Orders
 
-The SDK supports passing an algorithm ID for order tracking and management. When provided, the SDK will pass the algo ID as `X-Algo-Id` header.
+The SDK supports passing an algorithm name for order tracking and management. When provided, the SDK will pass the algo name as `X-Algo-Name` header.
 
 ```java
 import com.upstox.ApiClient;
@@ -97,7 +97,7 @@ import com.upstox.api.*;
 import com.upstox.auth.OAuth;
 import io.swagger.client.api.OrderApiV3;
 
-public class AlgoIdExample {
+public class AlgoNameExample {
     public static void main(String[] args) {
         boolean sandbox = true;
         ApiClient sandboxClient = new ApiClient(sandbox);
@@ -119,22 +119,22 @@ public class AlgoIdExample {
         body.setTriggerPrice(0F);
         body.setIsAmo(false);
         
-        // Custom algo identifier for tracking
-        String algoId = "my-trading-algorithm-v1.0";
+        // Custom algo name for tracking
+        String algoName = "my-trading-algorithm-v1.0";
         
         try {
-            // Place order with algo_id parameter
-            PlaceOrderV3Response result = orderApiV3.placeOrder(body, algoId);
-            System.out.println("Order placed with Algo ID: " + result);
+            // Place order with algo_name parameter
+            PlaceOrderV3Response result = orderApiV3.placeOrder(body, algoName);
+            System.out.println("Order placed with Algo Name: " + result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling OrderApiV3#placeOrder with algo_id");
+            System.err.println("Exception when calling OrderApiV3#placeOrder with algo_name");
             e.printStackTrace();
         }
     }
 }
 ```
 
-Other order methods (modify, cancel, etc.) follow the same pattern by accepting an optional `algo_id` as the last parameter.
+Other order methods (modify, cancel, etc.) follow the same pattern by accepting an optional `algo_name` as the last parameter.
 
 To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
 

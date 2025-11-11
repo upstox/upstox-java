@@ -69,7 +69,7 @@ public class SanityTest {
          historicalCandleV3test();
          expiredInstrumentTest();
          logout();
-         testAllApisWithAlgoId();
+         testAllApisWithAlgoName();
     }
     public static void placeOrder(){
         OrderApi apiInstance = new OrderApi();
@@ -224,8 +224,8 @@ public class SanityTest {
         String apiVersion = "2.0";
         String instrumentKey = "NSE_EQ|INE669E01016";
         String interval = "1minute";
-        String toDate = "2024-06-13";
-        String fromDate = "2024-01-12";
+        String toDate = "2025-06-30";
+        String fromDate = "2025-06-12";
         try {
             GetHistoricalCandleResponse result = apiInstance.getHistoricalCandleData1(instrumentKey, interval, toDate, fromDate, apiVersion);
             if(result.getStatus().equals(GetHistoricalCandleResponse.StatusEnum.ERROR)){
@@ -723,26 +723,26 @@ public class SanityTest {
         }
     }
     
-    public static void testAllApisWithAlgoId() {
-        testPlaceOrderWithAlgoId();
-        testModifyOrderWithAlgoId();
-        testCancelOrderWithAlgoId();
-        testPlaceMultiOrderWithAlgoId();
-        testCancelMultiOrderWithAlgoId();
-        testExitPositionsWithAlgoId();
-        
-        testPlaceOrderV3WithAlgoId();
-        testModifyOrderV3WithAlgoId();
-        testCancelOrderV3WithAlgoId();
-        testPlaceGTTOrderWithAlgoId();
-        testModifyGTTOrderWithAlgoId();
-        testCancelGTTOrderWithAlgoId();
+    public static void testAllApisWithAlgoName() {
+        testPlaceOrderWithAlgoName();
+        testModifyOrderWithAlgoName();
+        testCancelOrderWithAlgoName();
+        testPlaceMultiOrderWithAlgoName();
+        testCancelMultiOrderWithAlgoName();
+        testExitPositionsWithAlgoName();
+
+        testPlaceOrderV3WithAlgoName();
+        testModifyOrderV3WithAlgoName();
+        testCancelOrderV3WithAlgoName();
+        testPlaceGTTOrderWithAlgoName();
+        testModifyGTTOrderWithAlgoName();
+        testCancelGTTOrderWithAlgoName();
 
     }
 
-    // V2 API AlgoId Tests
+    // V2 API AlgoName Tests
     
-    private static void testPlaceOrderWithAlgoId() {
+    private static void testPlaceOrderWithAlgoName() {
         OrderApi apiInstance = new OrderApi();
         PlaceOrderRequest body = new PlaceOrderRequest();
         body.setQuantity(1);
@@ -758,16 +758,19 @@ public class SanityTest {
         body.setIsAmo(true);
 
         String apiVersion = "2.0";
-        String algoId = "my algo id <> placeOrder v2";
+        String algoName = DataToken.algoName;
         
         try {
-            apiInstance.placeOrder(body, apiVersion, algoId);
+            apiInstance.placeOrder(body, apiVersion, algoName);
         } catch (ApiException e) {
-            if(!e.getResponseBody().contains("UDAPI1052")) System.out.println("error in place order with algoId");
+            if(!e.getResponseBody().contains("UDAPI1052")) {
+                System.out.println("error in place order with algoName");
+                System.out.println(e.getResponseBody());
+            }
         }
     }
 
-    private static void testModifyOrderWithAlgoId() {
+    private static void testModifyOrderWithAlgoName() {
         OrderApi apiInstance = new OrderApi();
         ModifyOrderRequest body = new ModifyOrderRequest();
         body.setQuantity(2);
@@ -779,45 +782,45 @@ public class SanityTest {
         body.setOrderId("240125010587640");
         
         String apiVersion = "2.0";
-        String algoId = "my algo id <> modifyOrder v2";
+        String algoName = DataToken.algoName;
         
         try {
-            ModifyOrderResponse result = apiInstance.modifyOrder(body, apiVersion, algoId);
-            System.out.println("ModifyOrder with AlgoId: " + result);
+            ModifyOrderResponse result = apiInstance.modifyOrder(body, apiVersion, algoName);
+            System.out.println("ModifyOrder with AlgoName: " + result);
         } catch (ApiException e) {
-            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("Error in modify order with algoId");
+            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("Error in modify order with algoName");
         }
     }
 
-    private static void testCancelOrderWithAlgoId() {
+    private static void testCancelOrderWithAlgoName() {
         OrderApi apiInstance = new OrderApi();
         String orderId = "240125010599037";
         String apiVersion = "2.0";
-        String algoId = "my algo id <> cancelOrder v2";
+        String algoName = DataToken.algoName;
         
         try {
-            CancelOrderResponse result = apiInstance.cancelOrder(orderId, apiVersion, algoId);
-            System.out.println("CancelOrder with AlgoId: " + result);
+            CancelOrderResponse result = apiInstance.cancelOrder(orderId, apiVersion, algoName);
+            System.out.println("CancelOrder with AlgoName: " + result);
         } catch (ApiException e) {
-            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("Error in cancel order with algoId");
+            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("Error in cancel order with algoName");
         }
     }
 
-    private static void testPlaceMultiOrderWithAlgoId() {
+    private static void testPlaceMultiOrderWithAlgoName() {
         OrderApi apiInstance = new OrderApi();
         MultiOrderRequest request1 = new MultiOrderRequest();
         request1.setQuantity(1);
         request1.setProduct(MultiOrderRequest.ProductEnum.D);
         request1.setValidity(MultiOrderRequest.ValidityEnum.DAY);
         request1.setPrice(7F);
-        request1.setTag("java_sdk_tester1_algoid");
+        request1.setTag("java_sdk_tester1_algoname");
         request1.setInstrumentToken("NSE_EQ|INE669E01016");
         request1.orderType(MultiOrderRequest.OrderTypeEnum.LIMIT);
         request1.setTransactionType(MultiOrderRequest.TransactionTypeEnum.BUY);
         request1.setDisclosedQuantity(0);
         request1.setTriggerPrice(0F);
         request1.setIsAmo(true);
-        request1.setCorrelationId("cid1_algoid");
+        request1.setCorrelationId("cid1_algoname");
         request1.setSlice(true);
 
         MultiOrderRequest request2 = new MultiOrderRequest();
@@ -825,68 +828,67 @@ public class SanityTest {
         request2.setProduct(MultiOrderRequest.ProductEnum.D);
         request2.setValidity(MultiOrderRequest.ValidityEnum.DAY);
         request2.setPrice(8.7F);
-        request2.setTag("java_sdk_tester2_algoid");
+        request2.setTag("java_sdk_tester2_algoname");
         request2.setInstrumentToken("NSE_EQ|INE669E01016");
         request2.orderType(MultiOrderRequest.OrderTypeEnum.LIMIT);
         request2.setTransactionType(MultiOrderRequest.TransactionTypeEnum.BUY);
         request2.setDisclosedQuantity(0);
         request2.setTriggerPrice(0F);
         request2.setIsAmo(true);
-        request2.setCorrelationId("cid2_algoid");
+        request2.setCorrelationId("cid2_algoname");
         request2.setSlice(true);
 
-        String algoId = "my algo id <> placeMultiOrder";
+        String algoName = DataToken.algoName;
         
         try {
             ArrayList<MultiOrderRequest> list = new ArrayList<>();
             list.add(request1);
             list.add(request2);
-            MultiOrderResponse result = apiInstance.placeMultiOrder(list, algoId);
-            System.out.println("PlaceMultiOrder with AlgoId: " + result);
+            MultiOrderResponse result = apiInstance.placeMultiOrder(list, algoName);
         } catch (ApiException e) {
-            System.err.println("Exception when calling OrderApi#placeMultiOrder with algoId");
+            System.err.println("Exception when calling OrderApi#placeMultiOrder with algoName");
             e.printStackTrace();
             System.out.println(e.getResponseBody());
         }
     }
 
-    private static void testCancelMultiOrderWithAlgoId() {
+    private static void testCancelMultiOrderWithAlgoName() {
         OrderApi apiInstance = new OrderApi();
-        String algoId = "my algo id <> cancelMultiOrder";
+        String algoName = DataToken.algoName;
         
         try {
-            CancelOrExitMultiOrderResponse result = apiInstance.cancelMultiOrder("java_sdk_testing_tag_algoid", "NSE_EQ", algoId);
-            System.out.println("CancelMultiOrder with AlgoId: " + result);
+            CancelOrExitMultiOrderResponse result = apiInstance.cancelMultiOrder("java_sdk_testing_tag_algoname", "NSE_EQ", algoName);
+            System.out.println("CancelMultiOrder with AlgoName: " + result);
         } catch (ApiException e) {
-            if(!e.getResponseBody().contains("UDAPI1109")) System.out.println("Error in cancel multi order with algoId");
+            if(!e.getResponseBody().contains("UDAPI1109")) System.out.println("Error in cancel multi order with algoName");
         }
     }
 
-    private static void testExitPositionsWithAlgoId() {
+    private static void testExitPositionsWithAlgoName() {
         OrderApi apiInstance = new OrderApi();
-        String algoId = "my algo id <> exitPositions";
+        String algoName = DataToken.algoName;
         
         try {
-            CancelOrExitMultiOrderResponse result = apiInstance.exitPositions("java_sdk_testing_tag_algoid", null, algoId);
-            System.out.println("ExitPositions with AlgoId: " + result);
+            CancelOrExitMultiOrderResponse result = apiInstance.exitPositions("java_sdk_testing_tag_algoname", null, algoName);
+            System.out.println("ExitPositions with AlgoName: " + result);
         } catch (ApiException e) {
             if(!e.getResponseBody().contains("UDAPI1111") && !e.getResponseBody().contains("UDAPI1113")) {
-                System.out.println("Error in exit positions with algoId");
+                System.out.println("Error in exit positions with algoName");
                 System.out.println(e.getResponseBody());
             }
         }
     }
 
-    // V3 API AlgoId Tests
+    // V3 API AlgoName Tests
     
-    private static void testPlaceOrderV3WithAlgoId() {
+    private static void testPlaceOrderV3WithAlgoName() {
         OrderApiV3 apiInstance = new OrderApiV3();
         PlaceOrderV3Request body = new PlaceOrderV3Request();
         body.setQuantity(1);
         body.setProduct(PlaceOrderV3Request.ProductEnum.D);
         body.setValidity(PlaceOrderV3Request.ValidityEnum.DAY);
         body.setPrice(9F);
-        body.setTag("algoid_test");
+        body.setTag("algoname_test");
         body.setInstrumentToken("NSE_EQ|INE669E01016");
         body.orderType(PlaceOrderV3Request.OrderTypeEnum.LIMIT);
         body.setTransactionType(PlaceOrderV3Request.TransactionTypeEnum.BUY);
@@ -894,17 +896,17 @@ public class SanityTest {
         body.setTriggerPrice(0F);
         body.setIsAmo(true);
 
-        String algoId = "my algo id <> placeOrderV3";
+        String algoName = DataToken.algoName;
         
         try {
-            apiInstance.placeOrder(body, algoId);
+            apiInstance.placeOrder(body, algoName);
         } catch (ApiException e) {
-            System.err.println("Exception when calling OrderApiV3#placeOrder with algoId");
+            System.err.println("Exception when calling OrderApiV3#placeOrder with algoName");
             e.printStackTrace();
         }
     }
 
-    private static void testModifyOrderV3WithAlgoId() {
+    private static void testModifyOrderV3WithAlgoName() {
         OrderApiV3 apiInstance = new OrderApiV3();
         ModifyOrderRequest modifyOrderRequest = new ModifyOrderRequest();
         modifyOrderRequest.setQuantity(2);
@@ -915,33 +917,33 @@ public class SanityTest {
         modifyOrderRequest.setOrderType(ModifyOrderRequest.OrderTypeEnum.LIMIT);
         modifyOrderRequest.setOrderId("250128010532402");
         
-        String algoId = "my algo id <> modifyOrderV3";
+        String algoName = DataToken.algoName;
         
         try {
-            ModifyOrderV3Response result = apiInstance.modifyOrder(modifyOrderRequest, algoId);
-            System.out.println("ModifyOrderV3 with AlgoId: " + result);
+            ModifyOrderV3Response result = apiInstance.modifyOrder(modifyOrderRequest, algoName);
+            System.out.println("ModifyOrderV3 with AlgoName: " + result);
         } catch (ApiException e) {
             if(!e.getResponseBody().contains("UDAPI100010")) {
-                System.err.println("Error in modify order V3 with algoId: " + e.getResponseBody());
+                System.err.println("Error in modify order V3 with algoName: " + e.getResponseBody());
             }
         }
     }
 
-    private static void testCancelOrderV3WithAlgoId() {
+    private static void testCancelOrderV3WithAlgoName() {
         OrderApiV3 apiInstance = new OrderApiV3();
-        String algoId = "my algo id <> cancelOrderV3";
+        String algoName = DataToken.algoName;
         
         try {
-            CancelOrderV3Response result = apiInstance.cancelOrder("250128010534339", algoId);
-            System.out.println("CancelOrderV3 with AlgoId: " + result);
+            CancelOrderV3Response result = apiInstance.cancelOrder("250128010534339", algoName);
+            System.out.println("CancelOrderV3 with AlgoName: " + result);
         } catch (ApiException e) {
             if(!e.getResponseBody().contains("UDAPI100010")) {
-                System.err.println("Error in cancel order V3 with algoId: " + e.getResponseBody());
+                System.err.println("Error in cancel order V3 with algoName: " + e.getResponseBody());
             }
         }
     }
 
-    private static void testPlaceGTTOrderWithAlgoId() {
+    private static void testPlaceGTTOrderWithAlgoName() {
         OrderApiV3 apiInstance = new OrderApiV3();
         GttPlaceOrderRequest gttPlaceOrderRequest = new GttPlaceOrderRequest();
         gttPlaceOrderRequest.setQuantity(1);
@@ -970,18 +972,18 @@ public class SanityTest {
         gttRules.add(targetRule);
 
         gttPlaceOrderRequest.setRules(gttRules);
-        String algoId = "my algo id <> placeGTTOrder";
+        String algoName = DataToken.algoName;
 
         try {
-            apiInstance.placeGTTOrder(gttPlaceOrderRequest, algoId);
+            apiInstance.placeGTTOrder(gttPlaceOrderRequest, algoName);
         } catch (ApiException e) {
-            System.err.println("Exception when calling OrderApiV3#placeGTTOrder with algoId");
+            System.err.println("Exception when calling OrderApiV3#placeGTTOrder with algoName");
             e.printStackTrace();
             System.out.println(e.getResponseBody());
         }
     }
 
-    private static void testModifyGTTOrderWithAlgoId() {
+    private static void testModifyGTTOrderWithAlgoName() {
         OrderApiV3 apiInstance = new OrderApiV3();
         GttModifyOrderRequest modifyOrderRequest = new GttModifyOrderRequest();
         modifyOrderRequest.setQuantity(2);
@@ -996,27 +998,27 @@ public class SanityTest {
         gttRules.add(entryRule);
         
         modifyOrderRequest.setRules(gttRules);
-        String algoId = "my algo id <> modifyGTTOrder";
+        String algoName = DataToken.algoName;
 
         try {
-            GttTriggerOrderResponse result = apiInstance.modifyGTTOrder(modifyOrderRequest, algoId);
-            System.out.println("ModifyGTTOrder with AlgoId: " + result);
+            GttTriggerOrderResponse result = apiInstance.modifyGTTOrder(modifyOrderRequest, algoName);
+            System.out.println("ModifyGTTOrder with AlgoName: " + result);
         } catch (ApiException e) {
-            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("error in modify gtt with algoId");
+            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("error in modify gtt with algoName");
         }
     }
 
-    private static void testCancelGTTOrderWithAlgoId() {
+    private static void testCancelGTTOrderWithAlgoName() {
         OrderApiV3 apiInstance = new OrderApiV3();
         GttCancelOrderRequest gttCancelOrderRequest = new GttCancelOrderRequest();
         gttCancelOrderRequest.setGttOrderId("GTT-C25040144712");
-        String algoId = "my algo id <> cancelGTTOrder";
+        String algoName = DataToken.algoName;
         
         try {
-            GttTriggerOrderResponse result = apiInstance.cancelGTTOrder(gttCancelOrderRequest, algoId);
-            System.out.println("CancelGTTOrder with AlgoId: " + result);
+            GttTriggerOrderResponse result = apiInstance.cancelGTTOrder(gttCancelOrderRequest, algoName);
+            System.out.println("CancelGTTOrder with AlgoName: " + result);
         } catch (ApiException e) {
-            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("error in cancel gtt with algoId");
+            if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("error in cancel gtt with algoName");
         }
     }
 }
