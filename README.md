@@ -138,13 +138,6 @@ Other order methods (modify, cancel, etc.) follow the same pattern by accepting 
 
 To learn more about the sandbox environment and the available sandbox APIs, please visit the [Upstox API documentation - Sandbox](https://upstox.com/developer/api-documentation/sandbox).
 
-## Examples
-
-[Sample Implementations](examples/) can be found within `/examples` folder.
-
-- [Websocket Market data](examples/websocket/market_data/)
-- [Websocket Order updates](examples/websocket/order_updates/)
-
 ## Documentation for API Endpoints
 
 - Place, Modify, and Cancel Order APIs are relative to `https://api-hft.upstox.com`
