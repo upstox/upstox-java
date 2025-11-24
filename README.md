@@ -147,68 +147,68 @@ To learn more about the sandbox environment and the available sandbox APIs, plea
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.upstox.com/v2*
+- Place, Modify, and Cancel Order APIs are relative to `https://api-hft.upstox.com`
+- All other APIs are relative to `https://api.upstox.com`
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*ChargeApi* | [**getBrokerage**](docs/ChargeApi.md#getBrokerage) | **GET** /v2/charges/brokerage | Brokerage details
-*ChargeApi* | [**postMargin**](docs/ChargeApi.md#postMargin) | **POST** /v2/charges/margin | Calculate Margin
-*ExpiredInstrumentApi* | [**getExpiredFutureContracts**](docs/ExpiredInstrumentApi.md#getExpiredFutureContracts) | **GET** /v2/expired-instruments/future/contract | Expired instruments - Get future contracts
-*ExpiredInstrumentApi* | [**getExpiredHistoricalCandleData**](docs/ExpiredInstrumentApi.md#getExpiredHistoricalCandleData) | **GET** /v2/expired-instruments/historical-candle/{expired_instrument_key}/{interval}/{to_date}/{from_date} | Expired Historical candle data
-*ExpiredInstrumentApi* | [**getExpiredOptionContracts**](docs/ExpiredInstrumentApi.md#getExpiredOptionContracts) | **GET** /v2/expired-instruments/option/contract | Get expired option contracts
-*ExpiredInstrumentApi* | [**getExpiries**](docs/ExpiredInstrumentApi.md#getExpiries) | **GET** /v2/expired-instruments/expiries | Expired instruments - Get expiries
-*HistoryApi* | [**getHistoricalCandleData2**](docs/HistoryApi.md#getHistoricalCandleData2) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date} | Historical candle data
-*HistoryApi* | [**getHistoricalCandleData3**](docs/HistoryApi.md#getHistoricalCandleData3) | **GET** /v2/historical-candle/{instrumentKey}/{interval}/{to_date}/{from_date} | Historical candle data
-*HistoryApi* | [**getIntraDayCandleData1**](docs/HistoryApi.md#getIntraDayCandleData1) | **GET** /v2/historical-candle/intraday/{instrumentKey}/{interval} | Intra day candle data
-*HistoryV3Api* | [**getHistoricalCandleData**](docs/HistoryV3Api.md#getHistoricalCandleData) | **GET** /v3/historical-candle/{instrumentKey}/{unit}/{interval}/{to_date} | Historical candle data
-*HistoryV3Api* | [**getHistoricalCandleData1**](docs/HistoryV3Api.md#getHistoricalCandleData1) | **GET** /v3/historical-candle/{instrumentKey}/{unit}/{interval}/{to_date}/{from_date} | Historical candle data
-*HistoryV3Api* | [**getIntraDayCandleData**](docs/HistoryV3Api.md#getIntraDayCandleData) | **GET** /v3/historical-candle/intraday/{instrumentKey}/{unit}/{interval} | Intra day candle data
-*LoginApi* | [**authorize**](docs/LoginApi.md#authorize) | **GET** /v2/login/authorization/dialog | Authorize API
-*LoginApi* | [**autoLogin**](docs/LoginApi.md#autoLogin) | **GET** /v2/auth/auto-login | Auto Login
-*LoginApi* | [**logout**](docs/LoginApi.md#logout) | **DELETE** /v2/logout | Logout
-*LoginApi* | [**token**](docs/LoginApi.md#token) | **POST** /v2/login/authorization/token | Get token API
-*MarketHolidaysAndTimingsApi* | [**getExchangeTimings**](docs/MarketHolidaysAndTimingsApi.md#getExchangeTimings) | **GET** /v2/market/timings/{date} | Get Exchange Timings on particular date
-*MarketHolidaysAndTimingsApi* | [**getHoliday**](docs/MarketHolidaysAndTimingsApi.md#getHoliday) | **GET** /v2/market/holidays/{date} | Get Holiday on particular date
-*MarketHolidaysAndTimingsApi* | [**getHolidays**](docs/MarketHolidaysAndTimingsApi.md#getHolidays) | **GET** /v2/market/holidays | Get Holiday list of current year
-*MarketHolidaysAndTimingsApi* | [**getMarketStatus**](docs/MarketHolidaysAndTimingsApi.md#getMarketStatus) | **GET** /v2/market/status/{exchange} | Get Market status for particular exchange
-*MarketQuoteApi* | [**getFullMarketQuote**](docs/MarketQuoteApi.md#getFullMarketQuote) | **GET** /v2/market-quote/quotes | Market quotes and instruments - Full market quotes
-*MarketQuoteApi* | [**getMarketQuoteOHLC**](docs/MarketQuoteApi.md#getMarketQuoteOHLC) | **GET** /v2/market-quote/ohlc | Market quotes and instruments - OHLC quotes
-*MarketQuoteApi* | [**ltp**](docs/MarketQuoteApi.md#ltp) | **GET** /v2/market-quote/ltp | Market quotes and instruments - LTP quotes.
-*MarketQuoteV3Api* | [**getLtp**](docs/MarketQuoteV3Api.md#getLtp) | **GET** /v3/market-quote/ltp | Market quotes and instruments - LTP quotes.
-*MarketQuoteV3Api* | [**getMarketQuoteOHLC**](docs/MarketQuoteV3Api.md#getMarketQuoteOHLC) | **GET** /v3/market-quote/ohlc | Market quotes and instruments - OHLC quotes
-*MarketQuoteV3Api* | [**getMarketQuoteOptionGreek**](docs/MarketQuoteV3Api.md#getMarketQuoteOptionGreek) | **GET** /v3/market-quote/option-greek | Market quotes and instruments - Option Greek
-*OptionsApi* | [**getOptionContracts**](docs/OptionsApi.md#getOptionContracts) | **GET** /v2/option/contract | Get option contracts
-*OptionsApi* | [**getPutCallOptionChain**](docs/OptionsApi.md#getPutCallOptionChain) | **GET** /v2/option/chain | Get option chain
-*OrderApi* | [**cancelMultiOrder**](docs/OrderApi.md#cancelMultiOrder) | **DELETE** /v2/order/multi/cancel | Cancel multi order
-*OrderApi* | [**cancelOrder**](docs/OrderApi.md#cancelOrder) | **DELETE** /v2/order/cancel | Cancel order
-*OrderApi* | [**exitPositions**](docs/OrderApi.md#exitPositions) | **POST** /v2/order/positions/exit | Exit all positions
-*OrderApi* | [**getOrderBook**](docs/OrderApi.md#getOrderBook) | **GET** /v2/order/retrieve-all | Get order book
-*OrderApi* | [**getOrderDetails**](docs/OrderApi.md#getOrderDetails) | **GET** /v2/order/history | Get order history
-*OrderApi* | [**getOrderStatus**](docs/OrderApi.md#getOrderStatus) | **GET** /v2/order/details | Get order details
-*OrderApi* | [**getTradeHistory**](docs/OrderApi.md#getTradeHistory) | **GET** /v2/order/trades/get-trades-for-day | Get trades
-*OrderApi* | [**getTradesByOrder**](docs/OrderApi.md#getTradesByOrder) | **GET** /v2/order/trades | Get trades for order
-*OrderApi* | [**modifyOrder**](docs/OrderApi.md#modifyOrder) | **PUT** /v2/order/modify | Modify order
-*OrderApi* | [**placeMultiOrder**](docs/OrderApi.md#placeMultiOrder) | **POST** /v2/order/multi/place | Place multi order
-*OrderApi* | [**placeOrder1**](docs/OrderApi.md#placeOrder1) | **POST** /v2/order/place | Place order
-*OrderApiV3* | [**cancelOrder**](docs/OrderControllerV3Api.md#cancelOrder) | **DELETE** /v3/order/cancel | 
-*OrderApiV3* | [**modifyOrder**](docs/OrderControllerV3Api.md#modifyOrder) | **PUT** /v3/order/modify | 
-*OrderApiV3* | [**placeOrder**](docs/OrderControllerV3Api.md#placeOrder) | **POST** /v3/order/place | 
-*PortfolioApi* | [**convertPositions**](docs/PortfolioApi.md#convertPositions) | **PUT** /v2/portfolio/convert-position | Convert Positions
-*PortfolioApi* | [**getHoldings**](docs/PortfolioApi.md#getHoldings) | **GET** /v2/portfolio/long-term-holdings | Get Holdings
-*PortfolioApi* | [**getMtfPositions**](docs/PortfolioApi.md#getMtfPositions) | **GET** /v3/portfolio/mtf-positions | Get MTF positions
-*PortfolioApi* | [**getPositions**](docs/PortfolioApi.md#getPositions) | **GET** /v2/portfolio/short-term-positions | Get Positions
-*PostTradeApi* | [**getTradesByDateRange**](docs/PostTradeApi.md#getTradesByDateRange) | **GET** /v2/charges/historical-trades | Get historical trades
-*TradeProfitAndLossApi* | [**getProfitAndLossCharges**](docs/TradeProfitAndLossApi.md#getProfitAndLossCharges) | **GET** /v2/trade/profit-loss/charges | Get profit and loss on trades
-*TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossData**](docs/TradeProfitAndLossApi.md#getTradeWiseProfitAndLossData) | **GET** /v2/trade/profit-loss/data | Get Trade-wise Profit and Loss Report Data
-*TradeProfitAndLossApi* | [**getTradeWiseProfitAndLossMetaData**](docs/TradeProfitAndLossApi.md#getTradeWiseProfitAndLossMetaData) | **GET** /v2/trade/profit-loss/metadata | Get profit and loss meta data on trades
-*UserApi* | [**getProfile**](docs/UserApi.md#getProfile) | **GET** /v2/user/profile | Get profile
-*UserApi* | [**getUserFundMargin**](docs/UserApi.md#getUserFundMargin) | **GET** /v2/user/get-funds-and-margin | Get User Fund And Margin
-*WebsocketApi* | [**getMarketDataFeed**](docs/WebsocketApi.md#getMarketDataFeed) | **GET** /v2/feed/market-data-feed | Market Data Feed
-*WebsocketApi* | [**getMarketDataFeedAuthorize**](docs/WebsocketApi.md#getMarketDataFeedAuthorize) | **GET** /v2/feed/market-data-feed/authorize | Market Data Feed Authorize
-*WebsocketApi* | [**getPortfolioStreamFeed**](docs/WebsocketApi.md#getPortfolioStreamFeed) | **GET** /v2/feed/portfolio-stream-feed | Portfolio Stream Feed
-*WebsocketApi* | [**getPortfolioStreamFeedAuthorize**](docs/WebsocketApi.md#getPortfolioStreamFeedAuthorize) | **GET** /v2/feed/portfolio-stream-feed/authorize | Portfolio Stream Feed Authorize
+API Name | HTTP Request | Class | Documentation | Sample Codes
+------------ | ------------- | ------------- | ------------- | -------------
+**Expired Instruments** | | | |
+Get Expiries | **GET** /v2/expired-instruments/expiries| *ExpiredInstrumentApi* | [API Reference](https://upstox.com/developer/api-documentation/get-expiries) | [Sample Code](https://upstox.com/developer/api-documentation/get-expiries#sample-code-java_sdk)
+Get Expired Option Contracts | **GET**  /v2/expired-instruments/option/contract| *ExpiredInstrumentApi* | [API Reference](https://upstox.com/developer/api-documentation/get-expired-option-contracts) | [Sample Code](https://upstox.com/developer/api-documentation/get-expired-option-contracts#sample-code-java_sdk)
+Get Expired Future Contracts | **GET** /v2/expired-instruments/future/contract| *ExpiredInstrumentApi* | [API Reference](https://upstox.com/developer/api-documentation/get-expired-future-contracts) | [Sample Code](https://upstox.com/developer/api-documentation/get-expired-future-contracts#sample-code-java_sdk)
+Get Expired Historical Candle Data | **GET** /v2/expired-instruments/historical-candle/{expired_instrument_key}/{interval}/{to_date}/{from_date}| *ExpiredInstrumentApi* | [API Reference](https://upstox.com/developer/api-documentation/get-expired-historical-candle-data) | [Sample Code](https://upstox.com/developer/api-documentation/get-expired-historical-candle-data#sample-code-java_sdk)
+**Login** | | | |
+Get Token | **POST** /v2/login/authorization/token | *LoginApi* | [API Reference](https://upstox.com/developer/api-documentation/get-token) | [Sample Code](https://upstox.com/developer/api-documentation/get-token#sample-code-java_sdk)
+Access Token Request | **POST** /v3/login/auth/token/request/{client_id} | *LoginApi* | [API Reference](https://upstox.com/developer/api-documentation/access-token-request) | [Sample Code](https://upstox.com/developer/api-documentation/access-token-request#sample-code-java_sdk)
+Logout | **DELETE** /v2/logout | *LoginApi* | [API Reference](https://upstox.com/developer/api-documentation/logout) | [Sample Code](https://upstox.com/developer/api-documentation/logout#sample-code-java_sdk)
+**User** | | | |
+Get Profile | **GET** /v2/user/profile | *UserApi* | [API Reference](https://upstox.com/developer/api-documentation/get-profile) | [Sample Code](https://upstox.com/developer/api-documentation/get-profile#sample-code-java_sdk)
+Get User Fund Margin | **GET** /v2/user/get-funds-and-margin | *UserApi* | [API Reference](https://upstox.com/developer/api-documentation/get-user-fund-margin) | [Sample Code](https://upstox.com/developer/api-documentation/get-user-fund-margin#sample-code-java_sdk)
+**Charges** | | | |
+Get Brokerage | **GET** /v2/charges/brokerage | *ChargeApi* | [API Reference](https://upstox.com/developer/api-documentation/get-brokerage) | [Sample Code](https://upstox.com/developer/api-documentation/get-brokerage#sample-code-java_sdk)
+**Margins** | | | |
+Margin | **POST** /v2/charges/margin | *ChargeApi* | [API Reference](https://upstox.com/developer/api-documentation/margin) | [Sample Code](https://upstox.com/developer/api-documentation/margin#sample-code-java_sdk)
+**Orders** | | | |
+Place Order V3 | **POST** /v3/order/place | *OrderApiV3* | [API Reference](https://upstox.com/developer/api-documentation/v3/place-order) | [Sample Code](https://upstox.com/developer/api-documentation/v3/place-order#sample-code-java_sdk)
+Place Multi Order | **POST** /v2/order/multi/place | *OrderApi* | [API Reference](https://upstox.com/developer/api-documentation/place-multi-order) | [Sample Code](https://upstox.com/developer/api-documentation/place-multi-order#sample-code-java_sdk)
+Modify Order V3 | **PUT** /v3/order/modify | *OrderApiV3* | [API Reference](https://upstox.com/developer/api-documentation/v3/modify-order) | [Sample Code](https://upstox.com/developer/api-documentation/v3/modify-order#sample-code-java_sdk)
+Cancel Order V3 | **DELETE** /v3/order/cancel | *OrderApiV3* | [API Reference](https://upstox.com/developer/api-documentation/v3/cancel-order) | [Sample Code](https://upstox.com/developer/api-documentation/v3/cancel-order#sample-code-java_sdk)
+Cancel Multi Order | **DELETE** /v2/order/multi/cancel | *OrderApi* | [API Reference](https://upstox.com/developer/api-documentation/cancel-multi-order) | [Sample Code](https://upstox.com/developer/api-documentation/cancel-multi-order#sample-code-java_sdk)
+Exit All Position | **POST** /v2/order/positions/exit | *OrderApi* | [API Reference](https://upstox.com/developer/api-documentation/exit-all-positions) | [Sample Code](https://upstox.com/developer/api-documentation/exit-all-positions#sample-code-java_sdk)
+Get Order Details | **GET** /v2/order/details | *OrderApi* | [API Reference](https://upstox.com/developer/api-documentation/get-order-details) | [Sample Code](https://upstox.com/developer/api-documentation/get-order-details#sample-code-java_sdk)
+Get Order History | **GET** /v2/order/history | *OrderApi* | [API Reference](https://upstox.com/developer/api-documentation/get-order-history) | [Sample Code](https://upstox.com/developer/api-documentation/get-order-history#sample-code-java_sdk)
+Get Trades By Order | **GET** /v2/order/trades | *OrderApi* | [API Reference](https://upstox.com/developer/api-documentation/get-trades-by-order) | [Sample Code](https://upstox.com/developer/api-documentation/get-trades-by-order#sample-code-java_sdk)
+Get Trade History | **GET** /v2/order/trades/get-trades-for-day | *OrderApi* | [API Reference](https://upstox.com/developer/api-documentation/get-trade-history) | [Sample Code](https://upstox.com/developer/api-documentation/get-trade-history#sample-code-java_sdk)
+**GTT Order** | | | |
+Place GTT Order | **POST** /v3/order/gtt/place | *OrderApiV3* | [API Reference](https://upstox.com/developer/api-documentation/place-gtt-order) | [Sample Code](https://upstox.com/developer/api-documentation/place-gtt-order#sample-code-java_sdk)
+Modify GTT Order | **PUT** /v3/order/gtt/modify | *OrderApiV3* | [API Reference](https://upstox.com/developer/api-documentation/modify-gtt-order) | [Sample Code](https://upstox.com/developer/api-documentation/modify-gtt-order#sample-code-java_sdk)
+Cancel GTT Order | **DELETE** /v3/order/gtt/cancel | *OrderApiV3* | [API Reference](https://upstox.com/developer/api-documentation/cancel-gtt-order) | [Sample Code](https://upstox.com/developer/api-documentation/cancel-gtt-order#sample-code-java_sdk)
+Get GTT Order Details | **GET** /v3/order/gtt | *OrderApiV3* | [API Reference](https://upstox.com/developer/api-documentation/get-gtt-order-details) | [Sample Code](https://upstox.com/developer/api-documentation/get-gtt-order-details#sample-code-java_sdk)
+**Portfolio** | | | |
+Get Positions | **GET** /v2/portfolio/short-term-positions | *PortfolioApi* | [API Reference](https://upstox.com/developer/api-documentation/get-positions) | [Sample Code](https://upstox.com/developer/api-documentation/get-positions#sample-code-java_sdk)
+Get MTF Positions | **GET** /v3/portfolio/mtf | *PortfolioApi* | [API Reference](https://upstox.com/developer/api-documentation/get-mtf-positions) | [Sample Code](https://upstox.com/developer/api-documentation/get-mtf-positions#sample-code-java_sdk)
+Convert Positions | **PUT** /v2/portfolio/convert-position | *PortfolioApi* | [API Reference](https://upstox.com/developer/api-documentation/convert-positions) | [Sample Code](https://upstox.com/developer/api-documentation/convert-positions#sample-code-java_sdk)
+Get Holdings | **GET** /v2/portfolio/long-term-holdings | *PortfolioApi* | [API Reference](https://upstox.com/developer/api-documentation/get-holdings) | [Sample Code](https://upstox.com/developer/api-documentation/get-holdings#sample-code-java_sdk)
+**Trade Profit And Loss** | | | |
+Get Report Meta Data | **GET** /v2/trade/profit-loss/metadata | *TradeProfitAndLossApi* | [API Reference](https://upstox.com/developer/api-documentation/get-report-meta-data) | [Sample Code](https://upstox.com/developer/api-documentation/get-report-meta-data#sample-code-java_sdk)
+Get Profit And Loss Report | **GET** /v2/trade/profit-loss/data | *TradeProfitAndLossApi* | [API Reference](https://upstox.com/developer/api-documentation/get-profit-and-loss-report) | [Sample Code](https://upstox.com/developer/api-documentation/get-profit-and-loss-report#sample-code-java_sdk)
+Get Trade Charges | **GET** /v2/trade/profit-loss/charges | *TradeProfitAndLossApi* | [API Reference](https://upstox.com/developer/api-documentation/get-trade-charges) | [Sample Code](https://upstox.com/developer/api-documentation/get-trade-charges#sample-code-java_sdk)
+**Historical Data** | | | |
+Get Historical Candle Data V3 | **GET** /v3/historical-candle | *HistoryV3Api* | [API Reference](https://upstox.com/developer/api-documentation/v3/get-historical-candle-data) | [Sample Code](https://upstox.com/developer/api-documentation/v3/get-historical-candle-data#sample-code-java_sdk)
+Get Intra Day Candle Data V3 | **GET** /v3/intra-day-candle | *HistoryV3Api* | [API Reference](https://upstox.com/developer/api-documentation/v3/get-intra-day-candle-data) | [Sample Code](https://upstox.com/developer/api-documentation/v3/get-intra-day-candle-data#sample-code-java_sdk)
+**Market Quote** | | | |
+Get Full Market Quote | **GET** /v2/market-quote/quotes | *MarketQuoteApi* | [API Reference](https://upstox.com/developer/api-documentation/get-full-market-quote) | [Sample Code](https://upstox.com/developer/api-documentation/get-full-market-quote#sample-code-java_sdk)
+Get Market Quote OHLC | **GET** /v2/market-quote/ohlc | *MarketQuoteApi* | [API Reference](https://upstox.com/developer/api-documentation/get-market-quote-ohlc) | [Sample Code](https://upstox.com/developer/api-documentation/get-market-quote-ohlc#sample-code-java_sdk)
+LTP V3 | **GET** /v3/market-quote/ltp | *MarketQuoteV3Api* | [API Reference](https://upstox.com/developer/api-documentation/ltp-v3) | [Sample Code](https://upstox.com/developer/api-documentation/ltp-v3#sample-code-java_sdk)
+Option Greek | **GET** /v3/market-quote/greeks | *MarketQuoteV3Api* | [API Reference](https://upstox.com/developer/api-documentation/option-greek) | [Sample Code](https://upstox.com/developer/api-documentation/option-greek#sample-code-java_sdk)
+**Market Information** | | | |
+Get Market Holidays | **GET** /v2/market/holidays | *MarketHolidaysAndTimingsApi* | [API Reference](https://upstox.com/developer/api-documentation/get-market-holidays) | [Sample Code](https://upstox.com/developer/api-documentation/get-market-holidays#sample-code-java_sdk)
+Get Market Timings | **GET** /v2/market/timings | *MarketHolidaysAndTimingsApi* | [API Reference](https://upstox.com/developer/api-documentation/get-market-timings) | [Sample Code](https://upstox.com/developer/api-documentation/get-market-timings#sample-code-java_sdk)
+Get Market Status | **GET** /v2/market/status | *MarketHolidaysAndTimingsApi* | [API Reference](https://upstox.com/developer/api-documentation/get-market-status) | [Sample Code](https://upstox.com/developer/api-documentation/get-market-status#sample-code-java_sdk)
+**Option Chain** | | | |
+Get Option Contracts | **GET** /v2/option/contract | *OptionsApi* | [API Reference](https://upstox.com/developer/api-documentation/get-option-contracts) | [Sample Code](https://upstox.com/developer/api-documentation/get-option-contracts#sample-code-java_sdk)
+Get PC Option Chain | **GET** /v2/option/chain | *OptionsApi* | [API Reference](https://upstox.com/developer/api-documentation/get-pc-option-chain) | [Sample Code](https://upstox.com/developer/api-documentation/get-pc-option-chain#sample-code-java_sdk)
 
-<br/>
 
 ## Documentation for Feeder Interfaces
 
@@ -638,127 +638,6 @@ This example demonstrates initializing the PortfolioDataStreamer, connecting it 
 - **onAutoReconnectStoppedListener**: Informs when auto-reconnect efforts have ceased after exhausting the retry count.
 
 <br/>
-
-## Documentation for Models
-
- - [AnalyticsData](docs/AnalyticsData.md)
- - [ApiGatewayErrorResponse](docs/ApiGatewayErrorResponse.md)
- - [BatchExecutionSummary](docs/BatchExecutionSummary.md)
- - [BrokerageData](docs/BrokerageData.md)
- - [BrokerageTaxes](docs/BrokerageTaxes.md)
- - [BrokerageWrapperData](docs/BrokerageWrapperData.md)
- - [CancelOrExitMultiOrderData](docs/CancelOrExitMultiOrderData.md)
- - [CancelOrExitMultiOrderResponse](docs/CancelOrExitMultiOrderResponse.md)
- - [CancelOrExitOrderErrorData](docs/CancelOrExitOrderErrorData.md)
- - [CancelOrderData](docs/CancelOrderData.md)
- - [CancelOrderResponse](docs/CancelOrderResponse.md)
- - [CancelOrderV3Response](docs/CancelOrderV3Response.md)
- - [ConvertPositionData](docs/ConvertPositionData.md)
- - [ConvertPositionRequest](docs/ConvertPositionRequest.md)
- - [ConvertPositionResponse](docs/ConvertPositionResponse.md)
- - [Depth](docs/Depth.md)
- - [DepthMap](docs/DepthMap.md)
- - [DpPlan](docs/DpPlan.md)
- - [ExchangeTimingData](docs/ExchangeTimingData.md)
- - [ExpiredFutureData](docs/ExpiredFutureData.md)
- - [GetBrokerageResponse](docs/GetBrokerageResponse.md)
- - [GetExchangeTimingResponse](docs/GetExchangeTimingResponse.md)
- - [GetExpiredFuturesContractResponse](docs/GetExpiredFuturesContractResponse.md)
- - [GetExpiriesResponse](docs/GetExpiriesResponse.md)
- - [GetFullMarketQuoteResponse](docs/GetFullMarketQuoteResponse.md)
- - [GetGttOrderResponse](docs/GetGttOrderResponse.md)
- - [GetHistoricalCandleResponse](docs/GetHistoricalCandleResponse.md)
- - [GetHoldingsResponse](docs/GetHoldingsResponse.md)
- - [GetHolidayResponse](docs/GetHolidayResponse.md)
- - [GetIntraDayCandleResponse](docs/GetIntraDayCandleResponse.md)
- - [GetMarketQuoteLastTradedPriceResponse](docs/GetMarketQuoteLastTradedPriceResponse.md)
- - [GetMarketQuoteLastTradedPriceResponseV3](docs/GetMarketQuoteLastTradedPriceResponseV3.md)
- - [GetMarketQuoteOHLCResponse](docs/GetMarketQuoteOHLCResponse.md)
- - [GetMarketQuoteOHLCResponseV3](docs/GetMarketQuoteOHLCResponseV3.md)
- - [GetMarketQuoteOptionGreekResponseV3](docs/GetMarketQuoteOptionGreekResponseV3.md)
- - [GetMarketStatusResponse](docs/GetMarketStatusResponse.md)
- - [GetOptionChainResponse](docs/GetOptionChainResponse.md)
- - [GetOptionContractResponse](docs/GetOptionContractResponse.md)
- - [GetOrderBookResponse](docs/GetOrderBookResponse.md)
- - [GetOrderDetailsResponse](docs/GetOrderDetailsResponse.md)
- - [GetOrderResponse](docs/GetOrderResponse.md)
- - [GetPositionResponse](docs/GetPositionResponse.md)
- - [GetProfileResponse](docs/GetProfileResponse.md)
- - [GetProfitAndLossChargesResponse](docs/GetProfitAndLossChargesResponse.md)
- - [GetTradeResponse](docs/GetTradeResponse.md)
- - [GetTradeWiseProfitAndLossDataResponse](docs/GetTradeWiseProfitAndLossDataResponse.md)
- - [GetTradeWiseProfitAndLossMetaDataResponse](docs/GetTradeWiseProfitAndLossMetaDataResponse.md)
- - [GetUserFundMarginResponse](docs/GetUserFundMarginResponse.md)
- - [HistoricalCandleData](docs/HistoricalCandleData.md)
- - [HoldingsData](docs/HoldingsData.md)
- - [HolidayData](docs/HolidayData.md)
- - [IndieUserInitTokenData](docs/IndieUserInitTokenData.md)
- - [IndieUserInitTokenResponse](docs/IndieUserInitTokenResponse.md)
- - [IndieUserTokenRequest](docs/IndieUserTokenRequest.md)
- - [Instrument](docs/Instrument.md)
- - [InstrumentData](docs/InstrumentData.md)
- - [IntraDayCandleData](docs/IntraDayCandleData.md)
- - [LogoutResponse](docs/LogoutResponse.md)
- - [Margin](docs/Margin.md)
- - [MarginData](docs/MarginData.md)
- - [MarginRequest](docs/MarginRequest.md)
- - [MarketData](docs/MarketData.md)
- - [MarketQuoteOHLC](docs/MarketQuoteOHLC.md)
- - [MarketQuoteOHLCV3](docs/MarketQuoteOHLCV3.md)
- - [MarketQuoteOptionGreekV3](docs/MarketQuoteOptionGreekV3.md)
- - [MarketQuoteSymbol](docs/MarketQuoteSymbol.md)
- - [MarketQuoteSymbolLtp](docs/MarketQuoteSymbolLtp.md)
- - [MarketQuoteSymbolLtpV3](docs/MarketQuoteSymbolLtpV3.md)
- - [MarketStatusData](docs/MarketStatusData.md)
- - [ModifyOrderData](docs/ModifyOrderData.md)
- - [ModifyOrderRequest](docs/ModifyOrderRequest.md)
- - [ModifyOrderResponse](docs/ModifyOrderResponse.md)
- - [ModifyOrderV3Response](docs/ModifyOrderV3Response.md)
- - [MultiOrderData](docs/MultiOrderData.md)
- - [MultiOrderError](docs/MultiOrderError.md)
- - [MultiOrderRequest](docs/MultiOrderRequest.md)
- - [MultiOrderResponse](docs/MultiOrderResponse.md)
- - [MultiOrderSummary](docs/MultiOrderSummary.md)
- - [MultiOrderV3Data](docs/MultiOrderV3Data.md)
- - [OAuthClientException](docs/OAuthClientException.md)
- - [OAuthClientExceptionCause](docs/OAuthClientExceptionCause.md)
- - [OAuthClientExceptionCauseStackTrace](docs/OAuthClientExceptionCauseStackTrace.md)
- - [OAuthClientExceptionCauseSuppressed](docs/OAuthClientExceptionCauseSuppressed.md)
- - [Ohlc](docs/Ohlc.md)
- - [OhlcV3](docs/OhlcV3.md)
- - [OptionStrikeData](docs/OptionStrikeData.md)
- - [OrderBookData](docs/OrderBookData.md)
- - [OrderData](docs/OrderData.md)
- - [OrderMetadata](docs/OrderMetadata.md)
- - [OtherTaxes](docs/OtherTaxes.md)
- - [PlaceOrderData](docs/PlaceOrderData.md)
- - [PlaceOrderRequest](docs/PlaceOrderRequest.md)
- - [PlaceOrderResponse](docs/PlaceOrderResponse.md)
- - [PlaceOrderV3Request](docs/PlaceOrderV3Request.md)
- - [PlaceOrderV3Response](docs/PlaceOrderV3Response.md)
- - [PositionData](docs/PositionData.md)
- - [PostMarginResponse](docs/PostMarginResponse.md)
- - [Problem](docs/Problem.md)
- - [ProfileData](docs/ProfileData.md)
- - [ProfitAndLossChargesData](docs/ProfitAndLossChargesData.md)
- - [ProfitAndLossChargesTaxes](docs/ProfitAndLossChargesTaxes.md)
- - [ProfitAndLossChargesWrapperData](docs/ProfitAndLossChargesWrapperData.md)
- - [ProfitAndLossMetaData](docs/ProfitAndLossMetaData.md)
- - [ProfitAndLossMetaDataWrapper](docs/ProfitAndLossMetaDataWrapper.md)
- - [ProfitAndLossOtherChargesTaxes](docs/ProfitAndLossOtherChargesTaxes.md)
- - [PutCallOptionChainData](docs/PutCallOptionChainData.md)
- - [TokenRequest](docs/TokenRequest.md)
- - [TokenResponse](docs/TokenResponse.md)
- - [TradeData](docs/TradeData.md)
- - [TradeHistoryResponse](docs/TradeHistoryResponse.md)
- - [TradeHistoryResponseMetaData](docs/TradeHistoryResponseMetaData.md)
- - [TradeHistoryResponsePageData](docs/TradeHistoryResponsePageData.md)
- - [TradeHistoryResponseTradeData](docs/TradeHistoryResponseTradeData.md)
- - [TradeWiseMetaData](docs/TradeWiseMetaData.md)
- - [TradeWiseProfitAndLossData](docs/TradeWiseProfitAndLossData.md)
- - [UserFundMarginData](docs/UserFundMarginData.md)
- - [WebsocketAuthRedirectResponse](docs/WebsocketAuthRedirectResponse.md)
- - [WebsocketAuthRedirectResponseData](docs/WebsocketAuthRedirectResponseData.md)
 
 
 ## Recommendation
