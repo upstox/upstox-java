@@ -242,6 +242,9 @@ public class PlaceOrderV3Request {
   @SerializedName("is_amo")
   private Boolean isAmo = null;
 
+  @SerializedName("market_protection")
+  private Float marketProtection = null;
+
   public PlaceOrderV3Request quantity(Integer quantity) {
     this.quantity = quantity;
     return this;
@@ -458,6 +461,24 @@ public class PlaceOrderV3Request {
     this.isAmo = isAmo;
   }
 
+  public PlaceOrderV3Request marketProtection(Float marketProtection) {
+    this.marketProtection = marketProtection;
+    return this;
+  }
+
+   /**
+   * Market price protection (optional).
+   * @return marketProtection
+  **/
+  @Schema(description = "Market price protection (optional).")
+  public Float getMarketProtection() {
+    return marketProtection;
+  }
+
+  public void setMarketProtection(Float marketProtection) {
+    this.marketProtection = marketProtection;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -479,12 +500,13 @@ public class PlaceOrderV3Request {
         Objects.equals(this.transactionType, placeOrderV3Request.transactionType) &&
         Objects.equals(this.disclosedQuantity, placeOrderV3Request.disclosedQuantity) &&
         Objects.equals(this.triggerPrice, placeOrderV3Request.triggerPrice) &&
-        Objects.equals(this.isAmo, placeOrderV3Request.isAmo);
+        Objects.equals(this.isAmo, placeOrderV3Request.isAmo) &&
+        Objects.equals(this.marketProtection, placeOrderV3Request.marketProtection);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(quantity, product, validity, price, tag, slice, instrumentToken, orderType, transactionType, disclosedQuantity, triggerPrice, isAmo);
+    return Objects.hash(quantity, product, validity, price, tag, slice, instrumentToken, orderType, transactionType, disclosedQuantity, triggerPrice, isAmo, marketProtection);
   }
 
 
@@ -505,6 +527,7 @@ public class PlaceOrderV3Request {
     sb.append("    disclosedQuantity: ").append(toIndentedString(disclosedQuantity)).append("\n");
     sb.append("    triggerPrice: ").append(toIndentedString(triggerPrice)).append("\n");
     sb.append("    isAmo: ").append(toIndentedString(isAmo)).append("\n");
+    sb.append("    marketProtection: ").append(toIndentedString(marketProtection)).append("\n");
     sb.append("}");
     return sb.toString();
   }

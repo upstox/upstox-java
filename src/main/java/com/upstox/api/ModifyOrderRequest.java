@@ -139,6 +139,9 @@ public class ModifyOrderRequest {
   @SerializedName("trigger_price")
   private Float triggerPrice = null;
 
+  @SerializedName("market_protection")
+  private Float marketProtection = null;
+
   public ModifyOrderRequest quantity(Integer quantity) {
     this.quantity = quantity;
     return this;
@@ -265,6 +268,24 @@ public class ModifyOrderRequest {
     this.triggerPrice = triggerPrice;
   }
 
+  public ModifyOrderRequest marketProtection(Float marketProtection) {
+    this.marketProtection = marketProtection;
+    return this;
+  }
+
+   /**
+   * Market price protection (optional).
+   * @return marketProtection
+  **/
+  @Schema(description = "Market price protection (optional).")
+  public Float getMarketProtection() {
+    return marketProtection;
+  }
+
+  public void setMarketProtection(Float marketProtection) {
+    this.marketProtection = marketProtection;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -281,12 +302,13 @@ public class ModifyOrderRequest {
         Objects.equals(this.orderId, modifyOrderRequest.orderId) &&
         Objects.equals(this.orderType, modifyOrderRequest.orderType) &&
         Objects.equals(this.disclosedQuantity, modifyOrderRequest.disclosedQuantity) &&
-        Objects.equals(this.triggerPrice, modifyOrderRequest.triggerPrice);
+        Objects.equals(this.triggerPrice, modifyOrderRequest.triggerPrice) &&
+        Objects.equals(this.marketProtection, modifyOrderRequest.marketProtection);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(quantity, validity, price, orderId, orderType, disclosedQuantity, triggerPrice);
+    return Objects.hash(quantity, validity, price, orderId, orderType, disclosedQuantity, triggerPrice, marketProtection);
   }
 
 
@@ -302,6 +324,7 @@ public class ModifyOrderRequest {
     sb.append("    orderType: ").append(toIndentedString(orderType)).append("\n");
     sb.append("    disclosedQuantity: ").append(toIndentedString(disclosedQuantity)).append("\n");
     sb.append("    triggerPrice: ").append(toIndentedString(triggerPrice)).append("\n");
+    sb.append("    marketProtection: ").append(toIndentedString(marketProtection)).append("\n");
     sb.append("}");
     return sb.toString();
   }

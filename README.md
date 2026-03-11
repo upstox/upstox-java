@@ -30,7 +30,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.upstox.api</groupId>
   <artifactId>upstox-java-sdk</artifactId>
-  <version>1.19</version>
+  <version>1.20</version>
   <scope>compile</scope>
 </dependency>
 ```

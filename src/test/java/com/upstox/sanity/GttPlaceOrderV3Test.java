@@ -29,6 +29,7 @@ public class GttPlaceOrderV3Test {
         entryRule.setStrategy(GttRule.StrategyEnum.ENTRY);
         entryRule.setTriggerType(GttRule.TriggerTypeEnum.ABOVE);
         entryRule.setTriggerPrice(7D);
+        entryRule.setMarketProtection(0D);
         gttRules.add(entryRule);
 
         GttRule stopLossRule = new GttRule();

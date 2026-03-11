@@ -43,6 +43,9 @@ public class TokenRequest {
   @SerializedName("grant_type")
   private String grantType = null;
 
+  @SerializedName("refresh_extended_token")
+  private Boolean refreshExtendedToken = null;
+
   public TokenRequest code(String code) {
     this.code = code;
     return this;
@@ -133,6 +136,24 @@ public class TokenRequest {
     this.grantType = grantType;
   }
 
+  public TokenRequest refreshExtendedToken(Boolean refreshExtendedToken) {
+    this.refreshExtendedToken = refreshExtendedToken;
+    return this;
+  }
+
+   /**
+   * Whether to generate an extended token along with the access token
+   * @return refreshExtendedToken
+  **/
+  @Schema(description = "Whether to generate an extended token along with the access token")
+  public Boolean isRefreshExtendedToken() {
+    return refreshExtendedToken;
+  }
+
+  public void setRefreshExtendedToken(Boolean refreshExtendedToken) {
+    this.refreshExtendedToken = refreshExtendedToken;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -147,12 +168,13 @@ public class TokenRequest {
         Objects.equals(this.clientId, tokenRequest.clientId) &&
         Objects.equals(this.clientSecret, tokenRequest.clientSecret) &&
         Objects.equals(this.redirectUri, tokenRequest.redirectUri) &&
-        Objects.equals(this.grantType, tokenRequest.grantType);
+        Objects.equals(this.grantType, tokenRequest.grantType) &&
+        Objects.equals(this.refreshExtendedToken, tokenRequest.refreshExtendedToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, clientId, clientSecret, redirectUri, grantType);
+    return Objects.hash(code, clientId, clientSecret, redirectUri, grantType, refreshExtendedToken);
   }
 
 
@@ -166,6 +188,7 @@ public class TokenRequest {
     sb.append("    clientSecret: ").append(toIndentedString(clientSecret)).append("\n");
     sb.append("    redirectUri: ").append(toIndentedString(redirectUri)).append("\n");
     sb.append("    grantType: ").append(toIndentedString(grantType)).append("\n");
+    sb.append("    refreshExtendedToken: ").append(toIndentedString(refreshExtendedToken)).append("\n");
     sb.append("}");
     return sb.toString();
   }

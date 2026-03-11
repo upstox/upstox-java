@@ -245,6 +245,9 @@ public class MultiOrderRequest {
   @SerializedName("correlation_id")
   private String correlationId = null;
 
+  @SerializedName("market_protection")
+  private Float marketProtection = null;
+
   public MultiOrderRequest quantity(Integer quantity) {
     this.quantity = quantity;
     return this;
@@ -479,6 +482,24 @@ public class MultiOrderRequest {
     this.correlationId = correlationId;
   }
 
+  public MultiOrderRequest marketProtection(Float marketProtection) {
+    this.marketProtection = marketProtection;
+    return this;
+  }
+
+   /**
+   * Market price protection (optional).
+   * @return marketProtection
+  **/
+  @Schema(description = "Market price protection (optional).")
+  public Float getMarketProtection() {
+    return marketProtection;
+  }
+
+  public void setMarketProtection(Float marketProtection) {
+    this.marketProtection = marketProtection;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -501,12 +522,13 @@ public class MultiOrderRequest {
         Objects.equals(this.disclosedQuantity, multiOrderRequest.disclosedQuantity) &&
         Objects.equals(this.triggerPrice, multiOrderRequest.triggerPrice) &&
         Objects.equals(this.isAmo, multiOrderRequest.isAmo) &&
-        Objects.equals(this.correlationId, multiOrderRequest.correlationId);
+        Objects.equals(this.correlationId, multiOrderRequest.correlationId) &&
+        Objects.equals(this.marketProtection, multiOrderRequest.marketProtection);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(quantity, product, validity, price, tag, slice, instrumentToken, orderType, transactionType, disclosedQuantity, triggerPrice, isAmo, correlationId);
+    return Objects.hash(quantity, product, validity, price, tag, slice, instrumentToken, orderType, transactionType, disclosedQuantity, triggerPrice, isAmo, correlationId, marketProtection);
   }
 
 
@@ -528,6 +550,7 @@ public class MultiOrderRequest {
     sb.append("    triggerPrice: ").append(toIndentedString(triggerPrice)).append("\n");
     sb.append("    isAmo: ").append(toIndentedString(isAmo)).append("\n");
     sb.append("    correlationId: ").append(toIndentedString(correlationId)).append("\n");
+    sb.append("    marketProtection: ").append(toIndentedString(marketProtection)).append("\n");
     sb.append("}");
     return sb.toString();
   }
