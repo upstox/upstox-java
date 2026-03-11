@@ -487,7 +487,7 @@ public class LoginApi {
      */
     public com.squareup.okhttp.Call tokenCall(String apiVersion, String code, String clientId, String clientSecret, String redirectUri, String grantType, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-        
+
         // create path and map variables
         String localVarPath = "/v2/login/authorization/token";
 
@@ -537,21 +537,21 @@ public class LoginApi {
         String[] localVarAuthNames = new String[] {  };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-    
+
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call tokenValidateBeforeCall(String apiVersion, String code, String clientId, String clientSecret, String redirectUri, String grantType, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'apiVersion' is set
+        // verify the required parameter ‘apiVersion’ is set
         if (apiVersion == null) {
-            throw new ApiException("Missing the required parameter 'apiVersion' when calling token(Async)");
+            throw new ApiException("Missing the required parameter ‘apiVersion’ when calling token(Async)");
         }
-        
+
         com.squareup.okhttp.Call call = tokenCall(apiVersion, code, clientId, clientSecret, redirectUri, grantType, progressListener, progressRequestListener);
         return call;
 
-        
-        
-        
-        
+
+
+
+
     }
 
     /**
@@ -624,6 +624,150 @@ public class LoginApi {
         }
 
         com.squareup.okhttp.Call call = tokenValidateBeforeCall(apiVersion, code, clientId, clientSecret, redirectUri, grantType, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<TokenResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+
+    // Overloaded token methods with refreshExtendedToken
+
+    public com.squareup.okhttp.Call tokenCall(String apiVersion, String code, String clientId, String clientSecret, String redirectUri, String grantType, Boolean refreshExtendedToken, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+
+        String localVarPath = "/v2/login/authorization/token";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (apiVersion != null)
+        localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        if (code != null)
+        localVarFormParams.put("code", code);
+        if (clientId != null)
+        localVarFormParams.put("client_id", clientId);
+        if (clientSecret != null)
+        localVarFormParams.put("client_secret", clientSecret);
+        if (redirectUri != null)
+        localVarFormParams.put("redirect_uri", redirectUri);
+        if (grantType != null)
+        localVarFormParams.put("grant_type", grantType);
+        if (refreshExtendedToken != null)
+        localVarFormParams.put("refresh_extended_token", refreshExtendedToken);
+
+        final String[] localVarAccepts = {
+            "application/json", "*/*"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/x-www-form-urlencoded"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call tokenValidateBeforeCall(String apiVersion, String code, String clientId, String clientSecret, String redirectUri, String grantType, Boolean refreshExtendedToken, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        if (apiVersion == null) {
+            throw new ApiException("Missing the required parameter ‘apiVersion’ when calling token(Async)");
+        }
+
+        com.squareup.okhttp.Call call = tokenCall(apiVersion, code, clientId, clientSecret, redirectUri, grantType, refreshExtendedToken, progressListener, progressRequestListener);
+        return call;
+    }
+
+    /**
+     * Get token API
+     * This API provides the functionality to obtain opaque token from authorization_code exchange and also provides the user’s profile in the same response.
+     * @param apiVersion API Version Header (required)
+     * @param code  (optional)
+     * @param clientId  (optional)
+     * @param clientSecret  (optional)
+     * @param redirectUri  (optional)
+     * @param grantType  (optional)
+     * @param refreshExtendedToken  (optional)
+     * @return TokenResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public TokenResponse token(String apiVersion, String code, String clientId, String clientSecret, String redirectUri, String grantType, Boolean refreshExtendedToken) throws ApiException {
+        ApiResponse<TokenResponse> resp = tokenWithHttpInfo(apiVersion, code, clientId, clientSecret, redirectUri, grantType, refreshExtendedToken);
+        return resp.getData();
+    }
+
+    /**
+     * Get token API
+     * This API provides the functionality to obtain opaque token from authorization_code exchange and also provides the user’s profile in the same response.
+     * @param apiVersion API Version Header (required)
+     * @param code  (optional)
+     * @param clientId  (optional)
+     * @param clientSecret  (optional)
+     * @param redirectUri  (optional)
+     * @param grantType  (optional)
+     * @param refreshExtendedToken  (optional)
+     * @return ApiResponse&lt;TokenResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<TokenResponse> tokenWithHttpInfo(String apiVersion, String code, String clientId, String clientSecret, String redirectUri, String grantType, Boolean refreshExtendedToken) throws ApiException {
+        com.squareup.okhttp.Call call = tokenValidateBeforeCall(apiVersion, code, clientId, clientSecret, redirectUri, grantType, refreshExtendedToken, null, null);
+        Type localVarReturnType = new TypeToken<TokenResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get token API (asynchronously)
+     * This API provides the functionality to obtain opaque token from authorization_code exchange and also provides the user’s profile in the same response.
+     * @param apiVersion API Version Header (required)
+     * @param code  (optional)
+     * @param clientId  (optional)
+     * @param clientSecret  (optional)
+     * @param redirectUri  (optional)
+     * @param grantType  (optional)
+     * @param refreshExtendedToken  (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call tokenAsync(String apiVersion, String code, String clientId, String clientSecret, String redirectUri, String grantType, Boolean refreshExtendedToken, final ApiCallback<TokenResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = tokenValidateBeforeCall(apiVersion, code, clientId, clientSecret, redirectUri, grantType, refreshExtendedToken, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<TokenResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
