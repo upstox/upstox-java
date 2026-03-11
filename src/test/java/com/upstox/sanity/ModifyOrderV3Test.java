@@ -23,6 +23,7 @@ public class ModifyOrderV3Test {
         body.setTriggerPrice(0F);
         body.setOrderType(ModifyOrderRequest.OrderTypeEnum.LIMIT);
         body.setOrderId("250128010532402");
+        body.setMarketProtection(0F);
         String apiVersion = "2.0"; // String | API Version Header
         try {
             ModifyOrderV3Response result = apiInstance.modifyOrder(body);

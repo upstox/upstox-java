@@ -32,6 +32,7 @@ public class PlaceMultiOrderTest {
         request1.setIsAmo(true);
         request1.setCorrelationId("cid1");
         request1.setSlice(true);
+        request1.setMarketProtection(0F);
 
 
         MultiOrderRequest request2 = new MultiOrderRequest();
@@ -48,6 +49,7 @@ public class PlaceMultiOrderTest {
         request2.setIsAmo(true);
         request2.setCorrelationId("cid2");
         request2.setSlice(true);
+        request2.setMarketProtection(2F);
 
         String apiVersion = "2.0"; // String | API Version Header
         try {

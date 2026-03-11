@@ -130,6 +130,9 @@ public class GttRule {
   @SerializedName("trailing_gap")
   private Double trailingGap = null;
 
+  @SerializedName("market_protection")
+  private Double marketProtection = null;
+
   public GttRule strategy(StrategyEnum strategy) {
     this.strategy = strategy;
     return this;
@@ -202,6 +205,24 @@ public class GttRule {
     this.trailingGap = trailingGap;
   }
 
+  public GttRule marketProtection(Double marketProtection) {
+    this.marketProtection = marketProtection;
+    return this;
+  }
+
+   /**
+   * Market price protection (optional).
+   * @return marketProtection
+  **/
+  @Schema(description = "Market price protection (optional).")
+  public Double getMarketProtection() {
+    return marketProtection;
+  }
+
+  public void setMarketProtection(Double marketProtection) {
+    this.marketProtection = marketProtection;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -215,12 +236,13 @@ public class GttRule {
     return Objects.equals(this.strategy, gttRule.strategy) &&
         Objects.equals(this.triggerType, gttRule.triggerType) &&
         Objects.equals(this.triggerPrice, gttRule.triggerPrice) &&
-        Objects.equals(this.trailingGap, gttRule.trailingGap);
+        Objects.equals(this.trailingGap, gttRule.trailingGap) &&
+        Objects.equals(this.marketProtection, gttRule.marketProtection);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(strategy, triggerType, triggerPrice, trailingGap);
+    return Objects.hash(strategy, triggerType, triggerPrice, trailingGap, marketProtection);
   }
 
 
@@ -233,6 +255,7 @@ public class GttRule {
     sb.append("    triggerType: ").append(toIndentedString(triggerType)).append("\n");
     sb.append("    triggerPrice: ").append(toIndentedString(triggerPrice)).append("\n");
     sb.append("    trailingGap: ").append(toIndentedString(trailingGap)).append("\n");
+    sb.append("    marketProtection: ").append(toIndentedString(marketProtection)).append("\n");
     sb.append("}");
     return sb.toString();
   }

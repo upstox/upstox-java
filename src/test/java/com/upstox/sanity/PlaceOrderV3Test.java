@@ -28,6 +28,7 @@ public class PlaceOrderV3Test {
         body.setDisclosedQuantity(0);
         body.setTriggerPrice(0F);
         body.setIsAmo(true);
+        body.setMarketProtection(0F);
 
         String apiVersion = "2.0"; // String | API Version Header
         try {
