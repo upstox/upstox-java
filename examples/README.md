@@ -1,15 +1,41 @@
-# Java Sample Implementation
+# Upstox Java SDK Examples
 
-## Websocket
+This directory contains Java SDK code examples for the Upstox API, organized by category.
 
-### Market stream feed
+## Prerequisites
 
-Java code to connect to the Upstox Websocket API for streaming live market data. It fetches market data for a list of instrument keys. When the client receives updates from the server, it decodes the incoming protobuf data into a FeedResponse object.
+- Java 8 or higher
+- Maven or Gradle
+- An Upstox account with API access
+- A valid access token
 
-[Market updates using Upstox's websocket](websocket/market_data/v3)
+## Maven Dependency
 
-### Porfolio stream feed
+Add the following dependency to your `pom.xml`:
 
-Java code to connect to the Upstox WebSocket API for streaming live order updates. It fetches the order updates and prints them to the console.
+```xml
+<dependency>
+    <groupId>com.upstox.api</groupId>
+    <artifactId>upstox-java-api</artifactId>
+    <version>LATEST</version>
+    <scope>compile</scope>
+</dependency>
+```
 
-[Order updates using Upstox's websocket](websocket/order_updates/)
+## Folder Structure
+
+| Category | Description |
+|----------|-------------|
+| [login](./login/) | Authentication — get access token and logout |
+| [user](./user/) | User profile and fund/margin details |
+| [orders](./orders/) | Place, modify, cancel orders and fetch order details |
+| [portfolio](./portfolio/) | Positions, holdings, MTF positions, and position conversion |
+| [market-quote](./market-quote/) | LTP, OHLC, full market quotes, and option greeks |
+| [historical-data](./historical-data/) | Historical and intra-day candle data |
+| [option-chain](./option-chain/) | Option contracts and put/call option chain |
+| [expired-instruments](./expired-instruments/) | Expired instrument data and historical candles |
+| [market-information](./market-information/) | Exchange status, market timings, and holidays |
+| [gtt-orders](./gtt-orders/) | Good Till Triggered (GTT) order management |
+| [margins](./margins/) | Order margin calculations |
+| [charges](./charges/) | Brokerage charge calculations |
+| [trade-profit-and-loss](./trade-profit-and-loss/) | Trade-wise profit and loss reports |
