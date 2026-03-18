@@ -14,7 +14,7 @@ public class TokenTest {
         String redirectUri = "{redirect_url}";
         String grantType = "authorization_code";
         try {
-            TokenResponse result = apiInstance.token(apiVersion, code, clientId, clientSecret, redirectUri, grantType,true);
+            TokenResponse result = apiInstance.token(apiVersion, code, clientId, clientSecret, redirectUri, grantType);
             System.out.println(result);
         } catch (ApiException e) {
             if(!e.getResponseBody().contains("UDAPI100069")){
