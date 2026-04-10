@@ -47,7 +47,7 @@ public class Main {
         OAUTH2.setAccessToken("{your_access_token}");
 
         UserApi apiInstance = new UserApi();
-        UpdateUserIpRequest body = new UpdateUserIpRequest().primaryIp("127.0.0.1");
+        UpdateUserIpRequest body = new UpdateUserIpRequest().primaryIp("1.2.3.4");
 
         try {
             UserIpResponse result = apiInstance.updateUserIp(body);
