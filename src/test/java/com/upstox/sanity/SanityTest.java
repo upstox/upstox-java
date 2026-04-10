@@ -8,6 +8,8 @@ import com.upstox.auth.OAuth;
 import io.swagger.client.api.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.upstox.api.GetGttOrderResponse.StatusEnum.SUCCESS;
@@ -68,6 +70,9 @@ public class SanityTest {
          mtfPositionApiTest();
          historicalCandleV3test();
          expiredInstrumentTest();
+         getUserFundMarginV3();
+         userIpApis();
+        killSwitchApis();
          logout();
          testAllApisWithAlgoName();
     }
@@ -1019,6 +1024,67 @@ public class SanityTest {
             System.out.println("CancelGTTOrder with AlgoName: " + result);
         } catch (ApiException e) {
             if(!e.getResponseBody().contains("UDAPI100010")) System.out.println("error in cancel gtt with algoName");
+        }
+    }
+
+    private static void getUserFundMarginV3() {
+        UserApi apiInstance = new UserApi();
+        try {
+            GetUserFundMarginV3Response result = apiInstance.getUserFundMarginV3();
+            if (result.getStatus() == null) System.out.println("error in getUserFundMarginV3");
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#getUserFundMarginV3");
+            e.printStackTrace();
+        }
+    }
+
+    private static void userIpApis() {
+        UserApi apiInstance = new UserApi();
+        try {
+            UserIpResponse result = apiInstance.getUserIps();
+            System.out.println(result);
+            if (result.getStatus() == null) System.out.println("error in getUserIps");
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#getUserIps");
+            e.printStackTrace();
+        }
+        UpdateUserIpRequest updateUserIpRequest = new UpdateUserIpRequest();
+        updateUserIpRequest.setPrimaryIp("1.2.3.4");
+        updateUserIpRequest.setSecondaryIp("5.6.7.8");
+        try {
+            UserIpResponse result = apiInstance.updateUserIp(updateUserIpRequest);
+            if (result.getStatus() == null) {
+                System.out.println("error in updateUserIp");
+                System.out.println(result);
+            }
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#updateUserIp");
+            System.out.println(e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+
+    private static void killSwitchApis() {
+        UserApi apiInstance = new UserApi();
+        try {
+            KillSwitchResponse result = apiInstance.getKillSwitch();
+            if (result.getStatus() == null) System.out.println("error in getKillSwitch");
+
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#getKillSwitch");
+            e.printStackTrace();
+        }
+        KillSwitchSegmentUpdateRequest killSwitchRequest = new KillSwitchSegmentUpdateRequest();
+        killSwitchRequest.setSegment("NSE_EQ");
+        killSwitchRequest.setAction("ENABLE");
+        try {
+            KillSwitchResponse result = apiInstance.updateKillSwitch(Collections.singletonList(killSwitchRequest));
+            if (result.getStatus() == null) System.out.println("error in updateKillSwitch");
+
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserApi#updateKillSwitch");
+            System.out.println(e.getResponseBody());
+
         }
     }
 }

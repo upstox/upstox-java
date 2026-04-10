@@ -27,7 +27,7 @@ Add the following dependency to your `pom.xml`:
 | Category | Description |
 |----------|-------------|
 | [login](./login/) | Authentication — get access token and logout |
-| [user](./user/) | User profile and fund/margin details |
+| [user](./user/) | User profile, fund/margin details, IP management, kill switch |
 | [orders](./orders/) | Place, modify, cancel orders and fetch order details |
 | [portfolio](./portfolio/) | Positions, holdings, MTF positions, and position conversion |
 | [market-quote](./market-quote/) | LTP, OHLC, full market quotes, and option greeks |
