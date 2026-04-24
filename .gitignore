@@ -34,3 +34,5 @@ git_push.sh
 
 #cursor
 .cursor/
+.classpath
+.project

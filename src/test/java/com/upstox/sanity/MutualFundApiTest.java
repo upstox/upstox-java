@@ -36,7 +36,7 @@ public class MutualFundApiTest {
         }
 
         try {
-            GetMutualFundOrderDetailsResponse result = apiInstance.getMutualFundOrder("MF-ORDER-12345");
+            GetMutualFundOrderDetailsResponse result = apiInstance.getMutualFundOrder("2TC3XY-7ef4a026-908c-4d56-8ab7-e4a517938083");
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling MutualFundApi#getMutualFundOrder");
