@@ -76,6 +76,7 @@ public class SanityTest {
          logout();
          testAllApisWithAlgoName();
          NewsApiTest.main(null);
+         MutualFundApiTest.main(null);
     }
     public static void placeOrder(){
         OrderApi apiInstance = new OrderApi();
