@@ -30,7 +30,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.upstox.api</groupId>
   <artifactId>upstox-java-sdk</artifactId>
-  <version>1.24</version>
+  <version>1.25</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.upstox.api:upstox-java-sdk:1.24"
+compile "com.upstox.api:upstox-java-sdk:1.25"
 ```
 
 ## Sandbox Mode
