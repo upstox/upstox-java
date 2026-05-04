@@ -54,12 +54,12 @@ public class SanityTest {
 
         // Get user profile
         UserApi userApi = new UserApi();
-        GetProfileResponse userProfile = userApi.getProfile();
+        GetProfileResponse userProfile = userApi.getProfile(apiVersion);
         System.out.println(userProfile);
 
         // Get funds and margin
         String segment = "SEC";
-        GetUserFundMarginResponse fundMarginResponse = userApi.getUserFundMargin(segment);
+        GetUserFundMarginResponse fundMarginResponse = userApi.getUserFundMargin(apiVersion, segment);
         System.out.println(fundMarginResponse);
 
         // Get positions

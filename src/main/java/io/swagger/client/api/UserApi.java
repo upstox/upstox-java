@@ -424,14 +424,15 @@ public class UserApi {
     }
     /**
      * Build call for getProfile
+     * @param apiVersion API Version Header (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getProfileCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getProfileCall(String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-        
+
         // create path and map variables
         String localVarPath = "/v2/user/profile";
 
@@ -439,6 +440,8 @@ public class UserApi {
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (apiVersion != null)
+        localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -474,9 +477,13 @@ public class UserApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getProfileValidateBeforeCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        com.squareup.okhttp.Call call = getProfileCall(progressListener, progressRequestListener);
+    private com.squareup.okhttp.Call getProfileValidateBeforeCall(String apiVersion, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'apiVersion' is set
+        if (apiVersion == null) {
+            throw new ApiException("Missing the required parameter 'apiVersion' when calling getProfile(Async)");
+        }
+
+        com.squareup.okhttp.Call call = getProfileCall(apiVersion, progressListener, progressRequestListener);
         return call;
 
         
@@ -488,22 +495,24 @@ public class UserApi {
     /**
      * Get profile
      * This API allows to fetch the complete information of the user who is logged in including the products, order types and exchanges enabled for the user
+     * @param apiVersion API Version Header (required)
      * @return GetProfileResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public GetProfileResponse getProfile() throws ApiException {
-        ApiResponse<GetProfileResponse> resp = getProfileWithHttpInfo();
+    public GetProfileResponse getProfile(String apiVersion) throws ApiException {
+        ApiResponse<GetProfileResponse> resp = getProfileWithHttpInfo(apiVersion);
         return resp.getData();
     }
 
     /**
      * Get profile
      * This API allows to fetch the complete information of the user who is logged in including the products, order types and exchanges enabled for the user
+     * @param apiVersion API Version Header (required)
      * @return ApiResponse&lt;GetProfileResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetProfileResponse> getProfileWithHttpInfo() throws ApiException {
-        com.squareup.okhttp.Call call = getProfileValidateBeforeCall(null, null);
+    public ApiResponse<GetProfileResponse> getProfileWithHttpInfo(String apiVersion) throws ApiException {
+        com.squareup.okhttp.Call call = getProfileValidateBeforeCall(apiVersion, null, null);
         Type localVarReturnType = new TypeToken<GetProfileResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -511,11 +520,12 @@ public class UserApi {
     /**
      * Get profile (asynchronously)
      * This API allows to fetch the complete information of the user who is logged in including the products, order types and exchanges enabled for the user
+     * @param apiVersion API Version Header (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getProfileAsync(final ApiCallback<GetProfileResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call getProfileAsync(String apiVersion, final ApiCallback<GetProfileResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -536,22 +546,23 @@ public class UserApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getProfileValidateBeforeCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getProfileValidateBeforeCall(apiVersion, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<GetProfileResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
      * Build call for getUserFundMargin
+     * @param apiVersion API Version Header (required)
      * @param segment  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getUserFundMarginCall(Object segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getUserFundMarginCall(String apiVersion, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-        
+
         // create path and map variables
         String localVarPath = "/v2/user/get-funds-and-margin";
 
@@ -561,6 +572,8 @@ public class UserApi {
         localVarQueryParams.addAll(apiClient.parameterToPair("segment", segment));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        if (apiVersion != null)
+        localVarHeaderParams.put("Api-Version", apiClient.parameterToString(apiVersion));
 
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
@@ -596,9 +609,13 @@ public class UserApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getUserFundMarginValidateBeforeCall(Object segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        com.squareup.okhttp.Call call = getUserFundMarginCall(segment, progressListener, progressRequestListener);
+    private com.squareup.okhttp.Call getUserFundMarginValidateBeforeCall(String apiVersion, String segment, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'apiVersion' is set
+        if (apiVersion == null) {
+            throw new ApiException("Missing the required parameter 'apiVersion' when calling getUserFundMargin(Async)");
+        }
+
+        com.squareup.okhttp.Call call = getUserFundMarginCall(apiVersion, segment, progressListener, progressRequestListener);
         return call;
 
         
@@ -610,24 +627,26 @@ public class UserApi {
     /**
      * Get User Fund And Margin
      * Shows the balance of the user in equity and commodity market.
+     * @param apiVersion API Version Header (required)
      * @param segment  (optional)
      * @return GetUserFundMarginResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public GetUserFundMarginResponse getUserFundMargin(Object segment) throws ApiException {
-        ApiResponse<GetUserFundMarginResponse> resp = getUserFundMarginWithHttpInfo(segment);
+    public GetUserFundMarginResponse getUserFundMargin(String apiVersion, String segment) throws ApiException {
+        ApiResponse<GetUserFundMarginResponse> resp = getUserFundMarginWithHttpInfo(apiVersion, segment);
         return resp.getData();
     }
 
     /**
      * Get User Fund And Margin
      * Shows the balance of the user in equity and commodity market.
+     * @param apiVersion API Version Header (required)
      * @param segment  (optional)
      * @return ApiResponse&lt;GetUserFundMarginResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetUserFundMarginResponse> getUserFundMarginWithHttpInfo(Object segment) throws ApiException {
-        com.squareup.okhttp.Call call = getUserFundMarginValidateBeforeCall(segment, null, null);
+    public ApiResponse<GetUserFundMarginResponse> getUserFundMarginWithHttpInfo(String apiVersion, String segment) throws ApiException {
+        com.squareup.okhttp.Call call = getUserFundMarginValidateBeforeCall(apiVersion, segment, null, null);
         Type localVarReturnType = new TypeToken<GetUserFundMarginResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -635,12 +654,13 @@ public class UserApi {
     /**
      * Get User Fund And Margin (asynchronously)
      * Shows the balance of the user in equity and commodity market.
+     * @param apiVersion API Version Header (required)
      * @param segment  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getUserFundMarginAsync(Object segment, final ApiCallback<GetUserFundMarginResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call getUserFundMarginAsync(String apiVersion, String segment, final ApiCallback<GetUserFundMarginResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -661,7 +681,7 @@ public class UserApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getUserFundMarginValidateBeforeCall(segment, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getUserFundMarginValidateBeforeCall(apiVersion, segment, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<GetUserFundMarginResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

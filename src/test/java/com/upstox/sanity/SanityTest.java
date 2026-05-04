@@ -23,13 +23,13 @@ public class SanityTest {
         UserApi apiInstance = new UserApi();
         String apiVersion = "2.0";
         try {
-            GetProfileResponse result = apiInstance.getProfile();
+            GetProfileResponse result = apiInstance.getProfile(apiVersion);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserApi#getProfile");
             e.printStackTrace();
         }
         try {
-            GetUserFundMarginResponse result = apiInstance.getUserFundMargin("");
+            GetUserFundMarginResponse result = apiInstance.getUserFundMargin(apiVersion, "");
         } catch (ApiException e) {
             System.err.println("Exception when calling UserApi#getUserFundMargin");
             e.printStackTrace();
