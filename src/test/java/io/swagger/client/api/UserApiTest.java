@@ -43,8 +43,7 @@ public class UserApiTest {
      */
     @Test
     public void getProfileTest() throws Exception {
-        String apiVersion = null;
-        GetProfileResponse response = api.getProfile(apiVersion);
+        GetProfileResponse response = api.getProfile();
 
         // TODO: test validations
     }
@@ -58,9 +57,8 @@ public class UserApiTest {
      */
     @Test
     public void getUserFundMarginTest() throws Exception {
-        String apiVersion = null;
         String segment = null;
-        GetUserFundMarginResponse response = api.getUserFundMargin(apiVersion, segment);
+        GetUserFundMarginResponse response = api.getUserFundMargin(segment);
 
         // TODO: test validations
     }

@@ -23,13 +23,13 @@ public class SanityTest {
         UserApi apiInstance = new UserApi();
         String apiVersion = "2.0";
         try {
-            GetProfileResponse result = apiInstance.getProfile(apiVersion);
+            GetProfileResponse result = apiInstance.getProfile();
         } catch (ApiException e) {
             System.err.println("Exception when calling UserApi#getProfile");
             e.printStackTrace();
         }
         try {
-            GetUserFundMarginResponse result = apiInstance.getUserFundMargin(apiVersion, "");
+            GetUserFundMarginResponse result = apiInstance.getUserFundMargin("");
         } catch (ApiException e) {
             System.err.println("Exception when calling UserApi#getUserFundMargin");
             e.printStackTrace();
@@ -77,6 +77,7 @@ public class SanityTest {
          testAllApisWithAlgoName();
          NewsApiTest.main(null);
          MutualFundApiTest.main(null);
+         PaymentsApiTest.main(null);
     }
     public static void placeOrder(){
         OrderApi apiInstance = new OrderApi();
