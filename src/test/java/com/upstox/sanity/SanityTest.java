@@ -78,7 +78,8 @@ public class SanityTest {
          NewsApiTest.main(null);
          MutualFundApiTest.main(null);
          PaymentsApiTest.main(null);
-         FundamentalsMarketDataApiTest.main(null);
+         FundamentalsApiSanityTest.main(null);
+         MarketApiSanityTest.main(null);
     }
     public static void placeOrder(){
         OrderApi apiInstance = new OrderApi();
