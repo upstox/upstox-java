@@ -48,7 +48,7 @@ public class FundamentalsApiSanityTest {
         }
 
         try {
-            IncomeStatementResponse result = api.getIncomeStatement(isin, "consolidated", "annual", false);
+            IncomeStatementResponse result = api.getIncomeStatement(isin, "consolidated", "yearly", false);
             System.out.println("getIncomeStatement => " + result);
         } catch (ApiException e) {
             System.err.println("Exception when calling FundamentalsApi#getIncomeStatement");

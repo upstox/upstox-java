@@ -15,8 +15,8 @@ public class MarketApiSanityTest {
 
         MarketApi api = new MarketApi();
         String instrumentKey = "NSE_INDEX|Nifty 50";
-        String expiry = "2025-06-26";
-        String date = "2025-06-12";
+        String expiry = "2026-05-26";
+        String date = "2026-05-12";
 
         try {
             AnalyticsResponse result = api.getOiData(instrumentKey, expiry, date);
