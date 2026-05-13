@@ -34,7 +34,8 @@ Add the following dependency to your `pom.xml`:
 | [historical-data](./historical-data/) | Historical and intra-day candle data |
 | [option-chain](./option-chain/) | Option contracts and put/call option chain |
 | [expired-instruments](./expired-instruments/) | Expired instrument data and historical candles |
-| [market-information](./market-information/) | Exchange status, market timings, and holidays |
+| [market-information](./market-information/) | Exchange status, market timings, holidays, OI, change in OI, PCR, max pain, FII, and DII |
+| [fundamentals](./fundamentals/) | Company profile, balance sheet, cash flow, income statement, key ratios, share holdings, corporate actions, and competitors |
 | [gtt-orders](./gtt-orders/) | Good Till Triggered (GTT) order management |
 | [margins](./margins/) | Order margin calculations |
 | [charges](./charges/) | Brokerage charge calculations |

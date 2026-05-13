@@ -46,38 +46,46 @@ public class SanityTest {
             System.err.println("Exception when calling ChargeApi#getBrokerage");
             e.printStackTrace();
         }
-         placeOrder();
-         modifyOrder();
-         cancelOrder();
-         getOrderBook();
-         getOrderDetails();
-         getTradeHistory();
-         getTradesByOrder();
-         convertPosition();
-         getTradeWiseProfitLossMetaData();
-         historicalApis();
-         marketQuote();
-         optionChain();
-         marketInformation();
-         testPostTrade();
-         testCalculateMargin();
-         testOrderStatus();
-         testCancelMultiOrder();
-         testExitAllOrder();
-         testPlaceMultiOrder();
-         testV3Orders();
-         maretQuoteV3Test();
-         mtfPositionApiTest();
-         historicalCandleV3test();
-         expiredInstrumentTest();
-         getUserFundMarginV3();
-         userIpApis();
-        killSwitchApis();
-         logout();
-         testAllApisWithAlgoName();
-         NewsApiTest.main(null);
-         MutualFundApiTest.main(null);
-         PaymentsApiTest.main(null);
+        try {
+            placeOrder();
+            modifyOrder();
+            cancelOrder();
+            getOrderBook();
+            getOrderDetails();
+            getTradeHistory();
+            getTradesByOrder();
+            convertPosition();
+            getTradeWiseProfitLossMetaData();
+            historicalApis();
+            marketQuote();
+            optionChain();
+            marketInformation();
+            testPostTrade();
+            testCalculateMargin();
+            testOrderStatus();
+            testCancelMultiOrder();
+            testExitAllOrder();
+            testPlaceMultiOrder();
+            testV3Orders();
+            maretQuoteV3Test();
+            mtfPositionApiTest();
+            historicalCandleV3test();
+            expiredInstrumentTest();
+            getUserFundMarginV3();
+            userIpApis();
+            killSwitchApis();
+            logout();
+            testAllApisWithAlgoName();
+            NewsApiTest.main(null);
+            MutualFundApiTest.main(null);
+            PaymentsApiTest.main(null);
+            FundamentalsApiSanityTest.main(null);
+            MarketApiSanityTest.main(null);
+        }
+        catch (ApiException e){
+            e.printStackTrace();
+            System.out.println(e.getResponseBody());
+        }
     }
     public static void placeOrder(){
         OrderApi apiInstance = new OrderApi();
@@ -204,10 +212,10 @@ public class SanityTest {
     public static void getTradeWiseProfitLossMetaData(){
         TradeProfitAndLossApi apiInstance = new TradeProfitAndLossApi();
         String segment = "EQ";
-        String financialYear = "2324";
+        String financialYear = "2526";
         String apiVersion = "2.0";
-        String fromDate = "02-04-2023";
-        String toDate = "20-03-2024";
+        String fromDate = "02-04-2025";
+        String toDate = "20-03-2026";
         try {
             GetTradeWiseProfitAndLossMetaDataResponse result = apiInstance.getTradeWiseProfitAndLossMetaData(segment, financialYear, apiVersion, fromDate, toDate);
         } catch (ApiException e) {
@@ -298,12 +306,12 @@ public class SanityTest {
     public static void optionChain(){
         OptionsApi apiInstance = new OptionsApi();
         try{
-            GetOptionContractResponse getOptionContractResponse = apiInstance.getOptionContracts("NSE_INDEX|Nifty 50","2024-08-01");
+            GetOptionContractResponse getOptionContractResponse = apiInstance.getOptionContracts("NSE_INDEX|Nifty 50","2026-08-01");
             if(getOptionContractResponse.getStatus().equals(GetOptionContractResponse.StatusEnum.ERROR)){
                 System.out.println("error in option contract response");
             }
 
-            GetOptionChainResponse getOptionChainResponse = apiInstance.getPutCallOptionChain("NSE_INDEX|Nifty 50","2024-08-01");
+            GetOptionChainResponse getOptionChainResponse = apiInstance.getPutCallOptionChain("NSE_INDEX|Nifty 50","2026-08-01");
             if(getOptionChainResponse.getStatus().equals(GetOptionChainResponse.StatusEnum.ERROR)){
                 System.out.println("error in option chain response");
             }
@@ -324,13 +332,13 @@ public class SanityTest {
             if(apiInstance.getMarketStatus("NSE").getStatus().equals(GetMarketStatusResponse.StatusEnum.ERROR)){
                 System.out.println("error in market status");
             }
-            if(apiInstance.getHoliday("2024-01-22").getStatus().equals(GetHolidayResponse.StatusEnum.ERROR)){
+            if(apiInstance.getHoliday("2026-01-22").getStatus().equals(GetHolidayResponse.StatusEnum.ERROR)){
                 System.out.println("error in get holiday");
             }
             if(apiInstance.getHolidays().getStatus().equals(GetHolidayResponse.StatusEnum.ERROR)){
                 System.out.println("error in get holidays");
             }
-            if(apiInstance.getExchangeTimings("2024-01-20").getStatus().equals(GetExchangeTimingResponse.StatusEnum.ERROR)){
+            if(apiInstance.getExchangeTimings("2026-01-20").getStatus().equals(GetExchangeTimingResponse.StatusEnum.ERROR)){
                 System.out.println("error in get exchange timings");
             }
         }
@@ -388,11 +396,11 @@ public class SanityTest {
 
     private static void testPostTrade() throws ApiException {
         PostTradeApi api = new PostTradeApi();
-        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,null);
-        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"EQ");
-        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"MF");
-        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"FO");
-        api.getTradesByDateRange("2023-04-01","2024-08-01",1,1000,"COM");
+        api.getTradesByDateRange("2025-04-01","2026-08-01",1,1000,null);
+        api.getTradesByDateRange("2025-04-01","2026-08-01",1,1000,"EQ");
+        api.getTradesByDateRange("2025-04-01","2026-08-01",1,1000,"MF");
+        api.getTradesByDateRange("2025-04-01","2026-08-01",1,1000,"FO");
+        api.getTradesByDateRange("2025-04-01","2026-08-01",1,1000,"COM");
     }
 
     private static void testOrderStatus() throws ApiException {
