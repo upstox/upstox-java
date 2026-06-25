@@ -945,4 +945,423 @@ public class MarketApi {
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
+
+    /**
+     * Build call for getSmartlistFutures
+     * @param assetType Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getSmartlistFuturesCall(Object assetType, Object category, Object pageNumber, Object pageSize, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/market/smartlist/futures";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (assetType != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("asset_type", assetType));
+        if (category != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("category", category));
+        if (pageNumber != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page_number", pageNumber));
+        if (pageSize != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page_size", pageSize));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*", "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "OAUTH2" };
+        if (headers != null) {
+            localVarHeaderParams.putAll(headers);
+        }
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getSmartlistFuturesValidateBeforeCall(Object assetType, Object category, Object pageNumber, Object pageSize, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = getSmartlistFuturesCall(assetType, category, pageNumber, pageSize, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get Smartlist Futures
+     * Fetches the smartlist of futures for the given asset type and category.
+     * @param assetType Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @return AnalyticsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public AnalyticsResponse getSmartlistFutures(Object assetType, Object category, Object pageNumber, Object pageSize) throws ApiException {
+        ApiResponse<AnalyticsResponse> resp = getSmartlistFuturesWithHttpInfo(assetType, category, pageNumber, pageSize);
+        return resp.getData();
+    }
+
+    /**
+     * Get Smartlist Futures
+     * Fetches the smartlist of futures for the given asset type and category.
+     * @param assetType Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @return ApiResponse&lt;AnalyticsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<AnalyticsResponse> getSmartlistFuturesWithHttpInfo(Object assetType, Object category, Object pageNumber, Object pageSize) throws ApiException {
+        com.squareup.okhttp.Call call = getSmartlistFuturesValidateBeforeCall(assetType, category, pageNumber, pageSize, null, null);
+        Type localVarReturnType = new TypeToken<AnalyticsResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get Smartlist Futures (asynchronously)
+     * Fetches the smartlist of futures for the given asset type and category.
+     * @param assetType Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, PREMIUM, DISCOUNT (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getSmartlistFuturesAsync(Object assetType, Object category, Object pageNumber, Object pageSize, final ApiCallback<AnalyticsResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getSmartlistFuturesValidateBeforeCall(assetType, category, pageNumber, pageSize, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<AnalyticsResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getSmartlistMtf
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getSmartlistMtfCall(Object pageNumber, Object pageSize, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/market/smartlist/mtf";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (pageNumber != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page_number", pageNumber));
+        if (pageSize != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page_size", pageSize));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*", "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "OAUTH2" };
+        if (headers != null) {
+            localVarHeaderParams.putAll(headers);
+        }
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getSmartlistMtfValidateBeforeCall(Object pageNumber, Object pageSize, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = getSmartlistMtfCall(pageNumber, pageSize, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get Smartlist MTF
+     * Fetches the smartlist of MTF (Margin Trade Funding) stocks. Prices are enriched with live LTP data.
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @return AnalyticsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public AnalyticsResponse getSmartlistMtf(Object pageNumber, Object pageSize) throws ApiException {
+        ApiResponse<AnalyticsResponse> resp = getSmartlistMtfWithHttpInfo(pageNumber, pageSize);
+        return resp.getData();
+    }
+
+    /**
+     * Get Smartlist MTF
+     * Fetches the smartlist of MTF (Margin Trade Funding) stocks. Prices are enriched with live LTP data.
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @return ApiResponse&lt;AnalyticsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<AnalyticsResponse> getSmartlistMtfWithHttpInfo(Object pageNumber, Object pageSize) throws ApiException {
+        com.squareup.okhttp.Call call = getSmartlistMtfValidateBeforeCall(pageNumber, pageSize, null, null);
+        Type localVarReturnType = new TypeToken<AnalyticsResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get Smartlist MTF (asynchronously)
+     * Fetches the smartlist of MTF (Margin Trade Funding) stocks. Prices are enriched with live LTP data.
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getSmartlistMtfAsync(Object pageNumber, Object pageSize, final ApiCallback<AnalyticsResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getSmartlistMtfValidateBeforeCall(pageNumber, pageSize, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<AnalyticsResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getSmartlistOptions
+     * @param assetType Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getSmartlistOptionsCall(Object assetType, Object category, Object pageNumber, Object pageSize, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/market/smartlist/options";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (assetType != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("asset_type", assetType));
+        if (category != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("category", category));
+        if (pageNumber != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page_number", pageNumber));
+        if (pageSize != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page_size", pageSize));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*", "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "OAUTH2" };
+        if (headers != null) {
+            localVarHeaderParams.putAll(headers);
+        }
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getSmartlistOptionsValidateBeforeCall(Object assetType, Object category, Object pageNumber, Object pageSize, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = getSmartlistOptionsCall(assetType, category, pageNumber, pageSize, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get Smartlist Options
+     * Fetches the smartlist of options for the given asset type and category.
+     * @param assetType Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @return AnalyticsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public AnalyticsResponse getSmartlistOptions(Object assetType, Object category, Object pageNumber, Object pageSize) throws ApiException {
+        ApiResponse<AnalyticsResponse> resp = getSmartlistOptionsWithHttpInfo(assetType, category, pageNumber, pageSize);
+        return resp.getData();
+    }
+
+    /**
+     * Get Smartlist Options
+     * Fetches the smartlist of options for the given asset type and category.
+     * @param assetType Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @return ApiResponse&lt;AnalyticsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<AnalyticsResponse> getSmartlistOptionsWithHttpInfo(Object assetType, Object category, Object pageNumber, Object pageSize) throws ApiException {
+        com.squareup.okhttp.Call call = getSmartlistOptionsValidateBeforeCall(assetType, category, pageNumber, pageSize, null, null);
+        Type localVarReturnType = new TypeToken<AnalyticsResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get Smartlist Options (asynchronously)
+     * Fetches the smartlist of options for the given asset type and category.
+     * @param assetType Asset type. Allowed values: INDEX, STOCK, COMMODITY (optional)
+     * @param category Category. Allowed values: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS, PRICE_GAINERS, PRICE_LOSERS, IV_GAINERS, IV_LOSERS, UNDER_5000, UNDER_10000 (COMMODITY supports only: TOP_TRADED, MOST_ACTIVE, OI_GAINERS, OI_LOSERS) (optional)
+     * @param pageNumber Page number (optional, 1-indexed) (optional)
+     * @param pageSize Page size (optional, max 50) (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getSmartlistOptionsAsync(Object assetType, Object category, Object pageNumber, Object pageSize, final ApiCallback<AnalyticsResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getSmartlistOptionsValidateBeforeCall(assetType, category, pageNumber, pageSize, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<AnalyticsResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+
 }

@@ -25,7 +25,7 @@ import java.io.IOException;
  * PaymentHistoryData
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2026-05-04T14:20:20.627024+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2026-06-25T20:33:13.163478+05:30[Asia/Kolkata]")
 
 public class PaymentHistoryData {
   @SerializedName("amount")
@@ -39,6 +39,12 @@ public class PaymentHistoryData {
 
   @SerializedName("reason")
   private Object reason = null;
+
+  @SerializedName("currency")
+  private Object currency = null;
+
+  @SerializedName("eta")
+  private Object eta = null;
 
   @SerializedName("last_updated_at")
   private Object lastUpdatedAt = null;
@@ -54,6 +60,9 @@ public class PaymentHistoryData {
 
   @SerializedName("charges_category")
   private Object chargesCategory = null;
+
+  @SerializedName("created_at")
+  private Object createdAt = null;
 
   public PaymentHistoryData amount(Object amount) {
     this.amount = amount;
@@ -125,6 +134,42 @@ public class PaymentHistoryData {
 
   public void setReason(Object reason) {
     this.reason = reason;
+  }
+
+  public PaymentHistoryData currency(Object currency) {
+    this.currency = currency;
+    return this;
+  }
+
+   /**
+   * Get currency
+   * @return currency
+  **/
+  @Schema(description = "")
+  public Object getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(Object currency) {
+    this.currency = currency;
+  }
+
+  public PaymentHistoryData eta(Object eta) {
+    this.eta = eta;
+    return this;
+  }
+
+   /**
+   * Get eta
+   * @return eta
+  **/
+  @Schema(description = "")
+  public Object getEta() {
+    return eta;
+  }
+
+  public void setEta(Object eta) {
+    this.eta = eta;
   }
 
   public PaymentHistoryData lastUpdatedAt(Object lastUpdatedAt) {
@@ -217,6 +262,24 @@ public class PaymentHistoryData {
     this.chargesCategory = chargesCategory;
   }
 
+  public PaymentHistoryData createdAt(Object createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Get createdAt
+   * @return createdAt
+  **/
+  @Schema(description = "")
+  public Object getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Object createdAt) {
+    this.createdAt = createdAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -231,16 +294,19 @@ public class PaymentHistoryData {
         Objects.equals(this.mode, paymentHistoryData.mode) &&
         Objects.equals(this.status, paymentHistoryData.status) &&
         Objects.equals(this.reason, paymentHistoryData.reason) &&
+        Objects.equals(this.currency, paymentHistoryData.currency) &&
+        Objects.equals(this.eta, paymentHistoryData.eta) &&
         Objects.equals(this.lastUpdatedAt, paymentHistoryData.lastUpdatedAt) &&
         Objects.equals(this.bankName, paymentHistoryData.bankName) &&
         Objects.equals(this.transactionId, paymentHistoryData.transactionId) &&
         Objects.equals(this.totalCharges, paymentHistoryData.totalCharges) &&
-        Objects.equals(this.chargesCategory, paymentHistoryData.chargesCategory);
+        Objects.equals(this.chargesCategory, paymentHistoryData.chargesCategory) &&
+        Objects.equals(this.createdAt, paymentHistoryData.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(amount, mode, status, reason, lastUpdatedAt, bankName, transactionId, totalCharges, chargesCategory);
+    return Objects.hash(amount, mode, status, reason, currency, eta, lastUpdatedAt, bankName, transactionId, totalCharges, chargesCategory, createdAt);
   }
 
 
@@ -253,11 +319,14 @@ public class PaymentHistoryData {
     sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+    sb.append("    eta: ").append(toIndentedString(eta)).append("\n");
     sb.append("    lastUpdatedAt: ").append(toIndentedString(lastUpdatedAt)).append("\n");
     sb.append("    bankName: ").append(toIndentedString(bankName)).append("\n");
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    totalCharges: ").append(toIndentedString(totalCharges)).append("\n");
     sb.append("    chargesCategory: ").append(toIndentedString(chargesCategory)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
