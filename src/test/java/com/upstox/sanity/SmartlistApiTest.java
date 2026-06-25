@@ -17,7 +17,7 @@ public class SmartlistApiTest {
         MarketApi apiInstance = new MarketApi();
 
         try {
-            AnalyticsResponse result = apiInstance.getSmartlistFutures("EQUITY", "active", 1, 20);
+            AnalyticsResponse result = apiInstance.getSmartlistFutures("INDEX", "TOP_TRADED", 1, 20);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling MarketApi#getSmartlistFutures");
@@ -33,7 +33,7 @@ public class SmartlistApiTest {
         }
 
         try {
-            AnalyticsResponse result = apiInstance.getSmartlistOptions("EQUITY", "active", 1, 20);
+            AnalyticsResponse result = apiInstance.getSmartlistOptions("INDEX", "TOP_TRADED", 1, 20);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling MarketApi#getSmartlistOptions");
