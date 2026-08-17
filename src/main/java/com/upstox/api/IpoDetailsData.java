@@ -19,10 +19,12 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.upstox.api.IpoInvestorType;
 import com.upstox.api.IpoRegistrarInfo;
 import com.upstox.api.IpoTimeline;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.util.List;
 /**
  * IpoDetailsData
  */
@@ -107,6 +109,9 @@ public class IpoDetailsData {
 
   @SerializedName("total_subscription")
   private Object totalSubscription = null;
+
+  @SerializedName("investors")
+  private List<IpoInvestorType> investors = null;
 
   public IpoDetailsData id(Object id) {
     this.id = id;
@@ -576,6 +581,24 @@ public class IpoDetailsData {
     this.totalSubscription = totalSubscription;
   }
 
+  public IpoDetailsData investors(List<IpoInvestorType> investors) {
+    this.investors = investors;
+    return this;
+  }
+
+   /**
+   * Get investors
+   * @return investors
+  **/
+  @Schema(description = "")
+  public List<IpoInvestorType> getInvestors() {
+    return investors;
+  }
+
+  public void setInvestors(List<IpoInvestorType> investors) {
+    this.investors = investors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -611,12 +634,13 @@ public class IpoDetailsData {
         Objects.equals(this.drhpUrl, ipoDetailsData.drhpUrl) &&
         Objects.equals(this.timeline, ipoDetailsData.timeline) &&
         Objects.equals(this.registrarInfo, ipoDetailsData.registrarInfo) &&
-        Objects.equals(this.totalSubscription, ipoDetailsData.totalSubscription);
+        Objects.equals(this.totalSubscription, ipoDetailsData.totalSubscription) &&
+        Objects.equals(this.investors, ipoDetailsData.investors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, symbol, name, status, isin, issueType, issueSize, industry, minimumPrice, maximumPrice, biddingStartDate, biddingEndDate, dailyStartTime, dailyEndTime, faceValue, tickSize, lotSize, minimumQuantity, cutOffPrice, listingPrice, listingExchange, rhpUrl, drhpUrl, timeline, registrarInfo, totalSubscription);
+    return Objects.hash(id, symbol, name, status, isin, issueType, issueSize, industry, minimumPrice, maximumPrice, biddingStartDate, biddingEndDate, dailyStartTime, dailyEndTime, faceValue, tickSize, lotSize, minimumQuantity, cutOffPrice, listingPrice, listingExchange, rhpUrl, drhpUrl, timeline, registrarInfo, totalSubscription, investors);
   }
 
 
@@ -651,6 +675,7 @@ public class IpoDetailsData {
     sb.append("    timeline: ").append(toIndentedString(timeline)).append("\n");
     sb.append("    registrarInfo: ").append(toIndentedString(registrarInfo)).append("\n");
     sb.append("    totalSubscription: ").append(toIndentedString(totalSubscription)).append("\n");
+    sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
