@@ -19,8 +19,10 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.upstox.api.IpoInvestorType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.util.List;
 /**
  * IpoListingData
  */
@@ -66,6 +68,9 @@ public class IpoListingData {
 
   @SerializedName("total_subscription")
   private Object totalSubscription = null;
+
+  @SerializedName("investors")
+  private List<IpoInvestorType> investors = null;
 
   public IpoListingData id(Object id) {
     this.id = id;
@@ -301,6 +306,24 @@ public class IpoListingData {
     this.totalSubscription = totalSubscription;
   }
 
+  public IpoListingData investors(List<IpoInvestorType> investors) {
+    this.investors = investors;
+    return this;
+  }
+
+   /**
+   * Get investors
+   * @return investors
+  **/
+  @Schema(description = "")
+  public List<IpoInvestorType> getInvestors() {
+    return investors;
+  }
+
+  public void setInvestors(List<IpoInvestorType> investors) {
+    this.investors = investors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -323,12 +346,13 @@ public class IpoListingData {
         Objects.equals(this.maximumPrice, ipoListingData.maximumPrice) &&
         Objects.equals(this.biddingStartDate, ipoListingData.biddingStartDate) &&
         Objects.equals(this.biddingEndDate, ipoListingData.biddingEndDate) &&
-        Objects.equals(this.totalSubscription, ipoListingData.totalSubscription);
+        Objects.equals(this.totalSubscription, ipoListingData.totalSubscription) &&
+        Objects.equals(this.investors, ipoListingData.investors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, symbol, name, status, isin, issueType, issueSize, industry, minimumPrice, maximumPrice, biddingStartDate, biddingEndDate, totalSubscription);
+    return Objects.hash(id, symbol, name, status, isin, issueType, issueSize, industry, minimumPrice, maximumPrice, biddingStartDate, biddingEndDate, totalSubscription, investors);
   }
 
 
@@ -350,6 +374,7 @@ public class IpoListingData {
     sb.append("    biddingStartDate: ").append(toIndentedString(biddingStartDate)).append("\n");
     sb.append("    biddingEndDate: ").append(toIndentedString(biddingEndDate)).append("\n");
     sb.append("    totalSubscription: ").append(toIndentedString(totalSubscription)).append("\n");
+    sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

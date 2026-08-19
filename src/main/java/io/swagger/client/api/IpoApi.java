@@ -27,8 +27,13 @@ import java.io.IOException;
 
 
 import com.upstox.api.ApiGatewayErrorResponse;
+import com.upstox.api.IpoApplyRequest;
+import com.upstox.api.IpoApplyResponse;
+import com.upstox.api.IpoCancelResponse;
 import com.upstox.api.IpoDetailsResponse;
 import com.upstox.api.IpoListingResponse;
+import com.upstox.api.IpoOrderDetailResponse;
+import com.upstox.api.IpoOrderResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -60,6 +65,261 @@ public class IpoApi {
         this.headers = headers;
     }
 
+    /**
+     * Build call for applyForIpo
+     * @param body  (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call applyForIpoCall(IpoApplyRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+        
+        // create path and map variables
+        String localVarPath = "/v2/ipos/orders";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*", "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "OAUTH2" };
+        if (headers != null) {
+            localVarHeaderParams.putAll(headers);
+        }
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call applyForIpoValidateBeforeCall(IpoApplyRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling applyForIpo(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = applyForIpoCall(body, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Apply for IPO
+     * Places an IPO application for the authenticated user.
+     * @param body  (required)
+     * @return IpoApplyResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public IpoApplyResponse applyForIpo(IpoApplyRequest body) throws ApiException {
+        ApiResponse<IpoApplyResponse> resp = applyForIpoWithHttpInfo(body);
+        return resp.getData();
+    }
+
+    /**
+     * Apply for IPO
+     * Places an IPO application for the authenticated user.
+     * @param body  (required)
+     * @return ApiResponse&lt;IpoApplyResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<IpoApplyResponse> applyForIpoWithHttpInfo(IpoApplyRequest body) throws ApiException {
+        com.squareup.okhttp.Call call = applyForIpoValidateBeforeCall(body, null, null);
+        Type localVarReturnType = new TypeToken<IpoApplyResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Apply for IPO (asynchronously)
+     * Places an IPO application for the authenticated user.
+     * @param body  (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call applyForIpoAsync(IpoApplyRequest body, final ApiCallback<IpoApplyResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = applyForIpoValidateBeforeCall(body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<IpoApplyResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for cancelIpoOrder
+     * @param orderId IPO application id, as returned in &#x60;order_id&#x60; by the apply and orders APIs (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call cancelIpoOrderCall(Object orderId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/ipos/orders/{order_id}"
+            .replaceAll("\\{" + "order_id" + "\\}", apiClient.escapeString(orderId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*", "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "OAUTH2" };
+        if (headers != null) {
+            localVarHeaderParams.putAll(headers);
+        }
+        return apiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call cancelIpoOrderValidateBeforeCall(Object orderId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'orderId' is set
+        if (orderId == null) {
+            throw new ApiException("Missing the required parameter 'orderId' when calling cancelIpoOrder(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = cancelIpoOrderCall(orderId, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Cancel IPO Order
+     * Cancels/deletes an IPO order of the authenticated user by order id.
+     * @param orderId IPO application id, as returned in &#x60;order_id&#x60; by the apply and orders APIs (required)
+     * @return IpoCancelResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public IpoCancelResponse cancelIpoOrder(Object orderId) throws ApiException {
+        ApiResponse<IpoCancelResponse> resp = cancelIpoOrderWithHttpInfo(orderId);
+        return resp.getData();
+    }
+
+    /**
+     * Cancel IPO Order
+     * Cancels/deletes an IPO order of the authenticated user by order id.
+     * @param orderId IPO application id, as returned in &#x60;order_id&#x60; by the apply and orders APIs (required)
+     * @return ApiResponse&lt;IpoCancelResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<IpoCancelResponse> cancelIpoOrderWithHttpInfo(Object orderId) throws ApiException {
+        com.squareup.okhttp.Call call = cancelIpoOrderValidateBeforeCall(orderId, null, null);
+        Type localVarReturnType = new TypeToken<IpoCancelResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Cancel IPO Order (asynchronously)
+     * Cancels/deletes an IPO order of the authenticated user by order id.
+     * @param orderId IPO application id, as returned in &#x60;order_id&#x60; by the apply and orders APIs (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call cancelIpoOrderAsync(Object orderId, final ApiCallback<IpoCancelResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = cancelIpoOrderValidateBeforeCall(orderId, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<IpoCancelResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
     /**
      * Build call for getIpoDetails
      * @param id IPO slug ID (required)
@@ -328,6 +588,265 @@ public class IpoApi {
 
         com.squareup.okhttp.Call call = getIpoListingValidateBeforeCall(status, issueType, pageNumber, records, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<IpoListingResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getIpoOrderById
+     * @param orderId IPO application id, as returned in &#x60;order_id&#x60; by the apply and orders APIs (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getIpoOrderByIdCall(Object orderId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/ipos/orders/{order_id}"
+            .replaceAll("\\{" + "order_id" + "\\}", apiClient.escapeString(orderId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*", "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "OAUTH2" };
+        if (headers != null) {
+            localVarHeaderParams.putAll(headers);
+        }
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getIpoOrderByIdValidateBeforeCall(Object orderId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'orderId' is set
+        if (orderId == null) {
+            throw new ApiException("Missing the required parameter 'orderId' when calling getIpoOrderById(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = getIpoOrderByIdCall(orderId, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get IPO Order
+     * Fetches a single IPO order of the authenticated user by order id.
+     * @param orderId IPO application id, as returned in &#x60;order_id&#x60; by the apply and orders APIs (required)
+     * @return IpoOrderDetailResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public IpoOrderDetailResponse getIpoOrderById(Object orderId) throws ApiException {
+        ApiResponse<IpoOrderDetailResponse> resp = getIpoOrderByIdWithHttpInfo(orderId);
+        return resp.getData();
+    }
+
+    /**
+     * Get IPO Order
+     * Fetches a single IPO order of the authenticated user by order id.
+     * @param orderId IPO application id, as returned in &#x60;order_id&#x60; by the apply and orders APIs (required)
+     * @return ApiResponse&lt;IpoOrderDetailResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<IpoOrderDetailResponse> getIpoOrderByIdWithHttpInfo(Object orderId) throws ApiException {
+        com.squareup.okhttp.Call call = getIpoOrderByIdValidateBeforeCall(orderId, null, null);
+        Type localVarReturnType = new TypeToken<IpoOrderDetailResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get IPO Order (asynchronously)
+     * Fetches a single IPO order of the authenticated user by order id.
+     * @param orderId IPO application id, as returned in &#x60;order_id&#x60; by the apply and orders APIs (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getIpoOrderByIdAsync(Object orderId, final ApiCallback<IpoOrderDetailResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getIpoOrderByIdValidateBeforeCall(orderId, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<IpoOrderDetailResponse>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for getIpoOrders
+     * @param pageNumber Page number, starting at 1 (optional)
+     * @param records Number of records per page (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getIpoOrdersCall(Object pageNumber, Object records, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v2/ipos/orders";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (pageNumber != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("page_number", pageNumber));
+        if (records != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("records", records));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*", "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "OAUTH2" };
+        if (headers != null) {
+            localVarHeaderParams.putAll(headers);
+        }
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getIpoOrdersValidateBeforeCall(Object pageNumber, Object records, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = getIpoOrdersCall(pageNumber, records, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Get IPO Orders
+     * Fetches the authenticated user&#x27;s IPO orders/applications.
+     * @param pageNumber Page number, starting at 1 (optional)
+     * @param records Number of records per page (optional)
+     * @return IpoOrderResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public IpoOrderResponse getIpoOrders(Object pageNumber, Object records) throws ApiException {
+        ApiResponse<IpoOrderResponse> resp = getIpoOrdersWithHttpInfo(pageNumber, records);
+        return resp.getData();
+    }
+
+    /**
+     * Get IPO Orders
+     * Fetches the authenticated user&#x27;s IPO orders/applications.
+     * @param pageNumber Page number, starting at 1 (optional)
+     * @param records Number of records per page (optional)
+     * @return ApiResponse&lt;IpoOrderResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<IpoOrderResponse> getIpoOrdersWithHttpInfo(Object pageNumber, Object records) throws ApiException {
+        com.squareup.okhttp.Call call = getIpoOrdersValidateBeforeCall(pageNumber, records, null, null);
+        Type localVarReturnType = new TypeToken<IpoOrderResponse>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Get IPO Orders (asynchronously)
+     * Fetches the authenticated user&#x27;s IPO orders/applications.
+     * @param pageNumber Page number, starting at 1 (optional)
+     * @param records Number of records per page (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getIpoOrdersAsync(Object pageNumber, Object records, final ApiCallback<IpoOrderResponse> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getIpoOrdersValidateBeforeCall(pageNumber, records, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<IpoOrderResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
