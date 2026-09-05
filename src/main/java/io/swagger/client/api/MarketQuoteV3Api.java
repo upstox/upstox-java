@@ -26,6 +26,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import com.upstox.api.ApiGatewayErrorResponse;
+import com.upstox.api.GetFullMarketQuoteResponseV3;
 import com.upstox.api.GetMarketQuoteLastTradedPriceResponseV3;
 import com.upstox.api.GetMarketQuoteOHLCResponseV3;
 import com.upstox.api.GetMarketQuoteOptionGreekResponseV3;
@@ -60,6 +62,131 @@ public class MarketQuoteV3Api {
         this.headers = headers;
     }
 
+    /**
+     * Build call for getFullMarketQuoteV3
+     * @param instrumentKey Comma separated list of instrument keys (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call getFullMarketQuoteV3Call(String instrumentKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/v3/market-quote/quotes";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (instrumentKey != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("instrument_key", instrumentKey));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "*/*", "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "OAUTH2" };
+        if (headers != null) {
+            localVarHeaderParams.putAll(headers);
+        }
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call getFullMarketQuoteV3ValidateBeforeCall(String instrumentKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = getFullMarketQuoteV3Call(instrumentKey, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * Market quotes and instruments - Full market quotes
+     * This API provides the functionality to retrieve the full market quotes for one or more instruments.This API returns the complete market data snapshot of up to 500 instruments in one go, widened to carry every field published on the upstream extended feed.
+     * @param instrumentKey Comma separated list of instrument keys (optional)
+     * @return GetFullMarketQuoteResponseV3
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public GetFullMarketQuoteResponseV3 getFullMarketQuoteV3(String instrumentKey) throws ApiException {
+        ApiResponse<GetFullMarketQuoteResponseV3> resp = getFullMarketQuoteV3WithHttpInfo(instrumentKey);
+        return resp.getData();
+    }
+
+    /**
+     * Market quotes and instruments - Full market quotes
+     * This API provides the functionality to retrieve the full market quotes for one or more instruments.This API returns the complete market data snapshot of up to 500 instruments in one go, widened to carry every field published on the upstream extended feed.
+     * @param instrumentKey Comma separated list of instrument keys (optional)
+     * @return ApiResponse&lt;GetFullMarketQuoteResponseV3&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<GetFullMarketQuoteResponseV3> getFullMarketQuoteV3WithHttpInfo(String instrumentKey) throws ApiException {
+        com.squareup.okhttp.Call call = getFullMarketQuoteV3ValidateBeforeCall(instrumentKey, null, null);
+        Type localVarReturnType = new TypeToken<GetFullMarketQuoteResponseV3>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Market quotes and instruments - Full market quotes (asynchronously)
+     * This API provides the functionality to retrieve the full market quotes for one or more instruments.This API returns the complete market data snapshot of up to 500 instruments in one go, widened to carry every field published on the upstream extended feed.
+     * @param instrumentKey Comma separated list of instrument keys (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call getFullMarketQuoteV3Async(String instrumentKey, final ApiCallback<GetFullMarketQuoteResponseV3> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = getFullMarketQuoteV3ValidateBeforeCall(instrumentKey, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<GetFullMarketQuoteResponseV3>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
     /**
      * Build call for getLtp
      * @param instrumentKey Comma separated list of instrument keys (optional)
