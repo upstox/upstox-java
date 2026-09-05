@@ -30,7 +30,7 @@ Add the following dependency to your `pom.xml`:
 | [user](./user/) | User profile, fund/margin details, IP management, kill switch |
 | [orders](./orders/) | Place, modify, cancel orders and fetch order details |
 | [portfolio](./portfolio/) | Positions, holdings, MTF positions, and position conversion |
-| [market-quote](./market-quote/) | LTP, OHLC, full market quotes, and option greeks |
+| [market-quote](./market-quote/) | LTP, OHLC, full market quotes (v2 and v3), and option greeks |
 | [historical-data](./historical-data/) | Historical and intra-day candle data |
 | [option-chain](./option-chain/) | Option contracts and put/call option chain |
 | [expired-instruments](./expired-instruments/) | Expired instrument data and historical candles |
