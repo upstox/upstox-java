@@ -57,6 +57,7 @@ public class MarketUpdateV3 {
         private long ltt;
         private long ltq;
         private double cp;
+        private Double iep;
 
         public double getLtp() {
             return ltp;
@@ -90,6 +91,14 @@ public class MarketUpdateV3 {
             this.cp = cp;
         }
 
+        public Double getIep() {
+            return iep;
+        }
+
+        public void setIep(Double iep) {
+            this.iep = iep;
+        }
+
         @Override
         public String toString() {
             return "LTPC{" +
@@ -97,6 +106,7 @@ public class MarketUpdateV3 {
                     ", ltt=" + ltt +
                     ", ltq=" + ltq +
                     ", cp=" + cp +
+                    ", iep=" + iep +
                     '}';
         }
     }
@@ -337,6 +347,12 @@ public class MarketUpdateV3 {
         private double iv;
         private double tbq;
         private double tsq;
+        private double iep;
+        private double rp;
+        private long ieq;
+        private long iiqTotal;
+        private long iiqM;
+        private boolean casEligible;
 
         public LTPC getLtpc() {
             return ltpc;
@@ -418,6 +434,54 @@ public class MarketUpdateV3 {
             this.tsq = tsq;
         }
 
+        public double getIep() {
+            return iep;
+        }
+
+        public void setIep(double iep) {
+            this.iep = iep;
+        }
+
+        public double getRp() {
+            return rp;
+        }
+
+        public void setRp(double rp) {
+            this.rp = rp;
+        }
+
+        public long getIeq() {
+            return ieq;
+        }
+
+        public void setIeq(long ieq) {
+            this.ieq = ieq;
+        }
+
+        public long getIiqTotal() {
+            return iiqTotal;
+        }
+
+        public void setIiqTotal(long iiqTotal) {
+            this.iiqTotal = iiqTotal;
+        }
+
+        public long getIiqM() {
+            return iiqM;
+        }
+
+        public void setIiqM(long iiqM) {
+            this.iiqM = iiqM;
+        }
+
+        public boolean isCasEligible() {
+            return casEligible;
+        }
+
+        public void setCasEligible(boolean casEligible) {
+            this.casEligible = casEligible;
+        }
+
         @Override
         public String toString() {
             return "MarketFullFeed{" +
@@ -431,6 +495,12 @@ public class MarketUpdateV3 {
                     ", iv=" + iv +
                     ", tbq=" + tbq +
                     ", tsq=" + tsq +
+                    ", iep=" + iep +
+                    ", rp=" + rp +
+                    ", ieq=" + ieq +
+                    ", iiqTotal=" + iiqTotal +
+                    ", iiqM=" + iiqM +
+                    ", casEligible=" + casEligible +
                     '}';
         }
     }
@@ -611,8 +681,39 @@ public class MarketUpdateV3 {
         }
     }
 
+    public static class StatusInfo {
+        private String status;
+        private long updatedTime;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public long getUpdatedTime() {
+            return updatedTime;
+        }
+
+        public void setUpdatedTime(long updatedTime) {
+            this.updatedTime = updatedTime;
+        }
+
+        @Override
+        public String toString() {
+            return "StatusInfo{" +
+                    "status='" + status + '\'' +
+                    ", updatedTime=" + updatedTime +
+                    '}';
+        }
+    }
+
     public static class MarketInfo {
         private Map<String, MarketStatus> segmentStatus;
+        private Map<String, StatusInfo> casMarketStatus;
+        private Map<String, StatusInfo> preOpenSessionStatus;
 
         public Map<String, MarketStatus> getSegmentStatus() {
             return segmentStatus;
@@ -622,10 +723,28 @@ public class MarketUpdateV3 {
             this.segmentStatus = segmentStatus;
         }
 
+        public Map<String, StatusInfo> getCasMarketStatus() {
+            return casMarketStatus;
+        }
+
+        public void setCasMarketStatus(Map<String, StatusInfo> casMarketStatus) {
+            this.casMarketStatus = casMarketStatus;
+        }
+
+        public Map<String, StatusInfo> getPreOpenSessionStatus() {
+            return preOpenSessionStatus;
+        }
+
+        public void setPreOpenSessionStatus(Map<String, StatusInfo> preOpenSessionStatus) {
+            this.preOpenSessionStatus = preOpenSessionStatus;
+        }
+
         @Override
         public String toString() {
             return "MarketInfo{" +
                     "segmentStatus=" + segmentStatus +
+                    ", casMarketStatus=" + casMarketStatus +
+                    ", preOpenSessionStatus=" + preOpenSessionStatus +
                     '}';
         }
     }

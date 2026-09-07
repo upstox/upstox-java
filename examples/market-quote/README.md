@@ -17,17 +17,23 @@ Links to all market-quote-related examples in the `code/` folder.
 - 3.1 [Get Option Greek fields](code/option-greek.md#get-option-greek-fields)
 - 3.2 [Get Option Greek fields for multiple instruments keys](code/option-greek.md#get-option-greek-fields-for-multiple-instruments-keys)
 
-## 4. Full Market Quotes
+## 4. Full Market Quotes V3
 
-- 4.1 [Get full market quote](code/full-market-quotes.md#get-full-market-quote)
-- 4.2 [Get full market quote for multiple instrument keys](code/full-market-quotes.md#get-full-market-quote-for-multiple-instrument-keys)
+- 4.1 [Get full market quote](code/full-market-quotes-v3.md#get-full-market-quote)
+- 4.2 [Get full market quote for multiple instrument keys](code/full-market-quotes-v3.md#get-full-market-quote-for-multiple-instrument-keys)
+- 4.3 [Read individual fields from the full market quote](code/full-market-quotes-v3.md#read-individual-fields-from-the-full-market-quote)
 
-## 5. LTP Quotes
+## 5. Full Market Quotes
 
-- 5.1 [Get ltp (last traded price) market quotes](code/ltp-quotes.md#get-ltp-last-traded-price-market-quotes)
-- 5.2 [Get ltp (last traded price) market quotes for multiple instruments keys](code/ltp-quotes.md#get-ltp-last-traded-price-market-quotes-for-multiple-instruments-keys)
+- 5.1 [Get full market quote](code/full-market-quotes.md#get-full-market-quote)
+- 5.2 [Get full market quote for multiple instrument keys](code/full-market-quotes.md#get-full-market-quote-for-multiple-instrument-keys)
 
-## 6. OHLC Quotes
+## 6. LTP Quotes
 
-- 6.1 [Get ohlc market quotes](code/ohlc-quotes.md#get-ohlc-market-quotes)
-- 6.2 [Get ohlc market quotes for multiple instrument keys](code/ohlc-quotes.md#get-ohlc-market-quotes-for-multiple-instrument-keys)
+- 6.1 [Get ltp (last traded price) market quotes](code/ltp-quotes.md#get-ltp-last-traded-price-market-quotes)
+- 6.2 [Get ltp (last traded price) market quotes for multiple instruments keys](code/ltp-quotes.md#get-ltp-last-traded-price-market-quotes-for-multiple-instruments-keys)
+
+## 7. OHLC Quotes
+
+- 7.1 [Get ohlc market quotes](code/ohlc-quotes.md#get-ohlc-market-quotes)
+- 7.2 [Get ohlc market quotes for multiple instrument keys](code/ohlc-quotes.md#get-ohlc-market-quotes-for-multiple-instrument-keys)
