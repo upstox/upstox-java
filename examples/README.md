@@ -40,6 +40,7 @@ Add the following dependency to your `pom.xml`:
 | [margins](./margins/) | Order margin calculations |
 | [charges](./charges/) | Brokerage charge calculations |
 | [trade-profit-and-loss](./trade-profit-and-loss/) | Trade-wise profit and loss reports |
+| [us-stocks](./us-stocks/) | US stocks orders, charges, margins, holdings, funds, and market timings/holidays (UAT only for now) |
 | [**strategies/**](strategies/) | Ready-to-run options strategy examples for Nifty 50 (bullish, bearish, neutral, others). |
 
 ### Options Strategies
