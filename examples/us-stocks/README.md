@@ -2,8 +2,6 @@
 
 Links to all US stocks examples in the `code/` folder.
 
-> These endpoints are currently available on UAT (`https://uat-api.upstox.com`) only. To try them there, call `setBasePath` and `setOrderBasePath` with the UAT URL on your `ApiClient`.
-
 ## 1. Orders
 
 - 1.1 [Place US order by quantity](code/place-us-order.md#place-us-order-by-quantity)

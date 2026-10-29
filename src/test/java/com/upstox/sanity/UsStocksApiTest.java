@@ -2,6 +2,7 @@ package com.upstox.sanity;
 
 import com.upstox.ApiClient;
 import com.upstox.ApiException;
+import com.upstox.Configuration;
 import com.upstox.api.GetMarketStatusResponse;
 import com.upstox.api.GetUsExchangeTimingResponse;
 import com.upstox.api.GetUsHolidayResponse;
@@ -25,24 +26,19 @@ import io.swagger.client.api.UsStocksPortfolioApi;
 
 import java.math.BigDecimal;
 
-/** Sanity calls for the US Stocks APIs; these endpoints are live on UAT only, not prod. */
+/** Sanity calls for the US Stocks APIs. */
 public class UsStocksApiTest {
-    private static final String UAT_BASE_PATH = "https://uat-api.upstox.com";
-
     public static void main(String[] args) {
-        // Dedicated client so the shared default client keeps pointing at prod.
-        ApiClient uatClient = new ApiClient();
-        uatClient.setBasePath(UAT_BASE_PATH);
-        uatClient.setOrderBasePath(UAT_BASE_PATH);
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
 
-        OAuth OAUTH2 = (OAuth) uatClient.getAuthentication("OAUTH2");
+        OAuth OAUTH2 = (OAuth) defaultClient.getAuthentication("OAUTH2");
         OAUTH2.setAccessToken(DataToken.accessToken);
 
-        UsStocksOrderApi orderApi = new UsStocksOrderApi(uatClient);
-        UsStocksChargesApi chargesApi = new UsStocksChargesApi(uatClient);
-        UsStocksPortfolioApi portfolioApi = new UsStocksPortfolioApi(uatClient);
-        UsStocksFundsApi fundsApi = new UsStocksFundsApi(uatClient);
-        UsMarketHolidaysAndTimingsApi marketApi = new UsMarketHolidaysAndTimingsApi(uatClient);
+        UsStocksOrderApi orderApi = new UsStocksOrderApi(defaultClient);
+        UsStocksChargesApi chargesApi = new UsStocksChargesApi(defaultClient);
+        UsStocksPortfolioApi portfolioApi = new UsStocksPortfolioApi(defaultClient);
+        UsStocksFundsApi fundsApi = new UsStocksFundsApi(defaultClient);
+        UsMarketHolidaysAndTimingsApi marketApi = new UsMarketHolidaysAndTimingsApi(defaultClient);
 
         String instrumentKey = "US_EQ|AAPL";
         String orderId = "1a9ecf08-e5f8-475c-a7c0-9056826d4b18";
