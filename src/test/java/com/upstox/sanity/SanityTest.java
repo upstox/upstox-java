@@ -85,6 +85,7 @@ public class SanityTest {
             SmartlistApiTest.main(null);
             PayoutApiTest.main(null);
             MarketQuoteV3ApiTest.main(null);
+            UsStocksApiTest.main(null);
         }
         catch (ApiException e){
             e.printStackTrace();
