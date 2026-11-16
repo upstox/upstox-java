@@ -1256,6 +1256,8 @@ public class ApiClient {
         }
     }
     private boolean isOrderPath(String path){
+        // US stock orders are served by the main host, not HFT
+        if (path.startsWith("/v2/us/")) return false;
         return path.contains("/order/place") || path.contains("/order/modify") || path.contains("/order/cancel");
     }
 }
