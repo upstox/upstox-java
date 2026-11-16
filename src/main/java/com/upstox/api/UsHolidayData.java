@@ -31,9 +31,6 @@ public class UsHolidayData {
   @SerializedName("date")
   private String date = null;
 
-  @SerializedName("description")
-  private String description = null;
-
   /**
    * Gets or Sets holidayType
    */
@@ -94,15 +91,6 @@ public class UsHolidayData {
   }
 
    /**
-   * Get description
-   * @return description
-  **/
-  @Schema(example = "US Market Closed", description = "")
-  public String getDescription() {
-    return description;
-  }
-
-   /**
    * Get holidayType
    * @return holidayType
   **/
@@ -122,13 +110,12 @@ public class UsHolidayData {
     }
     UsHolidayData usHolidayData = (UsHolidayData) o;
     return Objects.equals(this.date, usHolidayData.date) &&
-        Objects.equals(this.description, usHolidayData.description) &&
         Objects.equals(this.holidayType, usHolidayData.holidayType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(date, description, holidayType);
+    return Objects.hash(date, holidayType);
   }
 
 
@@ -138,7 +125,6 @@ public class UsHolidayData {
     sb.append("class UsHolidayData {\n");
     
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    holidayType: ").append(toIndentedString(holidayType)).append("\n");
     sb.append("}");
     return sb.toString();

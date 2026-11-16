@@ -35,9 +35,6 @@ public class UsOrderBookData {
   @SerializedName("exchange")
   private String exchange = null;
 
-  @SerializedName("product")
-  private String product = null;
-
   @SerializedName("validity")
   private String validity = null;
 
@@ -219,15 +216,6 @@ public class UsOrderBookData {
   @Schema(example = "US", description = "")
   public String getExchange() {
     return exchange;
-  }
-
-   /**
-   * Get product
-   * @return product
-  **/
-  @Schema(example = "D", description = "")
-  public String getProduct() {
-    return product;
   }
 
    /**
@@ -431,7 +419,6 @@ public class UsOrderBookData {
     UsOrderBookData usOrderBookData = (UsOrderBookData) o;
     return Objects.equals(this.name, usOrderBookData.name) &&
         Objects.equals(this.exchange, usOrderBookData.exchange) &&
-        Objects.equals(this.product, usOrderBookData.product) &&
         Objects.equals(this.validity, usOrderBookData.validity) &&
         Objects.equals(this.price, usOrderBookData.price) &&
         Objects.equals(this.quantity, usOrderBookData.quantity) &&
@@ -457,7 +444,7 @@ public class UsOrderBookData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, exchange, product, validity, price, quantity, amount, status, fractionable, variety, tag, orderId, instrumentKey, tradingSymbol, orderType, transactionType, averagePrice, filledQuantity, pendingQuantity, statusMessage, statusMessageRaw, orderTimestamp, exchangeTimestamp, isAmo);
+    return Objects.hash(name, exchange, validity, price, quantity, amount, status, fractionable, variety, tag, orderId, instrumentKey, tradingSymbol, orderType, transactionType, averagePrice, filledQuantity, pendingQuantity, statusMessage, statusMessageRaw, orderTimestamp, exchangeTimestamp, isAmo);
   }
 
 
@@ -468,7 +455,6 @@ public class UsOrderBookData {
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    exchange: ").append(toIndentedString(exchange)).append("\n");
-    sb.append("    product: ").append(toIndentedString(product)).append("\n");
     sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
