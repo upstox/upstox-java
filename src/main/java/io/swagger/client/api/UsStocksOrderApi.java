@@ -322,12 +322,13 @@ public class UsStocksOrderApi {
     }
     /**
      * Build call for getUsOrderBook
+     * @param tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getUsOrderBookCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getUsOrderBookCall(String tag, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
         
         // create path and map variables
@@ -335,6 +336,8 @@ public class UsStocksOrderApi {
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (tag != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("tag", tag));
 
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
 
@@ -372,9 +375,9 @@ public class UsStocksOrderApi {
     }
     
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getUsOrderBookValidateBeforeCall(final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getUsOrderBookValidateBeforeCall(String tag, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
-        com.squareup.okhttp.Call call = getUsOrderBookCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getUsOrderBookCall(tag, progressListener, progressRequestListener);
         return call;
 
         
@@ -385,35 +388,38 @@ public class UsStocksOrderApi {
 
     /**
      * Get US stocks order book
-     * Returns the user&#x27;s US stocks orders for the day, in every state.
+     * Returns the user&#x27;s US stocks orders for the day, in every state; optionally only those with a tag.
+     * @param tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      * @return UsOrderBookResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public UsOrderBookResponse getUsOrderBook() throws ApiException {
-        ApiResponse<UsOrderBookResponse> resp = getUsOrderBookWithHttpInfo();
+    public UsOrderBookResponse getUsOrderBook(String tag) throws ApiException {
+        ApiResponse<UsOrderBookResponse> resp = getUsOrderBookWithHttpInfo(tag);
         return resp.getData();
     }
 
     /**
      * Get US stocks order book
-     * Returns the user&#x27;s US stocks orders for the day, in every state.
+     * Returns the user&#x27;s US stocks orders for the day, in every state; optionally only those with a tag.
+     * @param tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      * @return ApiResponse&lt;UsOrderBookResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<UsOrderBookResponse> getUsOrderBookWithHttpInfo() throws ApiException {
-        com.squareup.okhttp.Call call = getUsOrderBookValidateBeforeCall(null, null);
+    public ApiResponse<UsOrderBookResponse> getUsOrderBookWithHttpInfo(String tag) throws ApiException {
+        com.squareup.okhttp.Call call = getUsOrderBookValidateBeforeCall(tag, null, null);
         Type localVarReturnType = new TypeToken<UsOrderBookResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
      * Get US stocks order book (asynchronously)
-     * Returns the user&#x27;s US stocks orders for the day, in every state.
+     * Returns the user&#x27;s US stocks orders for the day, in every state; optionally only those with a tag.
+     * @param tag Return only orders placed with this tag; exact, case-sensitive match (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getUsOrderBookAsync(final ApiCallback<UsOrderBookResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call getUsOrderBookAsync(String tag, final ApiCallback<UsOrderBookResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -434,7 +440,7 @@ public class UsStocksOrderApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getUsOrderBookValidateBeforeCall(progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = getUsOrderBookValidateBeforeCall(tag, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<UsOrderBookResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

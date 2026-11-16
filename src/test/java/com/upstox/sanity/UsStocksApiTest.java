@@ -81,7 +81,7 @@ public class UsStocksApiTest {
         }
 
         try {
-            UsOrderBookResponse result = orderApi.getUsOrderBook();
+            UsOrderBookResponse result = orderApi.getUsOrderBook(null);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsStocksOrderApi#getUsOrderBook");
