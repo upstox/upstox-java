@@ -10,7 +10,6 @@ import com.upstox.api.UsFundsResponse;
 import com.upstox.api.UsHoldingsResponse;
 import com.upstox.api.UsMarginRequest;
 import com.upstox.api.UsMarginResponse;
-import com.upstox.api.UsModifyOrderRequest;
 import com.upstox.api.UsOrderBookResponse;
 import com.upstox.api.UsOrderDetailsResponse;
 import com.upstox.api.UsOrderEstimateRequest;
@@ -70,22 +69,6 @@ public class UsStocksApiTest {
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsStocksOrderApi#placeUsOrder (amount)");
-            System.out.println(e.getResponseBody());
-        }
-
-        UsModifyOrderRequest modifyBody = new UsModifyOrderRequest();
-        modifyBody.setOrderId(orderId);
-        modifyBody.setInstrumentKey(instrumentKey);
-        modifyBody.setQuantity(new BigDecimal("2"));
-        modifyBody.setPrice(new BigDecimal("181.0"));
-        modifyBody.setOrderType(UsModifyOrderRequest.OrderTypeEnum.LIMIT);
-        modifyBody.setTransactionType(UsModifyOrderRequest.TransactionTypeEnum.BUY);
-        modifyBody.setValidity(UsModifyOrderRequest.ValidityEnum.DAY);
-        try {
-            UsOrderResponse result = orderApi.modifyUsOrder(modifyBody);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsStocksOrderApi#modifyUsOrder");
             System.out.println(e.getResponseBody());
         }
 
