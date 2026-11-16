@@ -16,9 +16,10 @@ public class Main {
         OAUTH2.setAccessToken("{your_access_token}");
 
         UsStocksOrderApi apiInstance = new UsStocksOrderApi();
+        String tag = null; // optional: return only orders placed with this tag
 
         try {
-            UsOrderBookResponse result = apiInstance.getUsOrderBook();
+            UsOrderBookResponse result = apiInstance.getUsOrderBook(tag);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UsStocksOrderApi#getUsOrderBook");
