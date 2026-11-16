@@ -39,13 +39,13 @@ public class UsStocksApiTest {
         UsStocksFundsApi fundsApi = new UsStocksFundsApi(defaultClient);
         UsMarketHolidaysAndTimingsApi marketApi = new UsMarketHolidaysAndTimingsApi(defaultClient);
 
-        String instrumentKey = "US_EQ|AAPL";
+        String instrumentKey = "US_EQ|COUR";
         String orderId = "1a9ecf08-e5f8-475c-a7c0-9056826d4b18";
 
         UsPlaceOrderRequest placeBody = new UsPlaceOrderRequest();
         placeBody.setInstrumentKey(instrumentKey);
         placeBody.setQuantity(new BigDecimal("1"));
-        placeBody.setPrice(new BigDecimal("180.25"));
+        placeBody.setPrice(new BigDecimal("1.00"));
         placeBody.setOrderType(UsPlaceOrderRequest.OrderTypeEnum.LIMIT);
         placeBody.setTransactionType(UsPlaceOrderRequest.TransactionTypeEnum.BUY);
         placeBody.setValidity(UsPlaceOrderRequest.ValidityEnum.DAY);
@@ -99,7 +99,7 @@ public class UsStocksApiTest {
         UsOrderEstimateRequest estimateBody = new UsOrderEstimateRequest();
         estimateBody.setInstrumentKey(instrumentKey);
         estimateBody.setQuantity(new BigDecimal("1"));
-        estimateBody.setPrice(new BigDecimal("180.25"));
+        estimateBody.setPrice(new BigDecimal("4.00"));
         estimateBody.setOrderType(UsOrderEstimateRequest.OrderTypeEnum.LIMIT);
         estimateBody.setTransactionType(UsOrderEstimateRequest.TransactionTypeEnum.BUY);
         try {
