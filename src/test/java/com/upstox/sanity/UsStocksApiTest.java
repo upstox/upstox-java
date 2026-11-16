@@ -80,21 +80,29 @@ public class UsStocksApiTest {
             }
         }
 
+        String orderId = null;
         try {
             UsOrderBookResponse result = orderApi.getUsOrderBook(null);
             System.out.println(result);
+            // Use a real order id from the order book for the details call
+            if (result.getData() != null && !result.getData().isEmpty()) {
+                orderId = result.getData().get(0).getOrderId();
+            }
         } catch (ApiException e) {
             System.err.println("Exception when calling UsStocksOrderApi#getUsOrderBook");
             System.out.println(e.getResponseBody());
         }
 
-        String orderId = "1a9ecf08-e5f8-475c-a7c0-9056826d4b18";
-        try {
-            UsOrderDetailsResponse result = orderApi.getUsOrderDetails(orderId);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsStocksOrderApi#getUsOrderDetails");
-            System.out.println(e.getResponseBody());
+        if (orderId == null) {
+            System.out.println("getUsOrderDetails skipped: no US order found");
+        } else {
+            try {
+                UsOrderDetailsResponse result = orderApi.getUsOrderDetails(orderId);
+                System.out.println(result);
+            } catch (ApiException e) {
+                System.err.println("Exception when calling UsStocksOrderApi#getUsOrderDetails");
+                System.out.println(e.getResponseBody());
+            }
         }
 
         UsOrderEstimateRequest estimateBody = new UsOrderEstimateRequest();
