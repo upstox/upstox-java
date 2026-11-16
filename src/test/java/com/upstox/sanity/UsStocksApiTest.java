@@ -85,6 +85,7 @@ public class UsStocksApiTest {
             System.out.println(e.getResponseBody());
         }
 
+        String orderId = "1a9ecf08-e5f8-475c-a7c0-9056826d4b18";
         try {
             UsOrderDetailsResponse result = orderApi.getUsOrderDetails(orderId);
             System.out.println(result);
