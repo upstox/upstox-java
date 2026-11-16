@@ -40,44 +40,41 @@ public class UsStocksApiTest {
         UsMarketHolidaysAndTimingsApi marketApi = new UsMarketHolidaysAndTimingsApi(defaultClient);
 
         String instrumentKey = "US_EQ|COUR";
-        String orderId = "1a9ecf08-e5f8-475c-a7c0-9056826d4b18";
+        // Place/cancel hit a real account; disabled by default.
+        boolean runDestructiveUsOrderTests = false;
+        if (runDestructiveUsOrderTests) {
+            UsPlaceOrderRequest placeBody = new UsPlaceOrderRequest();
+            placeBody.setInstrumentKey(instrumentKey);
+            placeBody.setQuantity(new BigDecimal("1"));
+            placeBody.setPrice(new BigDecimal("1.00"));
+            placeBody.setOrderType(UsPlaceOrderRequest.OrderTypeEnum.LIMIT);
+            placeBody.setTransactionType(UsPlaceOrderRequest.TransactionTypeEnum.BUY);
+            placeBody.setValidity(UsPlaceOrderRequest.ValidityEnum.DAY);
+            placeBody.setTag("sdk-sanity");
+            try {
+                UsOrderResponse placed = orderApi.placeUsOrder(placeBody);
+                System.out.println(placed);
+                UsOrderResponse cancelled = orderApi.cancelUsOrder(placed.getData().getOrderId());
+                System.out.println(cancelled);
+            } catch (ApiException e) {
+                System.err.println("Exception when calling UsStocksOrderApi place/cancel");
+                System.out.println(e.getResponseBody());
+            }
 
-        UsPlaceOrderRequest placeBody = new UsPlaceOrderRequest();
-        placeBody.setInstrumentKey(instrumentKey);
-        placeBody.setQuantity(new BigDecimal("1"));
-        placeBody.setPrice(new BigDecimal("1.00"));
-        placeBody.setOrderType(UsPlaceOrderRequest.OrderTypeEnum.LIMIT);
-        placeBody.setTransactionType(UsPlaceOrderRequest.TransactionTypeEnum.BUY);
-        placeBody.setValidity(UsPlaceOrderRequest.ValidityEnum.DAY);
-        placeBody.setTag("sdk-sanity");
-        try {
-            UsOrderResponse result = orderApi.placeUsOrder(placeBody);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsStocksOrderApi#placeUsOrder");
-            System.out.println(e.getResponseBody());
-        }
-
-        UsPlaceOrderRequest amountBody = new UsPlaceOrderRequest();
-        amountBody.setInstrumentKey(instrumentKey);
-        amountBody.setAmount(new BigDecimal("25.00"));
-        amountBody.setOrderType(UsPlaceOrderRequest.OrderTypeEnum.MARKET);
-        amountBody.setTransactionType(UsPlaceOrderRequest.TransactionTypeEnum.BUY);
-        amountBody.setValidity(UsPlaceOrderRequest.ValidityEnum.DAY);
-        try {
-            UsOrderResponse result = orderApi.placeUsOrder(amountBody);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsStocksOrderApi#placeUsOrder (amount)");
-            System.out.println(e.getResponseBody());
-        }
-
-        try {
-            UsOrderResponse result = orderApi.cancelUsOrder(orderId);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling UsStocksOrderApi#cancelUsOrder");
-            System.out.println(e.getResponseBody());
+            // Amount-based MARKET order fills immediately and cannot be cancelled
+            UsPlaceOrderRequest amountBody = new UsPlaceOrderRequest();
+            amountBody.setInstrumentKey(instrumentKey);
+            amountBody.setAmount(new BigDecimal("25.00"));
+            amountBody.setOrderType(UsPlaceOrderRequest.OrderTypeEnum.MARKET);
+            amountBody.setTransactionType(UsPlaceOrderRequest.TransactionTypeEnum.BUY);
+            amountBody.setValidity(UsPlaceOrderRequest.ValidityEnum.DAY);
+            try {
+                UsOrderResponse result = orderApi.placeUsOrder(amountBody);
+                System.out.println(result);
+            } catch (ApiException e) {
+                System.err.println("Exception when calling UsStocksOrderApi#placeUsOrder (amount)");
+                System.out.println(e.getResponseBody());
+            }
         }
 
         try {
