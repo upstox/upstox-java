@@ -61,19 +61,22 @@ public class UsStocksApiTest {
                 System.out.println(e.getResponseBody());
             }
 
-            // Amount-based MARKET order fills immediately and cannot be cancelled
-            UsPlaceOrderRequest amountBody = new UsPlaceOrderRequest();
-            amountBody.setInstrumentKey(instrumentKey);
-            amountBody.setAmount(new BigDecimal("25.00"));
-            amountBody.setOrderType(UsPlaceOrderRequest.OrderTypeEnum.MARKET);
-            amountBody.setTransactionType(UsPlaceOrderRequest.TransactionTypeEnum.BUY);
-            amountBody.setValidity(UsPlaceOrderRequest.ValidityEnum.DAY);
-            try {
-                UsOrderResponse result = orderApi.placeUsOrder(amountBody);
-                System.out.println(result);
-            } catch (ApiException e) {
-                System.err.println("Exception when calling UsStocksOrderApi#placeUsOrder (amount)");
-                System.out.println(e.getResponseBody());
+            // Amount-based MARKET order fills immediately and cannot be cancelled; separate opt-in
+            boolean runUsMarketAmountOrderTest = false;
+            if (runUsMarketAmountOrderTest) {
+                UsPlaceOrderRequest amountBody = new UsPlaceOrderRequest();
+                amountBody.setInstrumentKey(instrumentKey);
+                amountBody.setAmount(new BigDecimal("25.00"));
+                amountBody.setOrderType(UsPlaceOrderRequest.OrderTypeEnum.MARKET);
+                amountBody.setTransactionType(UsPlaceOrderRequest.TransactionTypeEnum.BUY);
+                amountBody.setValidity(UsPlaceOrderRequest.ValidityEnum.DAY);
+                try {
+                    UsOrderResponse result = orderApi.placeUsOrder(amountBody);
+                    System.out.println(result);
+                } catch (ApiException e) {
+                    System.err.println("Exception when calling UsStocksOrderApi#placeUsOrder (amount)");
+                    System.out.println(e.getResponseBody());
+                }
             }
         }
 
