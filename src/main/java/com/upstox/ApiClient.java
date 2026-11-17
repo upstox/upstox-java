@@ -1014,7 +1014,7 @@ public class ApiClient {
     public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         updateParamsForAuth(authNames, queryParams, headerParams);
         headerParams.put("X-Upstox-SDK-Language","java");
-        headerParams.put("X-Upstox-SDK-Version","1.29");
+        headerParams.put("X-Upstox-SDK-Version","1.30");
         final String url = buildUrl(path, queryParams, collectionQueryParams);
         final Request.Builder reqBuilder = new Request.Builder().url(url);
         processHeaderParams(headerParams, reqBuilder);
@@ -1256,6 +1256,8 @@ public class ApiClient {
         }
     }
     private boolean isOrderPath(String path){
+        // US stock orders are served by the main host, not HFT
+        if (path.startsWith("/v2/us/")) return false;
         return path.contains("/order/place") || path.contains("/order/modify") || path.contains("/order/cancel");
     }
 }

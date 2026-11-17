@@ -19,11 +19,13 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.upstox.api.CasEligibleStatusData;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
  * Response data for market live status
  */
+
 @Schema(description = "Response data for market live status")
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-06-25T15:59:27.509882+05:30[Asia/Kolkata]")
 
@@ -36,6 +38,9 @@ public class MarketStatusData {
 
   @SerializedName("last_updated")
   private Long lastUpdated = null;
+
+  @SerializedName("cas_eligible_status")
+  private CasEligibleStatusData casEligibleStatus = null;
 
   public MarketStatusData exchange(String exchange) {
     this.exchange = exchange;
@@ -91,6 +96,24 @@ public class MarketStatusData {
     this.lastUpdated = lastUpdated;
   }
 
+  public MarketStatusData casEligibleStatus(CasEligibleStatusData casEligibleStatus) {
+    this.casEligibleStatus = casEligibleStatus;
+    return this;
+  }
+
+   /**
+   * Get casEligibleStatus
+   * @return casEligibleStatus
+  **/
+  @Schema(description = "")
+  public CasEligibleStatusData getCasEligibleStatus() {
+    return casEligibleStatus;
+  }
+
+  public void setCasEligibleStatus(CasEligibleStatusData casEligibleStatus) {
+    this.casEligibleStatus = casEligibleStatus;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -103,12 +126,13 @@ public class MarketStatusData {
     MarketStatusData marketStatusData = (MarketStatusData) o;
     return Objects.equals(this.exchange, marketStatusData.exchange) &&
         Objects.equals(this.status, marketStatusData.status) &&
-        Objects.equals(this.lastUpdated, marketStatusData.lastUpdated);
+        Objects.equals(this.lastUpdated, marketStatusData.lastUpdated) &&
+        Objects.equals(this.casEligibleStatus, marketStatusData.casEligibleStatus);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(exchange, status, lastUpdated);
+    return Objects.hash(exchange, status, lastUpdated, casEligibleStatus);
   }
 
 
@@ -120,6 +144,7 @@ public class MarketStatusData {
     sb.append("    exchange: ").append(toIndentedString(exchange)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
+    sb.append("    casEligibleStatus: ").append(toIndentedString(casEligibleStatus)).append("\n");
     sb.append("}");
     return sb.toString();
   }
